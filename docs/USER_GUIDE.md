@@ -100,6 +100,15 @@ Click the "Settings" button in the control panel to open the settings modal.
 3. Try switching to a different site
 4. Restart the application
 
+#### Camera/Microphone Access Denied
+If you get a "denied access to your devices" message:
+1. Close the app
+2. Log out of your system account
+3. Log back in
+4. Start the app again
+
+This usually fixes permission issues without needing to change any settings.
+
 ### Error Messages
 
 #### Permission Errors

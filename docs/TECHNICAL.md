@@ -184,4 +184,17 @@ npm run build
 1. Enhanced permission system
 2. Improved content filtering
 3. Additional privacy controls
-4. Enhanced certificate handling 
+4. Enhanced certificate handling
+
+## Troubleshooting
+
+### Media Permissions
+If camera/microphone permissions are not working:
+1. Log out of your system account
+2. Log back in to refresh system permissions
+3. Start the app again
+
+This resolves issues with:
+- Stuck permission states
+- Cached media device settings
+- System session inconsistencies 
