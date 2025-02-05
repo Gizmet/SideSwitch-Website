@@ -1,5 +1,5 @@
 {
-  "name": "chat-roulette-dashboard",
+  "name": "streamer-app",
   "version": "1.0.0",
   "description": "A dashboard for managing multiple chat roulette sites",
   "main": "src/main.js",
@@ -8,12 +8,43 @@
     "lint": "eslint src/",
     "clean": "rm -rf dist/",
     "setup": "npm install && npm audit fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder build --win",
+    "dist": "electron-builder"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^28.1.0",
     "electron-store": "^8.1.0"
+  },
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.streamer.app",
+    "productName": "Streamer App",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Streamer App"
+    }
   }
 }

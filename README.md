@@ -17,6 +17,12 @@ A modern Electron-based dashboard application for managing multiple video chat p
     - Double-click to reset position
   - Secure webview isolation
 
+- **Streamer Features**:
+  - Quick Hotkey:
+    - `B` - Toggle blur overlay (disabled while typing)
+  - Instant response time
+  - No delay between actions
+
 - **User Interface**:
   - Modern, minimal design
   - Intuitive navigation
@@ -63,11 +69,21 @@ chat-roulette-dashboard/
 
 The blur overlay provides a flexible way to protect your privacy:
 
-1. **Toggle**: Click the "BLUR" button to show/hide the overlay
+1. **Toggle**: Click the "BLUR" button or press `B` key
 2. **Move**: Click and drag the overlay to reposition it
 3. **Resize**: Drag the bottom-right corner to resize
 4. **Reset**: Double-click the overlay to reset to default position
 5. **Memory**: The overlay remembers its last position and size between sessions
+
+## Quick Actions
+
+### Keyboard Shortcut
+- `B` - Toggle blur overlay on/off (disabled while typing in chat)
+
+### Mouse Actions
+- Double-click overlay - Reset position
+- Drag overlay - Move
+- Drag corner - Resize
 
 ## Technical Details
 
@@ -108,4 +124,53 @@ ISC License
 2. Create your feature branch
 3. Commit your changes
 4. Push to the branch
-5. Create a new Pull Request 
+5. Create a new Pull Request
+
+## For Windows Users
+
+### Easy Installation (Recommended)
+
+1. Go to the [Releases](https://github.com/gizmetproton/streamer-app/releases) page
+2. Download the latest `Streamer.App.Setup.exe`
+3. Double-click the downloaded file to install
+4. The app will automatically create desktop and start menu shortcuts
+
+### Using the App
+
+1. Launch the app from your desktop shortcut or start menu
+2. Use the 'B' key to toggle blur overlay when needed
+3. Click the blur button in the top-right corner to toggle blur manually
+
+### Features
+
+- Quick blur toggle with 'B' key
+- Mouse controls for blur toggle
+- Works with multiple chat sites
+- Automatic updates (coming soon)
+
+### Troubleshooting
+
+If you encounter any issues:
+1. Make sure you're using the latest version
+2. Try restarting the app
+3. If problems persist, please report them in the Issues section
+
+## For Developers
+
+### Building from Source
+
+```bash
+# Clone the repository
+git clone https://github.com/gizmetproton/streamer-app.git
+
+# Install dependencies
+npm install
+
+# Start the app in development mode
+npm start
+
+# Build for Windows
+npm run build
+```
+
+The built installer will be in the `dist` folder. 
