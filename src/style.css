@@ -1,0 +1,546 @@
+/* Base styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #0f0f0f;
+    color: #ffffff;
+}
+
+#app {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Navigation */
+#navigation {
+    width: 140px;
+    background-color: #1a1a1a;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-button {
+    padding: 12px;
+    background: linear-gradient(180deg, #2a2a2a 0%, #222222 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 120px;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+}
+
+.nav-button:hover {
+    background: linear-gradient(180deg, #333333 0%, #2a2a2a 100%);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button.active {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button.active:hover {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
+                0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Content area */
+#content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #0f0f0f;
+}
+
+#webview-container {
+    position: relative;
+    flex: 1;
+    background-color: #000000;
+    overflow: hidden;
+}
+
+webview {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #000;
+}
+
+/* Controls */
+#controls {
+    height: 70px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Blur controls */
+#toggle-blur {
+    padding: 10px 20px;
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    border: 1px solid rgba(59, 130, 246, 0.5);
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 120px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#toggle-blur:hover {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#toggle-blur.active {
+    background: linear-gradient(180deg, #059669 0%, #047857 100%);
+    border-color: #10b981;
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#blur-intensity {
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+#blur-intensity:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+#settings {
+    padding: 10px 20px;
+    background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#settings:hover {
+    background: linear-gradient(180deg, #4b5563 0%, #374151 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Main action buttons */
+#skip-button, #auto-skip {
+    padding: 10px 20px;
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    border: 1px solid rgba(59, 130, 246, 0.5);
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 100px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#skip-button:hover, #auto-skip:hover {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#skip-button:active, #auto-skip:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Toggle buttons */
+#toggle-video, #toggle-audio {
+    padding: 10px 20px;
+    background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 120px;
+    text-align: center;
+}
+
+#toggle-video:hover, #toggle-audio:hover {
+    background: linear-gradient(180deg, #4b5563 0%, #374151 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#toggle-video.active, #toggle-audio.active {
+    background: linear-gradient(180deg, #059669 0%, #047857 100%);
+    border-color: #10b981;
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Utility buttons */
+#report {
+    padding: 10px 20px;
+    background: linear-gradient(180deg, #991b1b 0%, #7f1d1d 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#report:hover {
+    background: linear-gradient(180deg, #b91c1c 0%, #991b1b 100%);
+}
+
+/* Input styling */
+input[type="number"] {
+    width: 70px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+    padding: 25px;
+    border-radius: 12px;
+    min-width: 320px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.modal h2 {
+    margin: 0 0 20px 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.settings-group {
+    margin-bottom: 20px;
+}
+
+.settings-group label {
+    display: block;
+    margin-bottom: 12px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.settings-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+.settings-group select {
+    width: 100%;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.settings-group select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.button-group button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.button-group button:first-child {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    border: 1px solid rgba(59, 130, 246, 0.5);
+    color: #ffffff;
+}
+
+.button-group button:last-child {
+    background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+/* Add smooth transitions for all interactive elements */
+* {
+    transition: all 0.2s ease;
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#video-area {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+#participant-feed {
+    flex: 1;
+    position: relative;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#host-feed {
+    width: 320px;
+    position: relative;
+    background-color: var(--bg-secondary);
+}
+
+#participant-webview {
+    width: 100%;
+    height: 100%;
+    background: black;
+}
+
+#host-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: black;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-overlay.visible {
+    opacity: 1;
+}
+
+.loading-indicator {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: var(--warning-color);
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* Ensure webview content is properly positioned */
+webview {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Hide webview scrollbars */
+webview::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ensure participant video is always full height in left pane */
+#participant-feed webview {
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Blur effect for participant video */
+.blur-effect {
+    filter: blur(15px);
+    transition: filter 0.3s ease;
+}
+
+/* Dim Overlay */
+.dim-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 140px;
+    width: calc(50% - 70px);
+    height: calc(100% - 260px);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: 
+        blur(35px)
+        saturate(180%)
+        brightness(1.3);
+    -webkit-backdrop-filter: 
+        blur(35px)
+        saturate(180%)
+        brightness(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(31, 38, 135, 0.15),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    z-index: 999999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
+    margin-top: 10px;
+    min-width: 300px;
+    min-height: 200px;
+    cursor: move;
+}
+
+/* Corner resize handle */
+.resize-handle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.3) 50%);
+    cursor: se-resize;
+    border-radius: 0 0 12px 0;
+    transition: background-color 0.2s ease;
+    z-index: 1000000;
+}
+
+.resize-handle:hover {
+    background: linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.4) 50%);
+}
+
+.resize-handle:active {
+    background: linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+
+.dim-overlay.active {
+    display: block;
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Dragging state */
+.dim-overlay.dragging {
+    transition: none;
+    cursor: grabbing;
+}
+
+/* Resizing state */
+.dim-overlay.resizing {
+    transition: none;
+    user-select: none;
+} 

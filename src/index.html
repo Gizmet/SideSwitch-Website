@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Roulette Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="navigation">
+            <div class="nav-group">
+                <button class="nav-button active" onclick="switchSite('ome')">OME</button>
+                <button class="nav-button" onclick="switchSite('monkey')">MONKEY</button>
+                <button class="nav-button" onclick="switchSite('uhmegle')">UHMEGLE</button>
+            </div>
+        </div>
+
+        <div id="content">
+            <div id="webview-container">
+                <webview id="site-view" 
+                    src="https://ome.tv"
+                    allowpopups
+                    webpreferences="allowRunningInsecureContent=true, webSecurity=false, experimentalFeatures=true"
+                    useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+                    partition="persist:main"
+                    httpreferrer="https://www.google.com"
+                    disablewebsecurity
+                    allowtransparency
+                    plugins></webview>
+                <div id="dim-overlay" class="dim-overlay">
+                    <div class="resize-handle"></div>
+                </div>
+            </div>
+
+            <div id="controls">
+                <div class="control-group">
+                    <button id="toggle-blur">BLUR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h2>Settings</h2>
+            <div class="settings-group">
+                <label>
+                    <input type="checkbox" id="dark-mode">
+                    Dark Mode
+                </label>
+                <label>
+                    <input type="checkbox" id="auto-connect">
+                    Auto Connect
+                </label>
+                <label>
+                    <input type="checkbox" id="save-logs">
+                    Save Chat Logs
+                </label>
+            </div>
+            <div class="settings-group">
+                <label>
+                    Privacy Mode
+                    <select id="privacy-mode">
+                        <option value="normal">Normal</option>
+                        <option value="strict">Strict</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </label>
+            </div>
+            <div class="button-group">
+                <button onclick="saveSettings()">Save</button>
+                <button onclick="closeSettings()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html> 
