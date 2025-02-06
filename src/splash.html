@@ -5,22 +5,76 @@
         body {
             margin: 0;
             padding: 0;
-            background: transparent;
+            background: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow: hidden;
-            user-select: none;
             -webkit-app-region: drag;
         }
         
-        video {
-            width: 100vw;
-            height: 100vh;
-            object-fit: contain;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .loader {
+            width: 12em;
+            height: 12em;
+        }
+
+        .loader path {
+            stroke: #302b63;
+            stroke-width: 0.6px;
+            animation: dashArray 4s ease-in-out infinite,
+                       dashOffset 4s linear infinite;
+        }
+
+        @keyframes dashArray {
+            0% {
+                stroke-dasharray: 0 1 359 0;
+            }
+            50% {
+                stroke-dasharray: 0 359 1 0;
+            }
+            100% {
+                stroke-dasharray: 359 1 0 0;
+            }
+        }
+
+        @keyframes dashOffset {
+            0% {
+                stroke-dashoffset: 365;
+            }
+            100% {
+                stroke-dashoffset: 5;
+            }
+        }
+
+        .title {
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <video autoplay>
-        <source src="assets/splash.webm" type="video/webm">
-    </video>
+    <div class="container">
+        <svg class="loader" viewBox="0 0 120 120">
+            <path d="M60 10 A50 50 0 1 1 59.9999 10" fill="none"/>
+        </svg>
+        <div class="title">ChatPilot</div>
+    </div>
 </body>
 </html> 

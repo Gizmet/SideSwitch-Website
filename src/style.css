@@ -31,42 +31,56 @@ body {
 }
 
 .nav-button {
-    padding: 12px;
-    background: linear-gradient(180deg, #2a2a2a 0%, #222222 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #ffffff;
+    display: flex;
+    align-items: center;
+    font-family: inherit;
     cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 0.8em 1.3em 0.8em 0.9em;
+    color: white;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    border: none;
+    letter-spacing: 0.05em;
+    border-radius: 16px;
     min-width: 120px;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
+    transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.rocket {
+    margin-right: 8px;
+    font-size: 1.2em;
+    transform: rotate(30deg);
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.nav-button span {
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.nav-button:hover .rocket {
+    transform: translateX(5px) rotate(90deg);
+}
+
+.nav-button:hover span {
+    transform: translateX(7px);
 }
 
 .nav-button:hover {
-    background: linear-gradient(180deg, #333333 0%, #2a2a2a 100%);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.nav-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
 .nav-button.active {
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    border-color: #3b82f6;
+    background: linear-gradient(to right, #1a1a2e, #16213e, #0f3460);
     box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
                 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .nav-button.active:hover {
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
     box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
                 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -111,35 +125,35 @@ webview {
     align-items: center;
 }
 
-/* Blur controls */
 #toggle-blur {
-    padding: 10px 20px;
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    border: 1px solid rgba(59, 130, 246, 0.5);
-    border-radius: 8px;
-    color: #ffffff;
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background-color: #0f0c29;
+    border-radius: 50%;
+    z-index: 1;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    min-width: 120px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-#toggle-blur:hover {
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #302b63;
+    box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
+    color: #ffffff;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 #toggle-blur.active {
-    background: linear-gradient(180deg, #059669 0%, #047857 100%);
-    border-color: #10b981;
-    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 1px #302b63 inset,
+        0px 0px 2px #302b63 inset,
+        0px 0px 10px #302b63 inset,
+        0px 0px 40px #302b63,
+        0px 0px 100px #302b63,
+        0px 0px 5px #302b63;
+    border: 2px solid #24243e;
+    background-color: #16213e;
+    color: #ffffff;
+    text-shadow: 0px 0px 5px #302b63;
 }
 
 #blur-intensity {
