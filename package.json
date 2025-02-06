@@ -9,7 +9,7 @@
     "clean": "rm -rf dist/",
     "setup": "npm install && npm audit fix",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "electron-builder build --win",
+    "build": "electron-builder --win portable",
     "dist": "electron-builder"
   },
   "author": "",
@@ -30,21 +30,14 @@
     "win": {
       "target": [
         {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
+          "target": "portable",
+          "arch": ["x64"]
         }
       ],
       "icon": "build/icon.ico"
     },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": false,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "Streamer App"
+    "portable": {
+      "artifactName": "StreamerApp.exe"
     }
   }
 }

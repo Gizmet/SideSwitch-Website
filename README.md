@@ -1,33 +1,27 @@
 # Chat Roulette Dashboard
 
-A modern Electron-based dashboard application for managing multiple video chat platforms with enhanced privacy features.
+A lightweight, elegant Electron-based dashboard for managing multiple video chat platforms. Built with simplicity and performance in mind.
 
 ## Features
 
-- **Multi-Platform Support**: Integrated support for multiple chat platforms:
+- **Multi-Platform Support**: 
   - Ome.tv
   - Monkey
   - Uhmegle
 
-- **Privacy Features**:
-  - Smart Blur Overlay
-    - Draggable and resizable blur window
-    - Position and size memory
-    - Enhanced blur effect (35px) with optimized visibility
+- **Smart Privacy Controls**:
+  - Intelligent Blur Overlay
+    - Toggle with 'B' key or button
+    - Smooth drag & resize functionality
     - Double-click to reset position
-  - Secure webview isolation
+    - Maintains position between sessions
+    - Minimum size protection (200x200)
 
-- **Streamer Features**:
-  - Quick Hotkey:
-    - `B` - Toggle blur overlay (disabled while typing)
-  - Instant response time
-  - No delay between actions
-
-- **User Interface**:
-  - Modern, minimal design
-  - Intuitive navigation
-  - Responsive layout
-  - Simplified controls
+- **Elegant Design**:
+  - Zero interference with site functionality
+  - Native site behavior preserved
+  - Instant site switching
+  - Minimal resource usage
 
 ## Installation
 
@@ -35,84 +29,81 @@ A modern Electron-based dashboard application for managing multiple video chat p
 - Node.js (v14 or higher)
 - npm (v6 or higher)
 
-### Setup
-1. Clone the repository:
+### Quick Start
 ```bash
+# Clone and enter directory
 git clone [repository-url]
 cd chat-roulette-dashboard
-```
 
-2. Install dependencies:
-```bash
+# Install dependencies
 npm run setup
-```
 
-3. Start the application:
-```bash
+# Start application
 npm start
 ```
 
-## Project Structure
+## Usage Guide
 
-```
-chat-roulette-dashboard/
-├── src/
-│   ├── main.js          # Main Electron process
-│   ├── renderer.js      # Renderer process logic
-│   ├── index.html       # Main application window
-│   └── style.css        # Application styling
-├── assets/             # Application assets
-└── package.json       # Project configuration
-```
+### Site Navigation
+- Click site buttons on the left to switch platforms
+- Each site functions exactly as intended
+- Native authentication and features preserved
 
-## Using the Blur Overlay
+### Privacy Overlay
+1. **Toggle**: 
+   - Click "BLUR" button
+   - Press 'B' key
+   - Active state clearly indicated
 
-The blur overlay provides a flexible way to protect your privacy:
+2. **Position**:
+   - Drag anywhere on overlay to move
+   - Resize from bottom-right corner
+   - Double-click to reset position
+   - Smooth transitions
 
-1. **Toggle**: Click the "BLUR" button or press `B` key
-2. **Move**: Click and drag the overlay to reposition it
-3. **Resize**: Drag the bottom-right corner to resize
-4. **Reset**: Double-click the overlay to reset to default position
-5. **Memory**: The overlay remembers its last position and size between sessions
+## Technical Overview
 
-## Quick Actions
+### Core Principles
+- Minimal interference
+- Native functionality
+- Clean, focused code
+- Performance first
 
-### Keyboard Shortcut
-- `B` - Toggle blur overlay on/off (disabled while typing in chat)
-
-### Mouse Actions
-- Double-click overlay - Reset position
-- Drag overlay - Move
-- Drag corner - Resize
-
-## Technical Details
-
-### Dependencies
-- Electron: ^28.1.0
-- electron-store: ^8.1.0
-
-### Browser Compatibility
-The application uses Chromium's latest features through Electron, ensuring compatibility with modern web standards.
-
-### Security Considerations
-- Webview isolation
-- Content Security Policy
-- Permission handling
-- Certificate verification
+### Key Features
+- Seamless site integration
+- Smart event handling
+- Efficient DOM updates
+- Automatic error recovery
 
 ## Troubleshooting
 
-### Common Issues
+### Common Solutions
+1. **Site Issues**
+   - Sites work exactly as they do in browser
+   - No special handling needed
+   - Restart app if needed
 
-1. **Blank Screen**
-   - Check internet connection
-   - Verify site availability
-   - Clear webview cache
+2. **Overlay Issues**
+   - Double-click to reset position
+   - Minimum size enforced
+   - Clean state on site switch
 
-2. **Blur Overlay Issues**
-   - If overlay gets stuck, double-click to reset position
-   - If overlay size is too small, drag corner to resize
-   - Clear local storage if position memory causes issues
+## For Developers
+
+### Building
+```bash
+# Development mode
+npm start
+
+# Production build
+npm run build
+```
+
+### Design Philosophy
+- Keep It Simple, Stupid (KISS)
+- Let sites handle their own logic
+- Minimal, focused codebase
+- Clean separation of concerns
 
 ## License
 
@@ -120,57 +111,9 @@ ISC License
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+1. Fork repository
+2. Create feature branch
+3. Keep changes simple
+4. Submit pull request
 
-## For Windows Users
-
-### Easy Installation (Recommended)
-
-1. Go to the [Releases](https://github.com/gizmetproton/streamer-app/releases) page
-2. Download the latest `Streamer.App.Setup.exe`
-3. Double-click the downloaded file to install
-4. The app will automatically create desktop and start menu shortcuts
-
-### Using the App
-
-1. Launch the app from your desktop shortcut or start menu
-2. Use the 'B' key to toggle blur overlay when needed
-3. Click the blur button in the top-right corner to toggle blur manually
-
-### Features
-
-- Quick blur toggle with 'B' key
-- Mouse controls for blur toggle
-- Works with multiple chat sites
-- Automatic updates (coming soon)
-
-### Troubleshooting
-
-If you encounter any issues:
-1. Make sure you're using the latest version
-2. Try restarting the app
-3. If problems persist, please report them in the Issues section
-
-## For Developers
-
-### Building from Source
-
-```bash
-# Clone the repository
-git clone https://github.com/gizmetproton/streamer-app.git
-
-# Install dependencies
-npm install
-
-# Start the app in development mode
-npm start
-
-# Build for Windows
-npm run build
-```
-
-The built installer will be in the `dist` folder. 
+Remember: Simplicity is the ultimate sophistication! 

@@ -8,21 +8,32 @@
     <div id="app">
         <div id="navigation">
             <div class="nav-group">
-                <button class="nav-button active" onclick="switchSite('ome')">OME</button>
-                <button class="nav-button" onclick="switchSite('monkey')">MONKEY</button>
-                <button class="nav-button" onclick="switchSite('uhmegle')">UHMEGLE</button>
+                <button class="nav-button active" data-site="ome">OME</button>
+                <button class="nav-button" data-site="monkey">MONKEY</button>
+                <button class="nav-button" data-site="uhmegle">UHMEGLE</button>
             </div>
         </div>
 
         <div id="content">
             <div id="webview-container">
                 <webview id="site-view" 
-                    src="https://ome.tv"
+                    src="about:blank"
                     allowpopups
-                    webpreferences="allowRunningInsecureContent=true"
+                    webpreferences="allowRunningInsecureContent=true, webSecurity=false, experimentalFeatures=true, nativeWindowOpen=true, javascript=true, plugins=true, webgl=true, backgroundThrottling=false"
                     useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
                     partition="persist:streamer"
-                    disablewebsecurity></webview>
+                    httpreferrer="https://www.google.com"
+                    disablewebsecurity
+                    allowtransparency
+                    plugins
+                    autosize
+                    nodeintegration
+                    nodeintegrationinsubframes
+                    allowpopups
+                    enableremotemodule
+                    blinkfeatures="WebRTC,AudioVideoTracks,GetUserMedia,MediaStreamTrack,WebGL,WebGL2"
+                    style="background: black;"
+                    ></webview>
                 <div id="dim-overlay" class="dim-overlay">
                     <div class="resize-handle"></div>
                 </div>

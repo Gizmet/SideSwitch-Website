@@ -500,9 +500,10 @@ webview::-webkit-scrollbar {
     transition: opacity 0.3s ease;
     border-radius: 12px;
     margin-top: 10px;
-    min-width: 300px;
+    min-width: 200px;
     min-height: 200px;
     cursor: move;
+    user-select: none;
 }
 
 /* Corner resize handle */
@@ -537,10 +538,36 @@ webview::-webkit-scrollbar {
 .dim-overlay.dragging {
     transition: none;
     cursor: grabbing;
+    opacity: 0.8;
 }
 
 /* Resizing state */
 .dim-overlay.resizing {
     transition: none;
     user-select: none;
+}
+
+/* Hide webview scrollbars */
+webview::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ensure webview content is properly positioned */
+webview {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    background: white !important;
+}
+
+/* Fix for OME.tv specific issues */
+webview[src*="ome.tv"] {
+    background: white !important;
+}
+
+.overlay, .restart-overlay, #overlay {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 } 
