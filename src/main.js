@@ -30,6 +30,24 @@ app.commandLine.appendSwitch('enable-native-gpu-memory-buffers');
 app.commandLine.appendSwitch('force-gpu-rasterization');
 
 let mainWindow;
+let splashWindow;
+
+function createSplashWindow() {
+  splashWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
+    transparent: true,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    },
+    backgroundColor: '#00000000'
+  });
+
+  splashWindow.loadFile(path.join(__dirname, 'splash.html'));
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -56,7 +74,10 @@ function createWindow() {
 
   // Show window when ready to avoid white flash
   mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
+    setTimeout(() => {
+      splashWindow.destroy();
+      mainWindow.show();
+    }, 2700); // Match video duration
   });
 
   // Load the index.html file from the src directory
@@ -134,6 +155,7 @@ app.whenReady().then(() => {
     callback(true);
   });
 
+  createSplashWindow();
   createWindow();
 
   app.on('activate', () => {
