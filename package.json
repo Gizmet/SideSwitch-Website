@@ -1,7 +1,7 @@
 {
-  "name": "streamer-app",
-  "version": "1.0.0",
-  "description": "A dashboard for managing multiple chat roulette sites",
+  "name": "chatpilot",
+  "version": "0.1.0",
+  "description": "ChatPilot - A smart dashboard for managing multiple chat roulette sites",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
@@ -12,7 +12,7 @@
     "build": "electron-builder --win portable",
     "dist": "electron-builder"
   },
-  "author": "",
+  "author": "gizmetproton",
   "license": "ISC",
   "dependencies": {
     "electron-store": "^8.1.0"
@@ -22,8 +22,8 @@
     "electron-builder": "^24.9.1"
   },
   "build": {
-    "appId": "com.streamer.app",
-    "productName": "Streamer App",
+    "appId": "com.gizmetproton.chatpilot",
+    "productName": "ChatPilot",
     "directories": {
       "output": "dist"
     },
@@ -37,7 +37,7 @@
       "icon": "build/icon.ico"
     },
     "portable": {
-      "artifactName": "StreamerApp.exe"
+      "artifactName": "ChatPilot-v0.1-alpha.exe"
     }
   }
 }
