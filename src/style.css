@@ -22,12 +22,22 @@ body {
     flex-direction: column;
     gap: 10px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
 }
 
 .nav-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex: 1;
+}
+
+.nav-footer {
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .nav-button {
@@ -36,37 +46,42 @@ body {
     font-family: inherit;
     cursor: pointer;
     font-weight: 500;
-    font-size: 17px;
-    padding: 0.8em 1.3em 0.8em 0.9em;
+    font-size: 14px;
+    padding: 0.8em 1.2em;
     color: white;
     background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
     border: none;
     letter-spacing: 0.05em;
     border-radius: 16px;
-    min-width: 120px;
     transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .rocket {
     margin-right: 8px;
-    font-size: 1.2em;
+    font-size: 1.1em;
     transform: rotate(30deg);
     transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    flex-shrink: 0;
 }
 
 .nav-button span {
     transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    white-space: nowrap;
+    flex: 1;
+    text-align: left;
 }
 
 .nav-button:hover .rocket {
-    transform: translateX(5px) rotate(90deg);
+    transform: translateX(3px) rotate(90deg);
 }
 
 .nav-button:hover span {
-    transform: translateX(7px);
+    transform: translateX(5px);
 }
 
 .nav-button:hover {
@@ -109,14 +124,13 @@ webview {
 
 /* Controls */
 #controls {
-    height: 70px;
-    background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
-    padding: 15px;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
     display: flex;
-    justify-content: center;
-    gap: 30px;
+    gap: 10px;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .control-group {
@@ -125,35 +139,77 @@ webview {
     align-items: center;
 }
 
+/* Blur Button */
 #toggle-blur {
-    position: relative;
-    width: 70px;
-    height: 70px;
-    background-color: #0f0c29;
-    border-radius: 50%;
-    z-index: 1;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #302b63;
-    box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
-    color: #ffffff;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 0.8em;
+    color: white;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    border: none;
+    letter-spacing: 0.05em;
+    border-radius: 16px;
+    transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+#toggle-blur:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to right, #1a1744, #302b63, #24243e);
 }
 
 #toggle-blur.active {
-    box-shadow: 0px 0px 1px #302b63 inset,
-        0px 0px 2px #302b63 inset,
-        0px 0px 10px #302b63 inset,
-        0px 0px 40px #302b63,
-        0px 0px 100px #302b63,
-        0px 0px 5px #302b63;
-    border: 2px solid #24243e;
-    background-color: #16213e;
-    color: #ffffff;
-    text-shadow: 0px 0px 5px #302b63;
+    background: linear-gradient(to right, #1a1a2e, #16213e, #0f3460);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.2),
+                0 0 15px rgba(48, 43, 99, 0.5);
+    border: none;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+#toggle-blur.active:hover {
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
+                0 4px 8px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(48, 43, 99, 0.6);
+}
+
+/* Camera Select */
+#camera-select {
+    background: #0f0c29;
+    color: white;
+    border: 1px solid #302b63;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+#camera-select:hover {
+    border-color: #24243e;
+    background: #1a1744;
+    transform: translateY(-1px);
+}
+
+#camera-select:focus {
+    box-shadow: 0 0 0 2px rgba(48, 43, 99, 0.3);
+}
+
+#camera-select option {
+    background: #0f0c29;
+    color: white;
+    padding: 8px;
 }
 
 #blur-intensity {
