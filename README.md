@@ -2,6 +2,31 @@
 
 A lightweight, elegant Electron-based dashboard for managing multiple video chat platforms. Built with simplicity and performance in mind.
 
+## Development Branches
+
+### Main Branches
+- `main`: Production-ready code, stable releases
+- `develop`: Integration branch, latest development changes
+
+### Feature Branches
+1. `feature/ui-updates`
+   - Modern UI and navigation
+   - Blur overlay system
+   - Splash screen and animations
+   - Layout improvements
+
+2. `feature/camera-integration`
+   - Camera device detection
+   - Device switching
+   - WebRTC optimizations
+   - Permission handling
+
+3. `feature/build-optimization`
+   - Size reduction (67MB)
+   - Build optimization
+   - Resource management
+   - Performance improvements
+
 ## Features
 
 - **Multi-Platform Support**: 
@@ -22,14 +47,22 @@ A lightweight, elegant Electron-based dashboard for managing multiple video chat
   - Native site behavior preserved
   - Instant site switching
   - Minimal resource usage
+  - Optimized build size (67MB)
 
 ## Installation
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- Windows 7 or later (Windows 10/11 recommended)
+- 2GB RAM minimum
+- Webcam and microphone
+- Stable internet connection
 
 ### Quick Start
+1. Download `ChatPilot-v0.1-alpha.exe` (67MB)
+2. Run the executable directly (portable, no installation needed)
+3. Grant camera/microphone permissions when prompted
+
+### For Developers
 ```bash
 # Clone and enter directory
 git clone [repository-url]
@@ -38,8 +71,11 @@ cd chat-roulette-dashboard
 # Install dependencies
 npm run setup
 
-# Start application
+# Start development
 npm start
+
+# Create optimized build
+npm run build
 ```
 
 ## Usage Guide
@@ -68,6 +104,14 @@ npm start
 - Native functionality
 - Clean, focused code
 - Performance first
+- Optimized build size
+
+### Build Optimization
+- ASAR packaging enabled
+- Maximum compression
+- Essential files only
+- Efficient resource usage
+- Minimal dependencies
 
 ### Key Features
 - Seamless site integration
@@ -88,6 +132,11 @@ npm start
    - Minimum size enforced
    - Clean state on site switch
 
+3. **Camera Issues**
+   - Grant permissions when prompted
+   - Check Windows privacy settings
+   - Ensure no other app is using camera
+
 ## For Developers
 
 ### Building
@@ -95,7 +144,7 @@ npm start
 # Development mode
 npm start
 
-# Production build
+# Production build (67MB output)
 npm run build
 ```
 
@@ -104,6 +153,7 @@ npm run build
 - Let sites handle their own logic
 - Minimal, focused codebase
 - Clean separation of concerns
+- Optimized resource usage
 
 ## License
 

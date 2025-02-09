@@ -53,6 +53,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -70,6 +71,12 @@ function createWindow() {
     },
     backgroundColor: '#000000',
     show: false,
+    frame: true,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#1a1a1a',
+      symbolColor: '#ffffff'
+    }
   });
 
   // Show window when ready to avoid white flash

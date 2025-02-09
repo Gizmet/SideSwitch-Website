@@ -1,5 +1,65 @@
 # Technical Documentation
 
+## Branch Management
+
+### Main Branches
+1. `main`
+   - Production-ready code
+   - Stable releases only
+   - Protected branch
+   - Contains optimized builds
+
+2. `develop`
+   - Integration branch
+   - Latest development changes
+   - Pre-release testing
+   - Feature integration
+
+### Feature Branches
+1. `feature/ui-updates`
+   - Modern UI implementation
+   - Navigation system
+   - Blur overlay functionality
+   - Layout improvements
+   - Splash screen animations
+
+2. `feature/camera-integration`
+   - Camera device detection
+   - Device switching functionality
+   - WebRTC optimizations
+   - Stream management
+   - Permission handling
+
+3. `feature/build-optimization`
+   - Build size reduction (67MB)
+   - ASAR packaging
+   - Compression settings
+   - Resource optimization
+   - Dependency management
+
+### Release Process
+1. Feature Development
+   ```bash
+   git checkout -b feature/new-feature develop
+   # Development work
+   git push origin feature/new-feature
+   ```
+
+2. Feature Integration
+   ```bash
+   git checkout develop
+   git merge --no-ff feature/new-feature
+   git push origin develop
+   ```
+
+3. Release Creation
+   ```bash
+   git checkout main
+   git merge --no-ff develop
+   git tag -a v0.1-alpha
+   git push origin main --tags
+   ```
+
 ## Core Architecture
 
 ### Main Process (`main.js`)
