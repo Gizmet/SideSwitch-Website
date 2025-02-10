@@ -1,169 +1,81 @@
-# Chat Roulette Dashboard
+# Video Chat Site Manager
 
-A lightweight, elegant Electron-based dashboard for managing multiple video chat platforms. Built with simplicity and performance in mind.
-
-## Development Branches
-
-### Main Branches
-- `main`: Production-ready code, stable releases
-- `develop`: Integration branch, latest development changes
-
-### Feature Branches
-1. `feature/ui-updates`
-   - Modern UI and navigation
-   - Blur overlay system
-   - Splash screen and animations
-   - Layout improvements
-
-2. `feature/camera-integration`
-   - Camera device detection
-   - Device switching
-   - WebRTC optimizations
-   - Permission handling
-
-3. `feature/build-optimization`
-   - Size reduction (67MB)
-   - Build optimization
-   - Resource management
-   - Performance improvements
+A desktop application for managing and interacting with various video chat sites. Built with Electron for optimal performance and user experience.
 
 ## Features
 
-- **Multi-Platform Support**: 
-  - Ome.tv
-  - Monkey
-  - Uhmegle
+### Site Management
+- Support for multiple video chat sites
+- Easy addition of custom sites via the ADD SITE button
+- Simple removal of custom sites (hover over site button to remove)
+- Automatic video element detection for better compatibility
 
-- **Smart Privacy Controls**:
-  - Intelligent Blur Overlay
-    - Toggle with 'B' key or button
-    - Smooth drag & resize functionality
-    - Double-click to reset position
-    - Maintains position between sessions
-    - Minimum size protection (200x200)
+### Video Controls
+- Real-time video blur effect
+- Adjustable blur intensity
+- Camera device selection
+- Video/Audio toggle controls
 
-- **Elegant Design**:
-  - Zero interference with site functionality
-  - Native site behavior preserved
-  - Instant site switching
-  - Minimal resource usage
-  - Optimized build size (67MB)
+### User Interface
+- Modern, intuitive design
+- Smooth animations and transitions
+- Dark theme optimized for low-light environments
+- Responsive layout with resizable elements
 
 ## Installation
 
-### Prerequisites
-- Windows 7 or later (Windows 10/11 recommended)
-- 2GB RAM minimum
-- Webcam and microphone
-- Stable internet connection
-
-### Quick Start
-1. Download `ChatPilot-v0.1-alpha.exe` (67MB)
-2. Run the executable directly (portable, no installation needed)
-3. Grant camera/microphone permissions when prompted
-
-### For Developers
+1. Clone the repository
 ```bash
-# Clone and enter directory
-git clone [repository-url]
-cd chat-roulette-dashboard
-
-# Install dependencies
-npm run setup
-
-# Start development
-npm start
-
-# Create optimized build
-npm run build
+git clone https://github.com/yourusername/video-chat-manager.git
+cd video-chat-manager
 ```
 
-## Usage Guide
+2. Install dependencies
+```bash
+npm install
+```
 
-### Site Navigation
-- Click site buttons on the left to switch platforms
-- Each site functions exactly as intended
-- Native authentication and features preserved
+3. Start the application
+```bash
+npm start
+```
 
-### Privacy Overlay
-1. **Toggle**: 
-   - Click "BLUR" button
-   - Press 'B' key
-   - Active state clearly indicated
+## Usage
 
-2. **Position**:
-   - Drag anywhere on overlay to move
-   - Resize from bottom-right corner
-   - Double-click to reset position
-   - Smooth transitions
+### Managing Sites
+1. Click the ADD SITE button in the navigation panel
+2. Enter the site name and URL
+3. Click Add to save the site
+4. To remove a custom site, hover over its button and click the × icon
 
-## Technical Overview
+### Video Controls
+- Click the BLUR button or press 'B' to toggle blur effect
+- Use the camera dropdown to switch between available cameras
+- Adjust blur intensity using the slider
+- Toggle video/audio using the respective buttons
 
-### Core Principles
-- Minimal interference
-- Native functionality
-- Clean, focused code
-- Performance first
-- Optimized build size
+## Development
 
-### Build Optimization
-- ASAR packaging enabled
-- Maximum compression
-- Essential files only
-- Efficient resource usage
-- Minimal dependencies
-
-### Key Features
-- Seamless site integration
-- Smart event handling
-- Efficient DOM updates
-- Automatic error recovery
-
-## Troubleshooting
-
-### Common Solutions
-1. **Site Issues**
-   - Sites work exactly as they do in browser
-   - No special handling needed
-   - Restart app if needed
-
-2. **Overlay Issues**
-   - Double-click to reset position
-   - Minimum size enforced
-   - Clean state on site switch
-
-3. **Camera Issues**
-   - Grant permissions when prompted
-   - Check Windows privacy settings
-   - Ensure no other app is using camera
-
-## For Developers
+### Prerequisites
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- Electron
 
 ### Building
 ```bash
-# Development mode
-npm start
-
-# Production build (67MB output)
 npm run build
 ```
 
-### Design Philosophy
-- Keep It Simple, Stupid (KISS)
-- Let sites handle their own logic
-- Minimal, focused codebase
-- Clean separation of concerns
-- Optimized resource usage
-
-## License
-
-ISC License
+### Testing
+```bash
+npm test
+```
 
 ## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. Fork repository
-2. Create feature branch
-3. Keep changes simple
-4. Submit pull request
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Remember: Simplicity is the ultimate sophistication! 
+## Version History
+See [RELEASE_NOTES.md](RELEASE_NOTES.md) for detailed version history. 

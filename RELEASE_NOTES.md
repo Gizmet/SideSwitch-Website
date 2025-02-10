@@ -65,4 +65,50 @@ This release integrates features from three main development branches:
 1. Keep the app in its own folder
 2. Close other browser windows
 3. Ensure good internet connection
-4. Grant necessary permissions when prompted 
+4. Grant necessary permissions when prompted
+
+# Release Notes
+
+## Version 1.1.0 (Latest)
+
+### New Features
+- Added site management functionality
+  - New ADD SITE button for adding custom sites
+  - Remove button for deleting custom sites (appears on hover)
+  - Auto-detection of common video selectors for better compatibility
+- Improved UI/UX
+  - Redesigned navigation with gradient buttons
+  - Better visual hierarchy for site buttons
+  - Smooth animations and transitions
+  - Enhanced modal design for adding sites
+
+### Improvements
+- Simplified site addition process
+  - Only requires site name and URL
+  - Automatic video element detection
+  - Better form validation and feedback
+- Enhanced button styling and interactions
+  - Hover effects for better interactivity
+  - Clear visual feedback for actions
+  - Improved spacing and alignment
+
+### Technical Updates
+- Implemented localStorage for persistent custom sites
+- Added remove site functionality with cleanup
+- Improved error handling for site switching
+- Better state management for custom sites
+
+### Bug Fixes
+- Fixed button visibility issues
+- Resolved modal display problems
+- Improved site switching reliability
+- Enhanced error handling for invalid sites
+
+## Version 1.0.0 (Initial Release)
+
+### Features
+- Basic site switching functionality
+- Video blur capability
+- Camera selection support
+- Settings management
+- Multiple site support (OME, MONKEY, UHMEGLE) 

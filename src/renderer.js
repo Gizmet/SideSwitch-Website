@@ -1,5 +1,5 @@
 // Site configurations
-const sites = {
+const defaultSites = {
     ome: {
         url: 'https://ome.tv',
         videoElement: 'video#remote_video',
@@ -20,6 +20,9 @@ const sites = {
     }
 };
 
+// Load sites from localStorage or use defaults
+const sites = { ...defaultSites, ...JSON.parse(localStorage.getItem('customSites') || '{}') };
+
 // Current site
 let currentSite = 'ome';
 let loadRetries = 0;
@@ -30,6 +33,9 @@ const webview = document.getElementById('site-view');
 const blurButton = document.getElementById('toggle-blur');
 const dimOverlay = document.getElementById('dim-overlay');
 const resizeHandle = dimOverlay.querySelector('.resize-handle');
+const addSiteModal = document.getElementById('add-site-modal');
+const addSiteForm = document.getElementById('add-site-form');
+const cancelAddSiteButton = document.getElementById('cancel-add-site');
 // TODO: Camera switching functionality is currently disabled and needs to be fixed
 // const cameraSelect = document.getElementById('camera-select');
 const loadingIndicator = document.getElementById('loading-indicator');
@@ -113,12 +119,174 @@ function hideLoading() {
     loadingIndicator.style.display = 'none';
 }
 
-// Initialize first site load
+// Modal handling functions
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block';
+        console.log('Showing modal:', modalId);
+    } else {
+        console.error('Modal not found:', modalId);
+    }
+}
+
+function hideModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        if (modalId === 'add-site-modal') {
+            document.getElementById('add-site-form').reset();
+        }
+        console.log('Hiding modal:', modalId);
+    }
+}
+
+function createSiteButton(siteId, siteName) {
+    const button = document.createElement('button');
+    button.className = 'nav-button';
+    button.dataset.site = siteId;
+    
+    const rocketDiv = document.createElement('div');
+    rocketDiv.className = 'rocket';
+    rocketDiv.textContent = '🚀';
+    
+    const span = document.createElement('span');
+    span.textContent = siteName.toUpperCase();
+    
+    // Only add remove button for custom sites (not default ones)
+    if (!defaultSites[siteId]) {
+        const removeBtn = document.createElement('div');
+        removeBtn.className = 'remove-site';
+        removeBtn.innerHTML = '×';
+        removeBtn.title = 'Remove Site';
+        removeBtn.onclick = (e) => {
+            e.stopPropagation(); // Prevent site switching when clicking remove
+            removeSite(siteId);
+        };
+        button.appendChild(removeBtn);
+    }
+    
+    button.appendChild(rocketDiv);
+    button.appendChild(span);
+    
+    return button;
+}
+
+function removeSite(siteId) {
+    // Don't allow removing default sites
+    if (defaultSites[siteId]) return;
+    
+    // Remove from sites object
+    delete sites[siteId];
+    
+    // Remove from localStorage
+    const customSites = JSON.parse(localStorage.getItem('customSites') || '{}');
+    delete customSites[siteId];
+    localStorage.setItem('customSites', JSON.stringify(customSites));
+    
+    // Remove the button from navigation
+    const button = document.querySelector(`[data-site="${siteId}"]`);
+    if (button) {
+        button.remove();
+    }
+    
+    // If this was the current site, switch to the first default site
+    if (currentSite === siteId) {
+        switchSite('ome');
+    }
+    
+    console.log('Removed site:', siteId);
+}
+
+function addNewSite(siteData) {
+    const siteId = siteData.name.toLowerCase().replace(/\s+/g, '-');
+    
+    // Common video element selectors to try
+    const commonSelectors = {
+        videoElement: ['video#remote-video', 'video#remote_video', 'video#othervideo', 'video.remote', '.video-container video', '#video-container video', 'video'],
+        videoContainer: ['.video-container', '#video-container', '.videochat', '.remote-video-container']
+    };
+    
+    // Add to sites object with auto-detected selectors
+    sites[siteId] = {
+        url: siteData.url,
+        videoElement: commonSelectors.videoElement[0], // Default to first common selector
+        videoContainer: commonSelectors.videoContainer[0], // Default to first common container
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    };
+    
+    // Save to localStorage
+    const customSites = { ...JSON.parse(localStorage.getItem('customSites') || '{}') };
+    customSites[siteId] = sites[siteId];
+    localStorage.setItem('customSites', JSON.stringify(customSites));
+    
+    // Add button to navigation
+    const button = createSiteButton(siteId, siteData.name);
+    const navigation = document.querySelector('#navigation .nav-group');
+    if (navigation) {
+        navigation.appendChild(button);
+    }
+    
+    console.log('Added new site:', siteId, sites[siteId]);
+    return siteId;
+}
+
+// Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-    // Set up navigation click handlers first
+    console.log('=== DEBUG START ===');
+    const addSiteBtn = document.getElementById('add-site-btn');
+    console.log('Add Site Button:', addSiteBtn);
+    if (addSiteBtn) {
+        console.log('Button exists, setting up click handler');
+        addSiteBtn.addEventListener('click', () => {
+            console.log('Add site button clicked');
+            const modal = document.getElementById('add-site-modal');
+            if (modal) {
+                modal.style.display = 'block';
+            }
+        });
+    }
+    console.log('=== DEBUG END ===');
+    
+    console.log('DOM Content Loaded');
+    
+    // Debug navigation buttons
+    const navigation = document.querySelector('#navigation');
+    console.log('Navigation element:', navigation);
+    
+    const buttons = navigation.querySelectorAll('.nav-button');
+    console.log('All nav buttons:', Array.from(buttons).map(btn => ({
+        id: btn.id,
+        dataset: btn.dataset,
+        classes: btn.className,
+        display: window.getComputedStyle(btn).display,
+        visibility: window.getComputedStyle(btn).visibility,
+        opacity: window.getComputedStyle(btn).opacity
+    })));
+
+    // Set up navigation click handlers
     document.querySelector('#navigation').addEventListener('click', (e) => {
         const button = e.target.closest('.nav-button');
-        if (button && button.dataset.site) switchSite(button.dataset.site);
+        if (button && button.dataset.site === 'add') {
+            console.log('Add site button clicked');
+            const modal = document.getElementById('add-site-modal');
+            if (modal) {
+                modal.style.display = 'block';
+            }
+        } else if (button && button.dataset.site) {
+            switchSite(button.dataset.site);
+        }
+    });
+
+    // Load custom sites from localStorage
+    const customSites = JSON.parse(localStorage.getItem('customSites') || '{}');
+    
+    Object.entries(customSites).forEach(([siteId, site]) => {
+        const button = createSiteButton(siteId, siteId.replace(/-/g, ' ').toUpperCase());
+        const addBtn = document.querySelector('[data-site="add"]');
+        if (addBtn) {
+            addBtn.parentNode.insertBefore(button, addBtn);
+        }
     });
 
     // Initialize camera devices
@@ -141,6 +309,44 @@ document.addEventListener('DOMContentLoaded', () => {
             webviewReady = true;
             console.log('Initial webview ready, loading first site');
             switchSite('ome');
+        }
+    });
+
+    // Form submission handler
+    document.getElementById('add-site-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log('Form submitted');
+        
+        const formData = {
+            name: document.getElementById('site-name').value,
+            url: document.getElementById('site-url').value
+        };
+        
+        // Add the new site
+        const siteId = addNewSite(formData);
+        
+        // Hide modal and reset form
+        document.getElementById('add-site-modal').style.display = 'none';
+        document.getElementById('add-site-form').reset();
+        
+        // Switch to the new site
+        if (siteId) {
+            switchSite(siteId);
+        }
+    });
+
+    // Cancel button handler
+    document.getElementById('cancel-add-site').addEventListener('click', () => {
+        document.getElementById('add-site-modal').style.display = 'none';
+        document.getElementById('add-site-form').reset();
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('add-site-modal');
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.getElementById('add-site-form').reset();
         }
     });
 });
