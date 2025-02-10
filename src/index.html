@@ -7,6 +7,10 @@
 <body>
     <div id="app">
         <div id="navigation">
+            <button class="nav-button purple" id="add-site-btn" style="margin: 10px auto; display: flex !important;">
+                <div class="rocket">➕</div>
+                <span>ADD SITE</span>
+            </button>
             <div class="nav-group">
                 <button class="nav-button active" data-site="ome">
                     <div class="rocket">🚀</div>
@@ -90,6 +94,25 @@
                 <button onclick="saveSettings()">Save</button>
                 <button onclick="closeSettings()">Cancel</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Add Site Modal -->
+    <div id="add-site-modal" class="modal">
+        <div class="modal-content">
+            <h2>Add New Site</h2>
+            <form id="add-site-form" class="add-site-form">
+                <div class="form-group">
+                    <input type="text" id="site-name" placeholder="Site Name (e.g. Omegle)" required>
+                </div>
+                <div class="form-group">
+                    <input type="url" id="site-url" placeholder="Site URL (e.g. https://omegle.com)" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="primary-button">Add Site</button>
+                    <button type="button" id="cancel-add-site" class="secondary-button">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
 
