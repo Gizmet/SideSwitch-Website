@@ -69,7 +69,13 @@ This release integrates features from three main development branches:
 
 # Release Notes
 
-## Version 1.1.0 (Latest)
+## Version 1.1.1 (Latest)
+
+### Bug Fixes
+- Fixed 'B' key shortcut interfering with text input in modals
+- Improved keyboard shortcut handling to ignore hotkeys when typing
+
+## Version 1.1.0
 
 ### New Features
 - Added site management functionality

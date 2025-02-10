@@ -476,7 +476,11 @@ blurButton.addEventListener('click', toggleBlur);
 
 // Hotkey handling
 document.addEventListener('keydown', (event) => {
-    if (!document.activeElement.isContentEditable && event.key.toLowerCase() === 'b') {
+    // Ignore 'B' key if we're typing in an input field, textarea, or contentEditable element
+    const isTyping = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName) || 
+                    document.activeElement.isContentEditable;
+                    
+    if (!isTyping && event.key.toLowerCase() === 'b') {
         event.preventDefault();
         toggleBlur();
     }
