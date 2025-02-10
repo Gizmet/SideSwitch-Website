@@ -75,6 +75,18 @@ This release integrates features from three main development branches:
 - Fixed 'B' key shortcut interfering with text input in modals
 - Improved keyboard shortcut handling to ignore hotkeys when typing
 
+### Known Issues
+- Add Site modal text fields need center alignment
+- Default site buttons (OME, MONKEY, UHMEGLE) lack hover animations
+- Camera switching functionality temporarily disabled
+- Some sites may require multiple attempts to connect
+
+### Upcoming Improvements (v1.1.2)
+- Enhanced modal design with centered text fields
+- Consistent button animations across all navigation elements
+- Re-enabled camera switching with improved reliability
+- Better error handling for site connections
+
 ## Version 1.1.0
 
 ### New Features
