@@ -7,17 +7,38 @@
 <body>
     <div id="app">
         <div id="navigation">
+            <button class="nav-button purple" id="add-site-btn" style="margin: 10px auto; display: flex !important;">
+                <div class="rocket">➕</div>
+                <span>ADD SITE</span>
+            </button>
             <div class="nav-group">
-                <button class="nav-button active" data-site="ome">OME</button>
-                <button class="nav-button" data-site="monkey">MONKEY</button>
-                <button class="nav-button" data-site="uhmegle">UHMEGLE</button>
+                <button class="nav-button active" data-site="ome">
+                    <div class="rocket">🚀</div>
+                    <span>OME</span>
+                </button>
+                <button class="nav-button" data-site="monkey">
+                    <div class="rocket">🚀</div>
+                    <span>MONKEY</span>
+                </button>
+                <button class="nav-button" data-site="uhmegle">
+                    <div class="rocket">🚀</div>
+                    <span>UHMEGLE</span>
+                </button>
+            </div>
+            <div class="nav-footer">
+                <button id="toggle-blur">BLUR</button>
+                <!-- TODO: Fix camera switching functionality before re-enabling
+                <select id="camera-select" class="control-input">
+                    <option value="">Loading cameras...</option>
+                </select>
+                -->
             </div>
         </div>
 
         <div id="content">
             <div id="webview-container">
                 <webview id="site-view" 
-                    src="about:blank"
+                    src="data:text/html,<html><body style='background:black'></body></html>"
                     allowpopups
                     webpreferences="allowRunningInsecureContent=true, webSecurity=false, experimentalFeatures=true, nativeWindowOpen=true, javascript=true, plugins=true, webgl=true, backgroundThrottling=false"
                     useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -32,16 +53,11 @@
                     allowpopups
                     enableremotemodule
                     blinkfeatures="WebRTC,AudioVideoTracks,GetUserMedia,MediaStreamTrack,WebGL,WebGL2"
-                    style="background: black;"
+                    style="width: 100%; height: 100%; background: black;"
                     ></webview>
+                <div id="loading-indicator" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 18px;">Loading...</div>
                 <div id="dim-overlay" class="dim-overlay">
                     <div class="resize-handle"></div>
-                </div>
-            </div>
-
-            <div id="controls">
-                <div class="control-group">
-                    <button id="toggle-blur">BLUR</button>
                 </div>
             </div>
         </div>
@@ -78,6 +94,25 @@
                 <button onclick="saveSettings()">Save</button>
                 <button onclick="closeSettings()">Cancel</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Add Site Modal -->
+    <div id="add-site-modal" class="modal">
+        <div class="modal-content">
+            <h2>Add New Site</h2>
+            <form id="add-site-form" class="add-site-form">
+                <div class="form-group">
+                    <input type="text" id="site-name" placeholder="Site Name (e.g. Omegle)" required>
+                </div>
+                <div class="form-group">
+                    <input type="url" id="site-url" placeholder="Site URL (e.g. https://omegle.com)" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="primary-button">Add Site</button>
+                    <button type="button" id="cancel-add-site" class="secondary-button">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
 

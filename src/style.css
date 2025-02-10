@@ -28,47 +28,76 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding: 10px 0;
+}
+
+.nav-add-site {
+    padding: 10px 0;
+    margin: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-button {
-    padding: 12px;
-    background: linear-gradient(180deg, #2a2a2a 0%, #222222 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    min-width: 120px;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
+    display: flex !important;
+    align-items: center !important;
+    font-family: inherit !important;
+    cursor: pointer !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    padding: 12px 16px !important;
+    color: white !important;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e) !important;
+    border: none !important;
+    letter-spacing: 0.05em !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    width: 90% !important;
+    margin: 0 auto !important;
+    position: relative !important;
 }
 
-.nav-button:hover {
-    background: linear-gradient(180deg, #333333 0%, #2a2a2a 100%);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.nav-button.purple {
+    background: linear-gradient(to right, #4f46e5, #6366f1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 90% !important;
+    margin: 10px auto !important;
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: white !important;
+    z-index: 1000 !important;
+    position: relative !important;
 }
 
-.nav-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+.nav-button.purple:hover {
+    background: linear-gradient(to right, #6366f1, #818cf8) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
 }
 
-.nav-button.active {
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.2);
+.nav-button.purple .rocket {
+    font-size: 18px !important;
+    margin-right: 8px !important;
 }
 
-.nav-button.active:hover {
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
-                0 4px 8px rgba(0, 0, 0, 0.3);
+.rocket {
+    margin-right: 8px;
+    font-size: 1.1em;
+    flex-shrink: 0;
+}
+
+.nav-button span {
+    flex: 1;
+    text-align: left;
+}
+
+.nav-footer {
+    margin-top: auto;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Content area */
@@ -95,14 +124,13 @@ webview {
 
 /* Controls */
 #controls {
-    height: 70px;
-    background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
-    padding: 15px;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
     display: flex;
-    justify-content: center;
-    gap: 30px;
+    gap: 10px;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .control-group {
@@ -111,35 +139,77 @@ webview {
     align-items: center;
 }
 
-/* Blur controls */
+/* Blur Button */
 #toggle-blur {
-    padding: 10px 20px;
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    border: 1px solid rgba(59, 130, 246, 0.5);
-    border-radius: 8px;
-    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.2s ease;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 0.8em;
+    color: white;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    border: none;
+    letter-spacing: 0.05em;
+    border-radius: 16px;
+    transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    min-width: 120px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 }
 
 #toggle-blur:hover {
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to right, #1a1744, #302b63, #24243e);
 }
 
 #toggle-blur.active {
-    background: linear-gradient(180deg, #059669 0%, #047857 100%);
-    border-color: #10b981;
-    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to right, #1a1a2e, #16213e, #0f3460);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.2),
+                0 0 15px rgba(48, 43, 99, 0.5);
+    border: none;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+#toggle-blur.active:hover {
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
+                0 4px 8px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(48, 43, 99, 0.6);
+}
+
+/* Camera Select */
+#camera-select {
+    background: #0f0c29;
+    color: white;
+    border: 1px solid #302b63;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+#camera-select:hover {
+    border-color: #24243e;
+    background: #1a1744;
+    transform: translateY(-1px);
+}
+
+#camera-select:focus {
+    box-shadow: 0 0 0 2px rgba(48, 43, 99, 0.3);
+}
+
+#camera-select option {
+    background: #0f0c29;
+    color: white;
+    padding: 8px;
 }
 
 #blur-intensity {
@@ -286,29 +356,30 @@ input[type="number"]:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    backdrop-filter: blur(8px);
 }
 
 .modal-content {
+    background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+    padding: 30px;
+    border-radius: 16px;
+    width: 400px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-    padding: 25px;
-    border-radius: 12px;
-    min-width: 320px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .modal h2 {
-    margin: 0 0 20px 0;
+    margin: 0 0 24px 0;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
+    text-align: center;
 }
 
 .settings-group {
@@ -351,29 +422,42 @@ input[type="number"]:focus {
 
 .button-group {
     display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 25px;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
 }
 
 .button-group button {
-    padding: 8px 16px;
-    border-radius: 6px;
+    padding: 12px 24px;
+    border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
     transition: all 0.2s ease;
+    cursor: pointer;
+    min-width: 120px;
 }
 
-.button-group button:first-child {
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    border: 1px solid rgba(59, 130, 246, 0.5);
+.button-group .primary-button {
+    background: linear-gradient(to right, #4f46e5, #6366f1);
+    border: none;
     color: #ffffff;
 }
 
-.button-group button:last-child {
-    background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+.button-group .primary-button:hover {
+    background: linear-gradient(to right, #6366f1, #818cf8);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.button-group .secondary-button {
+    background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
+}
+
+.button-group .secondary-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
 }
 
 /* Add smooth transitions for all interactive elements */
@@ -570,4 +654,154 @@ webview[src*="ome.tv"] {
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
+}
+
+/* Add Site Button Styles */
+.add-site-button {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0.8em 1.2em;
+    color: white;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    border: none;
+    letter-spacing: 0.05em;
+    border-radius: 16px;
+    transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    margin: 10px auto;
+    gap: 8px;
+}
+
+.add-site-button svg {
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.add-site-button svg path {
+    stroke: #818cf8;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.add-site-button span {
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    white-space: nowrap;
+    flex: 1;
+    text-align: left;
+}
+
+.add-site-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.add-site-button:hover svg {
+    transform: rotate(90deg);
+}
+
+.add-site-button:hover span {
+    transform: translateX(5px);
+}
+
+.add-site-button:hover svg path {
+    stroke: #c7d2fe;
+}
+
+/* Add Site Modal Styles */
+.add-site-modal {
+    display: none;
+}
+
+.add-site-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #6366f1;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ADD SITE button specific styles */
+#add-site-btn {
+    background: linear-gradient(to right, #4f46e5, #6366f1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    margin: 20px auto !important;
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+#add-site-btn:hover {
+    background: linear-gradient(to right, #6366f1, #818cf8) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+#add-site-btn .rocket {
+    transform: none !important;
+    margin-right: 8px !important;
+    font-size: 18px !important;
+}
+
+.nav-button .remove-site {
+    position: absolute !important;
+    right: -8px !important;
+    top: -8px !important;
+    width: 20px !important;
+    height: 20px !important;
+    background: #dc2626 !important;
+    border-radius: 50% !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    color: white !important;
+    cursor: pointer !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    z-index: 100 !important;
+    transition: all 0.2s ease !important;
+}
+
+.nav-button:hover .remove-site {
+    display: flex !important;
+}
+
+.nav-button .remove-site:hover {
+    background: #ef4444 !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5) !important;
 } 
