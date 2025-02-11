@@ -9,9 +9,15 @@ const AnimatedButton = styled(motion.a)`
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 16px 36px;
+  padding: 14px 24px;
+  @media (min-width: 768px) {
+    padding: 16px 36px;
+  }
   border: 4px solid transparent;
-  font-size: 16px;
+  font-size: 14px;
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
   background-color: transparent;
   border-radius: 100px;
   font-weight: 600;
@@ -21,13 +27,21 @@ const AnimatedButton = styled(motion.a)`
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   text-decoration: none;
-  min-width: 280px;
+  width: 100%;
+  @media (min-width: 768px) {
+    width: auto;
+    min-width: 280px;
+  }
   justify-content: center;
 
   .arr-1, .arr-2 {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
+    @media (min-width: 768px) {
+      width: 24px;
+      height: 24px;
+    }
     z-index: 9;
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 
@@ -63,14 +77,22 @@ const AnimatedButton = styled(motion.a)`
     transform: translateX(-12px);
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
     white-space: nowrap;
+    font-size: 14px;
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
   }
 
   &:hover {
     box-shadow: 0 0 0 12px transparent;
     color: #212121;
     border-radius: 12px;
-    padding-left: 28px;
-    padding-right: 44px;
+    padding-left: 24px;
+    padding-right: 36px;
+    @media (min-width: 768px) {
+      padding-left: 28px;
+      padding-right: 44px;
+    }
 
     .arr-1 {
       right: -25%;
@@ -165,7 +187,6 @@ export default function Home() {
 
           {/* Floating particles */}
           {[...Array(6)].map((_, i) => {
-            // Use fixed positions based on index instead of random
             const positions = [
               { top: -20, left: -30 },
               { top: 20, left: 30 },
@@ -205,7 +226,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="h-screen bg-[#0f0f0f] flex justify-center items-center relative overflow-hidden p-6"
+        className="min-h-screen bg-[#0f0f0f] flex justify-center items-center relative overflow-hidden p-4 md:p-6"
       >
         {/* Animated background gradients */}
         <div className="absolute inset-0">
@@ -213,13 +234,13 @@ export default function Home() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="absolute top-[20%] left-[20%] w-[500px] h-[500px] bg-[#2563eb]/10 rounded-full blur-3xl animate-pulse"
+            className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#2563eb]/10 rounded-full blur-3xl animate-pulse"
           />
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="absolute bottom-[20%] right-[20%] w-[400px] h-[400px] bg-[#1d4ed8]/10 rounded-full blur-3xl animate-pulse delay-700"
+            className="absolute bottom-[20%] right-[20%] w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-[#1d4ed8]/10 rounded-full blur-3xl animate-pulse delay-700"
           />
         </div>
 
@@ -228,13 +249,13 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="w-[75%] h-[75vh] relative bg-[#1a1a1a]/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+          className="w-full md:w-[75%] min-h-screen md:h-[75vh] relative bg-[#1a1a1a]/40 backdrop-blur-xl rounded-none md:rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
         >
           {/* Glassmorphism highlights */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
           
           {/* Content container */}
-          <div className="relative h-full p-8 flex flex-col">
+          <div className="relative h-full p-4 md:p-8 flex flex-col">
             {/* Header */}
             <motion.header 
               className="flex justify-between items-center"
@@ -244,14 +265,14 @@ export default function Home() {
             >
               <div className="flex items-center gap-3">
                 <div 
-                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] relative overflow-hidden flex items-center justify-center group hover:scale-110 transition-transform cursor-pointer"
+                  className="w-8 md:w-10 h-8 md:h-10 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] relative overflow-hidden flex items-center justify-center group hover:scale-110 transition-transform cursor-pointer"
                 >
                   <motion.span 
-                    className="text-2xl font-bold text-white/90 select-none" 
+                    className="text-xl md:text-2xl font-bold text-white/90 select-none" 
                     style={{
                       textShadow: '1px 1px 2px rgba(0,0,0,0.3), -1px -1px 2px rgba(255,255,255,0.2)',
                       transform: 'rotate(-90deg) translateX(-1px)',
-                      fontSize: '1.75rem'
+                      fontSize: '1.5rem'
                     }}
                     whileHover={{ 
                       scale: 1.2,
@@ -262,12 +283,12 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div className="absolute inset-0 bg-[#2563eb] opacity-0 group-hover:opacity-20 blur-xl transition-opacity" />
                 </div>
-                <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]">
+                <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]">
                   SideSwitch
                 </h1>
               </div>
               <motion.div 
-                className="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] px-4 py-2 rounded-lg text-white text-sm font-medium shadow-lg shadow-blue-500/20"
+                className="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] px-3 md:px-4 py-1 md:py-2 rounded-lg text-white text-xs md:text-sm font-medium shadow-lg shadow-blue-500/20"
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}
               >
@@ -276,18 +297,18 @@ export default function Home() {
             </motion.header>
 
             {/* Main content */}
-            <div className="flex-1 flex items-center">
-              <div className="w-full grid grid-cols-2 gap-12">
+            <div className="flex-1 flex items-center mt-8 md:mt-0">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {/* Left column */}
                 <motion.div 
-                  className="text-left space-y-8"
+                  className="text-left space-y-6 md:space-y-8"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 1 }}
                 >
                   <div>
-                    <div className="flex items-center gap-12 mb-2">
-                      <h2 className="text-5xl font-bold leading-tight">
+                    <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-12 mb-2">
+                      <h2 className="text-3xl md:text-5xl font-bold leading-tight">
                         <span className="text-white">Random Chats,</span>
                         <br />
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]">
@@ -307,7 +328,7 @@ export default function Home() {
                         Beta Access
                       </motion.div>
                     </div>
-                    <p className="mt-4 text-xl text-white/60">
+                    <p className="mt-4 text-base md:text-xl text-white/60">
                       One-click site switching, built-in blur for surprises, and pro-level streams—all for $9.99/month.
                     </p>
                   </div>
@@ -323,10 +344,10 @@ export default function Home() {
                           scale: 1.02,
                           transition: { type: "spring", stiffness: 400 }
                         }}
-                        className="flex items-center gap-3 text-white/80 bg-white/5 p-4 rounded-xl border border-white/10 relative group cursor-pointer"
+                        className="flex items-center gap-3 text-white/80 bg-white/5 p-3 md:p-4 rounded-xl border border-white/10 relative group cursor-pointer"
                       >
                         <motion.span 
-                          className="text-[#2563eb] text-2xl relative z-10"
+                          className="text-[#2563eb] text-xl md:text-2xl relative z-10"
                           whileHover={{ 
                             scale: 1.2,
                             rotate: [0, -10, 10, -10, 0],
@@ -336,8 +357,8 @@ export default function Home() {
                           {index === 0 ? '⚡' : index === 1 ? '🛡️' : '✨'}
                         </motion.span>
                         <div className="relative z-10">
-                          <h3 className="font-semibold">{feature}</h3>
-                          <p className="text-white/60 text-sm">
+                          <h3 className="font-semibold text-sm md:text-base">{feature}</h3>
+                          <p className="text-white/60 text-xs md:text-sm">
                             {index === 0 ? 'Hop between chat sites in a single click—no more endless browser tabs.' :
                              index === 1 ? 'Hide unwanted visuals and protect your privacy. No more accidental browser exposure or self-doxxing risks.' :
                              'Keep your transitions clean and your branding consistent, every single time.'}
@@ -353,10 +374,10 @@ export default function Home() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 1.8 }}
-                    className="flex justify-center items-center mt-12"
+                    className="flex justify-center items-center mt-8 md:mt-12"
                   >
                     <motion.div 
-                      className="text-2xl font-medium text-white text-center relative"
+                      className="text-xl md:text-2xl font-medium text-white text-center relative"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
@@ -375,7 +396,7 @@ export default function Home() {
 
                 {/* Right column */}
                 <motion.div 
-                  className="relative flex flex-col items-center"
+                  className="relative flex flex-col items-center order-first md:order-last mb-8 md:mb-0"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 1.2 }}
@@ -385,7 +406,7 @@ export default function Home() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 1.4 }}
-                    className="relative w-full bg-gradient-to-tr from-[#2563eb]/10 to-[#1d4ed8]/10 rounded-2xl p-6 border border-white/10"
+                    className="relative w-full bg-gradient-to-tr from-[#2563eb]/10 to-[#1d4ed8]/10 rounded-2xl p-4 md:p-6 border border-white/10"
                   >
                     <img 
                       src="/Screenshot_20250211_015714.png" 
@@ -395,7 +416,7 @@ export default function Home() {
                   </motion.div>
                   
                   <motion.div 
-                    className="mt-8 text-center"
+                    className="mt-6 md:mt-8 text-center w-full px-4 md:px-0"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1.6 }}
@@ -404,13 +425,14 @@ export default function Home() {
                       href={`${process.env.NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent('')}&checkout[custom][success_url]=${encodeURIComponent(window.location.origin + '/success')}&checkout[custom][cancel_url]=${encodeURIComponent(window.location.origin + '/cancel')}`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      className="w-full md:w-auto"
                     >
                       <div className="circle" />
                       <ArrowIcon className="arr-1" />
                       <ArrowIcon className="arr-2" />
                       <span className="text">Join Beta - $9.99/month</span>
                     </AnimatedButton>
-                    <p className="text-sm text-white/40 mt-2">Limited beta spots available - Join the early adopters!</p>
+                    <p className="text-xs md:text-sm text-white/40 mt-2">Limited beta spots available - Join the early adopters!</p>
                   </motion.div>
                 </motion.div>
               </div>
