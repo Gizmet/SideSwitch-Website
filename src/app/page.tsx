@@ -345,7 +345,7 @@ export default function Home() {
 
                     {/* Description */}
                     <p className="text-base md:text-xl text-white/60">
-                      One-click site switching, built-in blur for surprises, and pro-level streams—all for $9.99/month.
+                      Seamless site switching, instant blur protection, and pro-level streaming—all for $9.99/month.
                     </p>
                   </div>
 
