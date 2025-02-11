@@ -1,4 +1,4 @@
-# Video Chat Site Manager
+SideSwitch
 
 A desktop application for managing and interacting with various video chat sites. Built with Electron for optimal performance and user experience.
 
