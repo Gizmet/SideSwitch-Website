@@ -323,9 +323,9 @@ export default function Home() {
                     {/* Title and Beta Badge */}
                     <div className="space-y-4">
                       <h2 className="text-4xl md:text-5xl font-bold leading-none md:leading-tight">
-                        <div className="text-white mb-2 bg-gradient-to-r from-white to-white/80">Random Chats,</div>
+                        <div className="text-white mb-2 bg-gradient-to-r from-white to-white/80">Random Chats</div>
                         <div className="bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] pb-1">
-                          Zero Regrets
+                          Zero Regrets!
                         </div>
                       </h2>
                       
