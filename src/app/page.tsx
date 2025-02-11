@@ -164,27 +164,36 @@ export default function Home() {
           </motion.div>
 
           {/* Floating particles */}
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 rounded-full bg-[#2563eb]"
-              style={{
-                top: Math.random() * 100 - 50,
-                left: Math.random() * 100 - 50,
-              }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ 
-                opacity: [0, 1, 0],
-                scale: [0.5, 1, 0.5],
-                y: [-20, 20, -20]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.2,
-              }}
-            />
-          ))}
+          {[...Array(6)].map((_, i) => {
+            // Use fixed positions based on index instead of random
+            const positions = [
+              { top: -20, left: -30 },
+              { top: 20, left: 30 },
+              { top: -40, left: 0 },
+              { top: 40, left: -20 },
+              { top: 0, left: 40 },
+              { top: -30, left: 20 },
+            ];
+            
+            return (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 rounded-full bg-[#2563eb]"
+                style={positions[i]}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ 
+                  opacity: [0, 1, 0],
+                  scale: [0.5, 1, 0.5],
+                  y: [-20, 20, -20]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     );
@@ -346,7 +355,7 @@ export default function Home() {
                     transition={{ duration: 0.5, delay: 1.8 }}
                     className="flex justify-center items-center mt-12"
                   >
-                    <motion.p 
+                    <motion.div 
                       className="text-2xl font-medium text-white text-center relative"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 400 }}
@@ -360,7 +369,7 @@ export default function Home() {
                           transition={{ duration: 0.8, delay: 2 }}
                         />
                       </span> game?
-                    </motion.p>
+                    </motion.div>
                   </motion.div>
                 </motion.div>
 
