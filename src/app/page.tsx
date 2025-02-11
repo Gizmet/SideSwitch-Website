@@ -250,20 +250,20 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="w-full md:w-[75%] min-h-screen md:min-h-0 md:h-[75vh] relative bg-[#1a1a1a]/40 backdrop-blur-xl rounded-none md:rounded-3xl border-y md:border border-white/10 shadow-2xl overflow-hidden"
+          className="w-full md:w-[75%] min-h-screen md:min-h-0 md:h-[75vh] relative bg-[#1a1a1a]/40 backdrop-blur-xl rounded-none md:rounded-3xl border-y md:border border-white/10 shadow-2xl overflow-y-auto md:overflow-hidden"
         >
           {/* Content container */}
-          <div className="relative h-full px-4 py-6 md:p-8 flex flex-col">
+          <div className="relative h-full py-6 md:p-8 flex flex-col">
             {/* Header */}
             <motion.header 
-              className="flex justify-between items-center mb-8 md:mb-0"
+              className="flex justify-between items-center mb-6 md:mb-8 px-4 md:px-0"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >
               <div className="flex items-center gap-3">
                 <div 
-                  className="w-8 md:w-10 h-8 md:h-10 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] relative overflow-hidden flex items-center justify-center group hover:scale-110 transition-transform cursor-pointer"
+                  className="w-8 md:w-10 h-8 md:h-10 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] relative overflow-hidden flex items-center justify-center"
                 >
                   <motion.span 
                     className="text-xl md:text-2xl font-bold text-white/90 select-none" 
@@ -272,14 +272,8 @@ export default function Home() {
                       transform: 'rotate(-90deg) translateX(-1px)',
                       fontSize: '1.5rem'
                     }}
-                    whileHover={{ 
-                      scale: 1.2,
-                      rotate: -90,
-                      transition: { type: "spring", stiffness: 300 }
-                    }}
                   >S</motion.span>
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="absolute inset-0 bg-[#2563eb] opacity-0 group-hover:opacity-20 blur-xl transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
                 </div>
                 <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]">
                   SideSwitch
@@ -295,8 +289,8 @@ export default function Home() {
             </motion.header>
 
             {/* Main content */}
-            <div className="flex-1 flex items-start md:items-center">
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-12">
+            <div className="flex-1 flex flex-col md:items-center overflow-visible">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {/* Right column (moved to top on mobile) */}
                 <motion.div 
                   className="relative flex flex-col items-center order-first mb-8 md:mb-0 md:order-last"
@@ -320,21 +314,23 @@ export default function Home() {
 
                 {/* Left column */}
                 <motion.div 
-                  className="text-left space-y-8 md:space-y-8"
+                  className="text-left px-4 md:px-0 space-y-6 md:space-y-8"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 1 }}
                 >
-                  <div>
-                    <div className="flex flex-col gap-4 mb-6 md:mb-4 md:flex-row md:items-center md:gap-12">
-                      <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                        <span className="text-white block mb-2">Random Chats,</span>
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] block">
-                          Zero Regrets.
-                        </span>
+                  <div className="space-y-6">
+                    {/* Title and Beta Badge */}
+                    <div className="space-y-4">
+                      <h2 className="text-4xl md:text-5xl font-bold leading-none md:leading-tight">
+                        <div className="text-white mb-2">Random Chats,</div>
+                        <div className="bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]">
+                          Zero Regrets
+                        </div>
                       </h2>
+                      
                       <motion.div 
-                        className="bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1 rounded-lg text-white text-xs font-medium shadow-lg shadow-emerald-500/20 flex items-center gap-1 h-fit whitespace-nowrap self-start"
+                        className="inline-flex bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1 rounded-lg text-white text-xs font-medium shadow-lg shadow-emerald-500/20 items-center gap-1"
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 1 }}
@@ -346,51 +342,43 @@ export default function Home() {
                         Beta Access
                       </motion.div>
                     </div>
-                    <p className="mt-4 text-base md:text-xl text-white/60 mb-8">
+
+                    {/* Description */}
+                    <p className="text-base md:text-xl text-white/60">
                       One-click site switching, built-in blur for surprises, and pro-level streams—all for $9.99/month.
                     </p>
                   </div>
 
-                  <div className="space-y-4">
+                  {/* Features */}
+                  <div className="space-y-3">
                     {['Instant Swaps', 'Blur & Protect', 'Sleek & Pro'].map((feature, index) => (
                       <motion.div
                         key={feature}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 1.2 + index * 0.2 }}
-                        whileHover={{ 
-                          scale: 1.02,
-                          transition: { type: "spring", stiffness: 400 }
-                        }}
-                        className="flex items-center gap-3 text-white/80 bg-white/5 p-3 md:p-4 rounded-xl border border-white/10 relative group cursor-pointer"
+                        className="flex items-start gap-3 text-white/80 bg-white/5 p-4 rounded-xl border border-white/10 relative"
                       >
                         <motion.span 
-                          className="text-[#2563eb] text-xl md:text-2xl relative z-10"
-                          whileHover={{ 
-                            scale: 1.2,
-                            rotate: [0, -10, 10, -10, 0],
-                            transition: { duration: 0.5 }
-                          }}
+                          className="text-[#2563eb] text-xl md:text-2xl relative z-10 mt-0.5"
                         >
                           {index === 0 ? '⚡' : index === 1 ? '🛡️' : '✨'}
                         </motion.span>
-                        <div className="relative z-10">
-                          <h3 className="font-semibold text-sm md:text-base">{feature}</h3>
+                        <div className="relative z-10 flex-1">
+                          <h3 className="font-semibold text-sm md:text-base mb-1">{feature}</h3>
                           <p className="text-white/60 text-xs md:text-sm">
                             {index === 0 ? 'Hop between chat sites in a single click—no more endless browser tabs.' :
-                             index === 1 ? 'Hide unwanted visuals and protect your privacy. No more accidental browser exposure or self-doxxing risks.' :
+                             index === 1 ? 'Hide unwanted visuals and protect your privacy. No more accidental exposure.' :
                              'Keep your transitions clean and your branding consistent, every single time.'}
                           </p>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/0 via-[#2563eb]/5 to-[#2563eb]/0 opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 transform group-hover:translate-x-full" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/10 to-[#1d4ed8]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       </motion.div>
                     ))}
                   </div>
 
                   {/* CTA Section */}
                   <motion.div 
-                    className="mt-4 md:mt-8 text-center w-full"
+                    className="pt-4 md:pt-6 text-center w-full"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1.6 }}
@@ -406,7 +394,7 @@ export default function Home() {
                       <ArrowIcon className="arr-2" />
                       <span className="text">Join Beta - $9.99/month</span>
                     </AnimatedButton>
-                    <p className="text-xs md:text-sm text-white/40 mt-3">Limited beta spots available - Join the early adopters!</p>
+                    <p className="text-xs md:text-sm text-white/40 mt-3">Limited beta spots available - Join now!</p>
                   </motion.div>
                 </motion.div>
               </div>
