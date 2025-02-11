@@ -326,16 +326,15 @@ export default function Home() {
                   transition={{ duration: 0.5, delay: 1 }}
                 >
                   <div>
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-12 mb-4">
-                      <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-                        <span className="text-white">Random Chats,</span>
-                        <br />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]">
+                    <div className="flex flex-col gap-4 mb-6 md:mb-4 md:flex-row md:items-center md:gap-12">
+                      <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                        <span className="text-white block mb-2">Random Chats,</span>
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] block">
                           Zero Regrets.
                         </span>
                       </h2>
                       <motion.div 
-                        className="bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1 rounded-lg text-white text-xs font-medium shadow-lg shadow-emerald-500/20 flex items-center gap-1 h-fit whitespace-nowrap"
+                        className="bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1 rounded-lg text-white text-xs font-medium shadow-lg shadow-emerald-500/20 flex items-center gap-1 h-fit whitespace-nowrap self-start"
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 1 }}
@@ -347,7 +346,7 @@ export default function Home() {
                         Beta Access
                       </motion.div>
                     </div>
-                    <p className="mt-4 text-lg md:text-xl text-white/60">
+                    <p className="mt-4 text-base md:text-xl text-white/60 mb-8">
                       One-click site switching, built-in blur for surprises, and pro-level streams—all for $9.99/month.
                     </p>
                   </div>
@@ -391,7 +390,7 @@ export default function Home() {
 
                   {/* CTA Section */}
                   <motion.div 
-                    className="mt-6 md:mt-8 text-center w-full"
+                    className="mt-4 md:mt-8 text-center w-full"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1.6 }}
@@ -407,7 +406,7 @@ export default function Home() {
                       <ArrowIcon className="arr-2" />
                       <span className="text">Join Beta - $9.99/month</span>
                     </AnimatedButton>
-                    <p className="text-sm text-white/40 mt-3">Limited beta spots available - Join the early adopters!</p>
+                    <p className="text-xs md:text-sm text-white/40 mt-3">Limited beta spots available - Join the early adopters!</p>
                   </motion.div>
                 </motion.div>
               </div>

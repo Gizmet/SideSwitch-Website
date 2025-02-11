@@ -15,6 +15,17 @@ const verifyWebhookSignature = (
   );
 };
 
+// Helper function to generate a license key
+const generateLicenseKey = (subscriptionId: string): string => {
+  const prefix = 'SS-';
+  const hash = crypto
+    .createHash('sha256')
+    .update(`${subscriptionId}-${process.env.LEMONSQUEEZY_WEBHOOK_SECRET}`)
+    .digest('hex')
+    .substring(0, 16);
+  return `${prefix}${hash}`;
+};
+
 export async function POST(request: Request) {
   try {
     // Get the raw request body as a string
@@ -50,35 +61,59 @@ export async function POST(request: Request) {
     
     // Handle different event types
     switch (meta.event_name) {
-      case 'subscription_created':
-        // Handle new subscription
-        console.log('New subscription:', data.id);
+      case 'subscription_created': {
+        // Generate license key for new subscription
+        const licenseKey = generateLicenseKey(data.id);
+        console.log('New subscription:', {
+          id: data.id,
+          licenseKey,
+          status: 'active'
+        });
+        // TODO: Store subscription and license key in database
         break;
+      }
         
-      case 'subscription_updated':
-        // Handle subscription update
-        console.log('Subscription updated:', data.id);
+      case 'subscription_updated': {
+        console.log('Subscription updated:', {
+          id: data.id,
+          status: data.attributes.status
+        });
+        // TODO: Update subscription status in database
         break;
+      }
         
-      case 'subscription_cancelled':
-        // Handle subscription cancellation
-        console.log('Subscription cancelled:', data.id);
+      case 'subscription_cancelled': {
+        console.log('Subscription cancelled:', {
+          id: data.id,
+          status: 'cancelled'
+        });
+        // TODO: Update subscription status in database
         break;
+      }
         
-      case 'subscription_resumed':
-        // Handle subscription resumption
-        console.log('Subscription resumed:', data.id);
+      case 'subscription_resumed': {
+        console.log('Subscription resumed:', {
+          id: data.id,
+          status: 'active'
+        });
+        // TODO: Update subscription status in database
         break;
+      }
         
-      case 'order_created':
-        // Handle new order
+      case 'order_created': {
+        // Initial order - license key already generated in subscription_created
         console.log('New order:', data.id);
         break;
+      }
         
-      case 'order_refunded':
-        // Handle refund
-        console.log('Order refunded:', data.id);
+      case 'order_refunded': {
+        console.log('Order refunded:', {
+          id: data.id,
+          status: 'refunded'
+        });
+        // TODO: Mark subscription as refunded in database
         break;
+      }
     }
 
     return NextResponse.json({ success: true });
