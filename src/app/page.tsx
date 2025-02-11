@@ -227,10 +227,10 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="min-h-screen bg-[#0f0f0f] flex justify-center items-center relative overflow-hidden p-4 md:p-6"
+        className="min-h-screen bg-[#0f0f0f] flex justify-center items-start md:items-center relative overflow-x-hidden overflow-y-auto p-0 md:p-6"
       >
         {/* Animated background gradients */}
-        <div className="absolute inset-0">
+        <div className="fixed inset-0">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -250,16 +250,13 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="w-full md:w-[75%] min-h-screen md:h-[75vh] relative bg-[#1a1a1a]/40 backdrop-blur-xl rounded-none md:rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+          className="w-full md:w-[75%] min-h-screen md:min-h-0 md:h-[75vh] relative bg-[#1a1a1a]/40 backdrop-blur-xl rounded-none md:rounded-3xl border-y md:border border-white/10 shadow-2xl overflow-hidden"
         >
-          {/* Glassmorphism highlights */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-          
           {/* Content container */}
-          <div className="relative h-full p-4 md:p-8 flex flex-col">
+          <div className="relative h-full px-4 py-6 md:p-8 flex flex-col">
             {/* Header */}
             <motion.header 
-              className="flex justify-between items-center"
+              className="flex justify-between items-center mb-8 md:mb-0"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
@@ -298,18 +295,39 @@ export default function Home() {
             </motion.header>
 
             {/* Main content */}
-            <div className="flex-1 flex items-center mt-8 md:mt-0">
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <div className="flex-1 flex items-start md:items-center">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-12">
+                {/* Right column (moved to top on mobile) */}
+                <motion.div 
+                  className="relative flex flex-col items-center order-first mb-8 md:mb-0 md:order-last"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 1.2 }}
+                >
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 1.4 }}
+                    className="relative w-full bg-gradient-to-tr from-[#2563eb]/10 to-[#1d4ed8]/10 rounded-2xl p-4 md:p-6 border border-white/10"
+                  >
+                    <img 
+                      src="/Screenshot_20250211_015714.png" 
+                      alt="SideSwitch Interface Preview"
+                      className="rounded-xl shadow-2xl border border-white/10 w-full h-auto"
+                    />
+                  </motion.div>
+                </motion.div>
+
                 {/* Left column */}
                 <motion.div 
-                  className="text-left space-y-6 md:space-y-8"
+                  className="text-left space-y-8 md:space-y-8"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 1 }}
                 >
                   <div>
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-12 mb-2">
-                      <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                    <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-12 mb-4">
+                      <h2 className="text-4xl md:text-5xl font-bold leading-tight">
                         <span className="text-white">Random Chats,</span>
                         <br />
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]">
@@ -329,7 +347,7 @@ export default function Home() {
                         Beta Access
                       </motion.div>
                     </div>
-                    <p className="mt-4 text-base md:text-xl text-white/60">
+                    <p className="mt-4 text-lg md:text-xl text-white/60">
                       One-click site switching, built-in blur for surprises, and pro-level streams—all for $9.99/month.
                     </p>
                   </div>
@@ -371,53 +389,9 @@ export default function Home() {
                     ))}
                   </div>
 
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 1.8 }}
-                    className="flex justify-center items-center mt-8 md:mt-12"
-                  >
-                    <motion.div 
-                      className="text-xl md:text-2xl font-medium text-white text-center relative"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    >
-                      Ready to step up your <span className="relative inline-block">
-                        &ldquo;Just Chatting&rdquo;
-                        <motion.div 
-                          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]"
-                          initial={{ scaleX: 0 }}
-                          animate={{ scaleX: 1 }}
-                          transition={{ duration: 0.8, delay: 2 }}
-                        />
-                      </span> game?
-                    </motion.div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Right column */}
-                <motion.div 
-                  className="relative flex flex-col items-center order-first md:order-last mb-8 md:mb-0"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 1.2 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#2563eb]/20 to-[#1d4ed8]/20 blur-3xl" />
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 1.4 }}
-                    className="relative w-full bg-gradient-to-tr from-[#2563eb]/10 to-[#1d4ed8]/10 rounded-2xl p-4 md:p-6 border border-white/10"
-                  >
-                    <img 
-                      src="/Screenshot_20250211_015714.png" 
-                      alt="SideSwitch Interface Preview"
-                      className="rounded-xl shadow-2xl border border-white/10 w-full h-auto"
-                    />
-                  </motion.div>
-                  
+                  {/* CTA Section */}
                   <motion.div 
-                    className="mt-6 md:mt-8 text-center w-full px-4 md:px-0"
+                    className="mt-6 md:mt-8 text-center w-full"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1.6 }}
@@ -433,7 +407,7 @@ export default function Home() {
                       <ArrowIcon className="arr-2" />
                       <span className="text">Join Beta - $9.99/month</span>
                     </AnimatedButton>
-                    <p className="text-xs md:text-sm text-white/40 mt-2">Limited beta spots available - Join the early adopters!</p>
+                    <p className="text-sm text-white/40 mt-3">Limited beta spots available - Join the early adopters!</p>
                   </motion.div>
                 </motion.div>
               </div>
