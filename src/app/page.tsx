@@ -1,4 +1,4 @@
-// Auto-deployment test - 2025-01-23 - Second attempt
+// Auto-deployment test - 2025-01-23 - After branch fix
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
