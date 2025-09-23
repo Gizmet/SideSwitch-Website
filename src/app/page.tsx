@@ -22,8 +22,8 @@ const AnimatedButton = styled(motion.a)`
   background-color: transparent;
   border-radius: 100px;
   font-weight: 600;
-  color: #84cc16;
-  box-shadow: 0 0 0 2px #84cc16;
+  color: #39FF14;
+  box-shadow: 0 0 0 2px #39FF14;
   cursor: pointer;
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -47,7 +47,7 @@ const AnimatedButton = styled(motion.a)`
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 
     path {
-      stroke: #84cc16;
+      stroke: #39FF14;
     }
   }
 
@@ -66,7 +66,7 @@ const AnimatedButton = styled(motion.a)`
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    background-color: #84cc16;
+    background-color: #39FF14;
     border-radius: 50%;
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -120,7 +120,7 @@ const AnimatedButton = styled(motion.a)`
 
   &:active {
     scale: 0.95;
-    box-shadow: 0 0 0 4px #84cc16;
+    box-shadow: 0 0 0 4px #39FF14;
   }
 `;
 
@@ -157,12 +157,12 @@ export default function Home() {
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="w-16 h-16 rounded-2xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] relative overflow-hidden flex items-center justify-center"
+            className="w-16 h-16 rounded-2xl bg-gradient-to-r from-[#39FF14] to-[#2ECC71] relative overflow-hidden flex items-center justify-center"
           >
             <span 
-              className="text-4xl font-bold text-white/90 select-none" 
+              className="text-4xl font-bold text-black select-none" 
               style={{
-                textShadow: '1px 1px 2px rgba(0,0,0,0.3), -1px -1px 2px rgba(255,255,255,0.2)',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
                 transform: 'rotate(-90deg) translateX(-2px)',
                 fontSize: '2.5rem'
               }}
@@ -175,7 +175,7 @@ export default function Home() {
             className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/10 rounded-full overflow-hidden"
           >
             <motion.div
-              className="h-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]"
+              className="h-full bg-gradient-to-r from-[#39FF14] to-[#2ECC71]"
               initial={{ x: '-100%' }}
               animate={{ x: '100%' }}
               transition={{ 
@@ -200,7 +200,7 @@ export default function Home() {
             return (
               <motion.div
                 key={i}
-                className="absolute w-2 h-2 rounded-full bg-[#2563eb]"
+                className="absolute w-2 h-2 rounded-full bg-[#39FF14]"
                 style={positions[i]}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ 
@@ -235,13 +235,13 @@ export default function Home() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#2563eb]/10 rounded-full blur-3xl animate-pulse"
+            className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#39FF14]/10 rounded-full blur-3xl animate-pulse"
           />
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="absolute bottom-[20%] right-[20%] w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-[#1d4ed8]/10 rounded-full blur-3xl animate-pulse delay-700"
+            className="absolute bottom-[20%] right-[20%] w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-[#2ECC71]/10 rounded-full blur-3xl animate-pulse delay-700"
           />
         </div>
 
@@ -263,24 +263,24 @@ export default function Home() {
             >
               <div className="flex items-center gap-3">
                 <div 
-                  className="w-8 md:w-10 h-8 md:h-10 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] relative overflow-hidden flex items-center justify-center"
+                  className="w-8 md:w-10 h-8 md:h-10 rounded-xl bg-gradient-to-r from-[#39FF14] to-[#2ECC71] relative overflow-hidden flex items-center justify-center"
                 >
                   <motion.span 
-                    className="text-xl md:text-2xl font-bold text-white/90 select-none" 
+                    className="text-xl md:text-2xl font-bold text-black select-none" 
                     style={{
-                      textShadow: '1px 1px 2px rgba(0,0,0,0.3), -1px -1px 2px rgba(255,255,255,0.2)',
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
                       transform: 'rotate(-90deg) translateX(-1px)',
                       fontSize: '1.5rem'
                     }}
                   >S</motion.span>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
                 </div>
-                <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8]">
+                <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] to-[#2ECC71]">
                   SideSwitch
                 </h1>
               </div>
               <motion.div 
-                className="bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] px-3 md:px-4 py-1 md:py-2 rounded-lg text-white text-xs md:text-sm font-medium shadow-lg shadow-blue-500/20"
+                className="bg-gradient-to-r from-[#39FF14] to-[#2ECC71] px-3 md:px-4 py-1 md:py-2 rounded-lg text-black text-xs md:text-sm font-medium shadow-lg shadow-green-500/20"
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}
               >
@@ -302,7 +302,7 @@ export default function Home() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 1.4 }}
-                    className="relative w-full bg-gradient-to-tr from-[#2563eb]/10 to-[#1d4ed8]/10 rounded-2xl p-4 md:p-6 border border-white/10"
+                    className="relative w-full bg-gradient-to-tr from-[#39FF14]/10 to-[#2ECC71]/10 rounded-2xl p-4 md:p-6 border border-white/10"
                   >
                     <img 
                       src="/Screenshot_20250211_015714.png" 
@@ -324,13 +324,13 @@ export default function Home() {
                     <div className="space-y-4">
                       <h2 className="text-4xl md:text-5xl font-bold leading-none md:leading-tight">
                         <div className="text-white mb-2 bg-gradient-to-r from-white to-white/80">Random Chats</div>
-                        <div className="bg-clip-text text-transparent bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] pb-1">
+                        <div className="bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] to-[#2ECC71] pb-1">
                           Zero Regrets!
                         </div>
                       </h2>
                       
                       <motion.div 
-                        className="inline-flex bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1 rounded-lg text-white text-xs font-medium shadow-lg shadow-emerald-500/20 items-center gap-1"
+                        className="inline-flex bg-gradient-to-r from-[#39FF14] to-[#2ECC71] px-3 py-1 rounded-lg text-black text-xs font-medium shadow-lg shadow-green-500/20 items-center gap-1"
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 1 }}
@@ -360,7 +360,7 @@ export default function Home() {
                         className="flex items-start gap-3 text-white/80 bg-white/5 p-4 rounded-xl border border-white/10 relative"
                       >
                         <motion.span 
-                          className="text-[#2563eb] text-xl md:text-2xl relative z-10 mt-0.5"
+                          className="text-[#39FF14] text-xl md:text-2xl relative z-10 mt-0.5"
                         >
                           {index === 0 ? '⚡' : index === 1 ? '🛡️' : '✨'}
                         </motion.span>
