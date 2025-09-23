@@ -1,379 +1,407 @@
+// Auto-deployment test - 2025-01-23 - After branch fix
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useMemo, useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-/* ================= BRAND ================= */
-const GREEN = '#39FF14';
-const GREEN2 = '#2ECC71';
-const BG = '#0B0F0F';
-
-const GlowButton = styled(motion.a)`
+const AnimatedButton = styled(motion.a)`
   position: relative;
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: 10px; padding: 18px 32px; border-radius: 999px;
-  font-weight: 900; letter-spacing: .3px;
-  color: #0a0a0a; text-decoration: none;
-  background: linear-gradient(160deg, ${GREEN}, ${GREEN2});
-  box-shadow:
-    0 20px 48px rgba(57,255,20,.32),
-    0 0 0 2px ${GREEN} inset,
-    0 1px 0 0 rgba(255,255,255,.15) inset;
-  transition: transform .18s ease, box-shadow .28s ease;
-  width: 100%;
-  max-width: 420px;
-  font-size: 16px;
-  &:hover { 
-    transform: translateY(-2px); 
-    box-shadow: 0 28px 68px rgba(57,255,20,.4), 0 0 0 2px ${GREEN} inset; 
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 24px;
+  @media (min-width: 768px) {
+    padding: 16px 36px;
   }
-  &:active { transform: translateY(0); }
-`;
-
-const SecondaryButton = styled(motion.button)`
-  position: relative;
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: 8px; padding: 16px 24px; border-radius: 999px;
-  font-weight: 700; letter-spacing: .2px;
-  color: ${GREEN}; text-decoration: none;
-  background: transparent;
-  border: 2px solid ${GREEN}40;
-  transition: all .25s ease;
+  border: 4px solid transparent;
+  font-size: 14px;
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+  background-color: transparent;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #39FF14;
+  box-shadow: 0 0 0 2px #39FF14;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  text-decoration: none;
   width: 100%;
-  max-width: 420px;
-  &:hover { 
-    border-color: ${GREEN};
-    background: ${GREEN}08;
-    color: ${GREEN};
+  @media (min-width: 768px) {
+    width: auto;
+    min-width: 280px;
+  }
+  justify-content: center;
+
+  .arr-1, .arr-2 {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    @media (min-width: 768px) {
+      width: 24px;
+      height: 24px;
+    }
+    z-index: 9;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+
+    path {
+      stroke: #39FF14;
+    }
+  }
+
+  .arr-1 {
+    right: 16px;
+  }
+
+  .arr-2 {
+    left: -25%;
+  }
+
+  .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-color: #39FF14;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .text {
+    position: relative;
+    z-index: 1;
+    transform: translateX(-12px);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    white-space: nowrap;
+    font-size: 14px;
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 12px transparent;
+    color: #212121;
+    border-radius: 12px;
+    padding-left: 24px;
+    padding-right: 36px;
+    @media (min-width: 768px) {
+      padding-left: 28px;
+      padding-right: 44px;
+    }
+
+    .arr-1 {
+      right: -25%;
+    }
+
+    .arr-2 {
+      left: 16px;
+    }
+
+    .text {
+      transform: translateX(12px);
+    }
+
+    path {
+      stroke: #212121;
+    }
+
+    .circle {
+      width: 110%;
+      height: 300px;
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    scale: 0.95;
+    box-shadow: 0 0 0 4px #39FF14;
   }
 `;
-
-const Chip = ({ children }: { children: React.ReactNode }) => (
-  <div className="px-4 py-2 rounded-full text-[13px] font-semibold bg-white/8 border border-white/15 text-white/90 backdrop-blur-sm">
-    {children}
-  </div>
-);
-
-const FeatureCard = ({ emoji, title, desc, delay = 0 }: { emoji: string; title: string; desc: string; delay?: number }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }} 
-    animate={{ opacity: 1, y: 0 }} 
-    transition={{ duration: .4, delay }}
-    className="group relative p-6 rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/2 backdrop-blur-sm hover:border-white/20 transition-all duration-300 hover:transform hover:scale-[1.02]"
-  >
-    <div className="flex items-start gap-4">
-      <div className="text-3xl group-hover:scale-110 transition-transform duration-300">{emoji}</div>
-      <div className="flex-1">
-        <h3 className="text-white font-bold text-base mb-2 group-hover:text-green-400 transition-colors">{title}</h3>
-        <p className="text-white/75 text-sm leading-relaxed">{desc}</p>
-      </div>
-    </div>
-  </motion.div>
-);
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [showExtended, setShowExtended] = useState(false);
-  const [activeFAQ, setActiveFAQ] = useState<number | null>(null);
-
-  // SSR-safe checkout URL
-  const checkoutUrl = useMemo(() => {
-    const base = process.env.NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL || '#';
-    if (typeof window === 'undefined') return base;
-    const success = encodeURIComponent(`${window.location.origin}/success`);
-    const cancel  = encodeURIComponent(`${window.location.origin}/cancel`);
-    return `${base}?checkout[custom][success_url]=${success}&checkout[custom][cancel_url]=${cancel}`;
-  }, []);
 
   useEffect(() => {
-    const t = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(t);
+    // Simulate minimum loading time for animation
+    setTimeout(() => setIsLoading(false), 2000);
   }, []);
 
-  /* ====== LOADER ====== */
+  const ArrowIcon = ({ className }: { className?: string }) => (
+    <svg 
+      className={className}
+      viewBox="0 0 24 24" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path 
+        d="M3 12h18m0 0-8-8m8 8-8 8" 
+        strokeWidth={2} 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
+  );
+
   if (isLoading) {
     return (
-      <div className="h-screen grid place-items-center" style={{ background: BG }}>
-        <motion.div initial={{ scale: .9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: .4 }} className="relative text-center">
-          <div className="w-20 h-20 rounded-3xl grid place-items-center mb-6"
-               style={{ background: `linear-gradient(160deg, ${GREEN}, ${GREEN2})`, filter:'drop-shadow(0 20px 80px rgba(57,255,20,.35))' }}>
-            <span className="text-black font-black select-none" style={{ transform:'rotate(-90deg)', fontSize:'2.2rem' }}>s</span>
-          </div>
-          <div className="w-48 h-1 rounded-full overflow-hidden bg-white/10 mx-auto">
-            <motion.div className="h-full" style={{ background:`linear-gradient(90deg, rgba(57,255,20,.3), ${GREEN})` }}
-                        initial={{ x:'-100%' }} animate={{ x:'100%' }} transition={{ repeat: Infinity, duration: 1.2, ease:'easeInOut' }}/>
-          </div>
-          <p className="text-white/60 text-sm mt-4 font-medium">Loading SideSwitch</p>
-        </motion.div>
+      <div className="h-screen bg-[#0f0f0f] flex justify-center items-center">
+        <div className="relative">
+          {/* Logo animation */}
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="w-16 h-16 rounded-2xl bg-gradient-to-r from-[#39FF14] to-[#2ECC71] relative overflow-hidden flex items-center justify-center"
+          >
+            <span 
+              className="text-4xl font-bold text-black select-none" 
+              style={{
+                textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                transform: 'rotate(-90deg) translateX(-2px)',
+                fontSize: '2.5rem'
+              }}
+            >S</span>
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+          </motion.div>
+          
+          {/* Loading bars */}
+          <motion.div 
+            className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/10 rounded-full overflow-hidden"
+          >
+            <motion.div
+              className="h-full bg-gradient-to-r from-[#39FF14] to-[#2ECC71]"
+              initial={{ x: '-100%' }}
+              animate={{ x: '100%' }}
+              transition={{ 
+                repeat: Infinity,
+                duration: 1,
+                ease: "linear"
+              }}
+            />
+          </motion.div>
+
+          {/* Floating particles */}
+          {[...Array(6)].map((_, i) => {
+            const positions = [
+              { top: -20, left: -30 },
+              { top: 20, left: 30 },
+              { top: -40, left: 0 },
+              { top: 40, left: -20 },
+              { top: 0, left: 40 },
+              { top: -30, left: 20 },
+            ];
+            
+            return (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 rounded-full bg-[#39FF14]"
+                style={positions[i]}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ 
+                  opacity: [0, 1, 0],
+                  scale: [0.5, 1, 0.5],
+                  y: [-20, 20, -20]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }
 
-  /* ====== FEATURES DATA ====== */
-  const coreFeatures = [
-    { emoji: '⚡', title: 'Instant Site Switching', desc: 'Jump between YouTube, Twitch, Kick, Discord, news, or sponsors in one click. No alt-tab chaos, no broken flow.' },
-    { emoji: '🛡️', title: 'Blur on Tap (B)', desc: 'Hide what you don\'t want seen. A draggable, resizable privacy mask that runs smooth at 1080p.' },
-    { emoji: '🎙️', title: 'Stream-Optimized', desc: 'Built for OBS. Respects your Virtual Camera. Never steals focus while you\'re live.' }
-  ];
-
-  const extendedFeatures = [
-    { emoji: '📌', title: 'QuickDecks', desc: 'Save sponsors, notes, news, or talking points. Launch instantly or rotate on a timer.' },
-    { emoji: '⌨️', title: 'Pro Hotkeys', desc: 'Blur, swap, or fire QuickDecks faster than alt-tab. Stay in flow, even mid-stream.' },
-    { emoji: '🧪', title: 'Live Mode', desc: 'Suppresses pop-ups and system prompts while you\'re live. Tiny status dot keeps you covered.' },
-    { emoji: '🔒', title: 'Safe Mode', desc: 'Google/Twitch logins route safely through your default browser. Auth without crashes or hacks.' },
-    { emoji: '🎛️', title: 'Per-Site Presets', desc: 'Remember zoom, mute, or cam settings per site. Every page opens just how you left it.' },
-    { emoji: '📦', title: 'Import & Export', desc: 'Backup or share QuickDecks as JSON. Move setups between rigs in seconds.' },
-    { emoji: '🛡', title: 'Creator-Safe Defaults', desc: 'No telemetry. No recording. Local-only. Trust built in.' }
-  ];
-
-  const targetAudience = [
-    { emoji: '🎥', title: 'Streamers', desc: 'Keep transitions clean, protect privacy, look pro.' },
-    { emoji: '🏫', title: 'Educators & Presenters', desc: 'Jump between slides, clips, and references without fumbling tabs.' },
-    { emoji: '📊', title: 'Creators', desc: 'Manage sponsors, live notes, and media with one-click QuickDecks.' },
-    { emoji: '🔒', title: 'Anyone Sharing Live', desc: 'Control what\'s seen, hide what isn\'t.' }
-  ];
-
-  const faqs = [
-    {
-      q: 'Can I log into YouTube/Google inside the app?',
-      a: 'For security, Google blocks embedded logins. SideSwitch routes logins to your default browser — safer and supported. You can still play videos without logging in.'
-    },
-    {
-      q: 'Is the blur safe for streaming?',
-      a: 'Yes. It\'s GPU-accelerated and hardware-smooth. Designed not to stutter, even on low-end rigs.'
-    },
-    {
-      q: 'Do you collect any data?',
-      a: 'No. No telemetry. No recording. We only verify your license.'
-    },
-    {
-      q: 'Is it Windows only?',
-      a: 'Optimized for Windows + OBS. Mac is on our roadmap.'
-    }
-  ];
-
   return (
     <AnimatePresence>
-      <motion.main
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .6 }}
-        className="min-h-screen relative overflow-hidden"
-        style={{ background: BG }}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="min-h-screen bg-[#0f0f0f] flex justify-center items-start md:items-center relative overflow-x-hidden overflow-y-auto p-0 md:p-6"
       >
-        {/* Enhanced ambient lighting */}
-        <div className="pointer-events-none absolute -top-40 -left-20 w-[600px] h-[600px] rounded-full blur-[140px]" style={{ background:`${GREEN}18` }}/>
-        <div className="pointer-events-none absolute -bottom-48 -right-24 w-[720px] h-[720px] rounded-full blur-[160px]" style={{ background:`${GREEN2}18` }}/>
-        <div className="pointer-events-none absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[100px]" style={{ background:`${GREEN}08` }}/>
-
-        {/* Main content */}
-        <div className="mx-auto w-full max-w-[520px] px-6 py-10 space-y-12">
-          
-          {/* Enhanced Header */}
-          <motion.div 
-            initial={{ y: -20, opacity: 0 }} 
-            animate={{ y: 0, opacity: 1 }} 
-            transition={{ duration: .5 }}
-            className="flex items-center justify-center gap-4 pt-6"
-          >
-            <div className="w-12 h-12 rounded-2xl grid place-items-center shadow-2xl"
-                 style={{ background:`linear-gradient(160deg, ${GREEN}, ${GREEN2})` }}>
-              <span className="text-black font-black text-xl" style={{ transform:'rotate(-90deg)' }}>s</span>
-            </div>
-            <span className="text-white font-black text-2xl tracking-tight">SideSwitch</span>
-            <div className="px-4 py-2 rounded-xl text-xs font-black text-black shadow-xl backdrop-blur-sm"
-                 style={{ background:`linear-gradient(160deg, ${GREEN}, ${GREEN2})` }}>
-              Pro Beta
-            </div>
-          </motion.div>
-
-          {/* Hero Section */}
-          <motion.div 
-            initial={{ y: 30, opacity: 0 }} 
-            animate={{ y: 0, opacity: 1 }} 
-            transition={{ duration: .6, delay: .2 }}
-            className="text-center space-y-6"
-          >
-            <h1 className="text-5xl md:text-6xl font-black leading-[0.9] tracking-tight">
-              <span className="block text-white">Switch Smarter.</span>
-              <span className="block bg-clip-text text-transparent mt-2"
-                    style={{ backgroundImage:`linear-gradient(135deg, ${GREEN}, ${GREEN2})` }}>
-                Stream Stronger.
-              </span>
-            </h1>
-            <p className="text-white/85 text-xl max-w-[95%] mx-auto leading-relaxed font-medium">
-              The creator-first browser built for speed, privacy, and peace of mind. 
-              <span className="block mt-2 text-lg text-white/70">One click swaps. Blur on tap. Stream-safe by design.</span>
-            </p>
-            
-            <div className="flex items-center justify-center gap-3 flex-wrap pt-2">
-              <Chip>✅ Works with OBS</Chip>
-              <Chip>✅ No telemetry</Chip>
-              <Chip>✅ Creator-safe</Chip>
-            </div>
-
-            <div className="pt-4 space-y-3">
-              <GlowButton href={checkoutUrl} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <span>Start free — 7 days on us</span>
-                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3 12h18m0 0-8-8m8 8-8 8" stroke="#0a0a0a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                </svg>
-              </GlowButton>
-              <p className="text-white/60 text-sm font-medium">$9.99/mo after trial</p>
-            </div>
-          </motion.div>
-
-          {/* Preview Image */}
-          <motion.div 
-            initial={{ y: 40, opacity: 0 }} 
-            animate={{ y: 0, opacity: 1 }} 
-            transition={{ duration: .7, delay: .4 }}
-          >
-            <div className="rounded-3xl border border-white/15 p-4 bg-gradient-to-br from-white/10 to-white/5 shadow-2xl backdrop-blur-sm">
-              <img src="/Screenshot_20250211_015714.png" alt="SideSwitch interface preview"
-                   className="rounded-2xl border border-white/20 shadow-2xl w-full h-auto" />
-            </div>
-            <p className="text-center text-sm text-white/70 mt-4 font-medium">
-              Professional creator workflow in action
-            </p>
-          </motion.div>
-
-          {/* Core Features */}
-          <div className="space-y-6">
-            <motion.h2 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              transition={{ delay: .6 }}
-              className="text-white font-black text-2xl text-center"
-            >
-              Core Features
-            </motion.h2>
-            <div className="space-y-4">
-              {coreFeatures.map((feature, i) => (
-                <FeatureCard key={feature.title} {...feature} delay={.7 + i * .1} />
-              ))}
-            </div>
-          </div>
-
-          {/* Extended Features */}
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-white font-black text-2xl">Extended Features</h2>
-              <button 
-                onClick={() => setShowExtended(!showExtended)}
-                className="text-sm font-semibold px-4 py-2 rounded-xl border border-white/20 text-white/80 hover:text-white hover:border-white/40 transition-all duration-300 backdrop-blur-sm"
-              >
-                {showExtended ? 'Show less' : 'Show all'}
-              </button>
-            </div>
-            
-            <AnimatePresence>
-              {showExtended && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }} 
-                  animate={{ opacity: 1, height: 'auto' }} 
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: .4 }}
-                  className="space-y-4"
-                >
-                  {extendedFeatures.map((feature, i) => (
-                    <FeatureCard key={feature.title} {...feature} delay={i * .05} />
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Who It's For */}
-          <div className="space-y-6">
-            <h2 className="text-white font-black text-2xl text-center">Who It's For</h2>
-            <div className="grid grid-cols-1 gap-4">
-              {targetAudience.map((audience, i) => (
-                <FeatureCard key={audience.title} {...audience} delay={i * .1} />
-              ))}
-            </div>
-          </div>
-
-          {/* Enhanced Pricing */}
-          <motion.div 
-            initial={{ y: 30, opacity: 0 }} 
-            animate={{ y: 0, opacity: 1 }} 
-            transition={{ delay: 1.2 }}
-            className="rounded-3xl border border-white/15 bg-gradient-to-br from-white/8 to-white/3 p-8 text-center space-y-6 backdrop-blur-sm shadow-2xl"
-          >
-            <div>
-              <h3 className="text-white font-black text-2xl mb-2">Simple. Transparent.</h3>
-              <p className="text-white/80 text-base leading-relaxed">
-                7-day free trial → then <span className="font-bold text-green-400">$9.99/month</span>
-              </p>
-              <p className="text-white/60 text-sm mt-2">Founders Lifetime license coming soon</p>
-            </div>
-            
-            <div className="space-y-4">
-              <GlowButton href={checkoutUrl} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <span>Start free trial</span>
-                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3 12h18m0 0-8-8m8 8-8 8" stroke="#0a0a0a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                </svg>
-              </GlowButton>
-            </div>
-          </motion.div>
-
-          {/* Trust Indicators */}
-          <div className="text-center space-y-4">
-            <p className="text-white/85 text-lg font-semibold">Premium. Transparent. Creator-safe by design.</p>
-            <div className="flex items-center justify-center gap-3 flex-wrap">
-              <Chip>🔒 No telemetry</Chip>
-              <Chip>🛡️ No recording</Chip>
-              <Chip>💾 Local only</Chip>
-            </div>
-          </div>
-
-          {/* Enhanced FAQ */}
-          <div className="space-y-6">
-            <h2 className="text-white font-black text-2xl text-center">FAQs</h2>
-            <div className="space-y-3">
-              {faqs.map((faq, i) => (
-                <motion.div 
-                  key={faq.q}
-                  initial={{ opacity: 0, y: 20 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  transition={{ duration: .4, delay: .1 + i * .05 }}
-                  className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/2 backdrop-blur-sm overflow-hidden"
-                >
-                  <button
-                    onClick={() => setActiveFAQ(activeFAQ === i ? null : i)}
-                    className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
-                  >
-                    <h4 className="text-white font-bold text-base pr-4">{faq.q}</h4>
-                    <motion.svg 
-                      animate={{ rotate: activeFAQ === i ? 45 : 0 }}
-                      transition={{ duration: .2 }}
-                      width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    >
-                      <path d="M12 5v14M5 12h14" stroke="#39FF14" strokeWidth="2" strokeLinecap="round"/>
-                    </motion.svg>
-                  </button>
-                  <AnimatePresence>
-                    {activeFAQ === i && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: .3 }}
-                        className="px-6 pb-6"
-                      >
-                        <p className="text-white/80 text-sm leading-relaxed">{faq.a}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
+        {/* Animated background gradients */}
+        <div className="fixed inset-0">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#39FF14]/10 rounded-full blur-3xl animate-pulse"
+          />
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="absolute bottom-[20%] right-[20%] w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-[#2ECC71]/10 rounded-full blur-3xl animate-pulse delay-700"
+          />
         </div>
 
-      </motion.main>
+        {/* Main floating card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="w-full md:w-[75%] min-h-screen md:min-h-0 md:h-[75vh] relative bg-[#1a1a1a]/40 backdrop-blur-xl rounded-none md:rounded-3xl border-y md:border border-white/10 shadow-2xl overflow-y-auto md:overflow-hidden"
+        >
+          {/* Content container */}
+          <div className="relative h-full py-6 md:p-8 flex flex-col">
+            {/* Header */}
+            <motion.header 
+              className="flex justify-between items-center mb-6 md:mb-8 px-4 md:px-0"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+            >
+              <div className="flex items-center gap-3">
+                <div 
+                  className="w-8 md:w-10 h-8 md:h-10 rounded-xl bg-gradient-to-r from-[#39FF14] to-[#2ECC71] relative overflow-hidden flex items-center justify-center"
+                >
+                  <motion.span 
+                    className="text-xl md:text-2xl font-bold text-black select-none" 
+                    style={{
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                      transform: 'rotate(-90deg) translateX(-1px)',
+                      fontSize: '1.5rem'
+                    }}
+                  >S</motion.span>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+                </div>
+                <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] to-[#2ECC71]">
+                  SideSwitch
+                </h1>
+              </div>
+              <motion.div 
+                className="bg-gradient-to-r from-[#39FF14] to-[#2ECC71] px-3 md:px-4 py-1 md:py-2 rounded-lg text-black text-xs md:text-sm font-medium shadow-lg shadow-green-500/20"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                Pro Version
+              </motion.div>
+            </motion.header>
+
+            {/* Main content */}
+            <div className="flex-1 flex flex-col md:items-center overflow-visible">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                {/* Right column (moved to top on mobile) */}
+                <motion.div 
+                  className="relative flex flex-col items-center order-first mb-8 md:mb-0 md:order-last"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 1.2 }}
+                >
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 1.4 }}
+                    className="relative w-full bg-gradient-to-tr from-[#39FF14]/10 to-[#2ECC71]/10 rounded-2xl p-4 md:p-6 border border-white/10"
+                  >
+                    <img 
+                      src="/Screenshot_20250211_015714.png" 
+                      alt="SideSwitch Interface Preview"
+                      className="rounded-xl shadow-2xl border border-white/10 w-full h-auto"
+                    />
+                  </motion.div>
+                </motion.div>
+
+                {/* Left column */}
+                <motion.div 
+                  className="text-left px-4 md:px-0 space-y-6 md:space-y-8"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 1 }}
+                >
+                  <div className="space-y-6">
+                    {/* Title and Beta Badge */}
+                    <div className="space-y-4">
+                      <h2 className="text-4xl md:text-5xl font-bold leading-none md:leading-tight">
+                        <div className="text-white mb-2 bg-gradient-to-r from-white to-white/80">Random Chats</div>
+                        <div className="bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] to-[#2ECC71] pb-1">
+                          Zero Regrets!
+                        </div>
+                      </h2>
+                      
+                      <motion.div 
+                        className="inline-flex bg-gradient-to-r from-[#39FF14] to-[#2ECC71] px-3 py-1 rounded-lg text-black text-xs font-medium shadow-lg shadow-green-500/20 items-center gap-1"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 1 }}
+                      >
+                        <span className="animate-pulse relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                        </span>
+                        Beta Access
+                      </motion.div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-base md:text-xl text-white/60">
+                      Seamless site switching, instant blur protection, and pro-level streaming—all for $9.99/month.
+                    </p>
+                  </div>
+
+                  {/* Features */}
+                  <div className="space-y-3">
+                    {['Instant Swaps', 'Blur & Protect', 'Sleek & Pro'].map((feature, index) => (
+                      <motion.div
+                        key={feature}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 1.2 + index * 0.2 }}
+                        className="flex items-start gap-3 text-white/80 bg-white/5 p-4 rounded-xl border border-white/10 relative"
+                      >
+                        <motion.span 
+                          className="text-[#39FF14] text-xl md:text-2xl relative z-10 mt-0.5"
+                        >
+                          {index === 0 ? '⚡' : index === 1 ? '🛡️' : '✨'}
+                        </motion.span>
+                        <div className="relative z-10 flex-1">
+                          <h3 className="font-semibold text-sm md:text-base mb-1">{feature}</h3>
+                          <p className="text-white/60 text-xs md:text-sm">
+                            {index === 0 ? 'Hop between chat sites in a single click—no more endless browser tabs.' :
+                             index === 1 ? 'Hide unwanted visuals and protect your privacy. No more accidental exposure.' :
+                             'Keep your transitions clean and your branding consistent, every single time.'}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* CTA Section */}
+                  <motion.div 
+                    className="pt-4 md:pt-6 text-center w-full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.6 }}
+                  >
+                    <AnimatedButton 
+                      href={`${process.env.NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent('')}&checkout[custom][success_url]=${encodeURIComponent(window.location.origin + '/success')}&checkout[custom][cancel_url]=${encodeURIComponent(window.location.origin + '/cancel')}`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full md:w-auto"
+                    >
+                      <div className="circle" />
+                      <ArrowIcon className="arr-1" />
+                      <ArrowIcon className="arr-2" />
+                      <span className="text">Join Beta - $9.99/month</span>
+                    </AnimatedButton>
+                    <p className="text-xs md:text-sm text-white/40 mt-3">Limited beta spots available - Join now!</p>
+                  </motion.div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
     </AnimatePresence>
   );
 }

@@ -6,21 +6,8 @@ import StyledComponentsRegistry from "./registry";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SideSwitch - Switch Smarter. Stream Stronger.",
-  description: "The creator-first browser built for speed, privacy, and peace of mind. One click swaps. Blur on tap. Stream-safe by design. Start free — 7 days on us.",
-  keywords: ["streaming", "OBS", "creator tools", "browser", "privacy", "content creation", "live streaming", "blur tool"],
-  authors: [{ name: "SideSwitch" }],
-  openGraph: {
-    title: "SideSwitch - Switch Smarter. Stream Stronger.",
-    description: "The creator-first browser built for speed, privacy, and peace of mind. Professional streaming tools for creators, educators, and power users.",
-    type: "website",
-    url: "https://www.sideswitch.app",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "SideSwitch - Switch Smarter. Stream Stronger.",
-    description: "The creator-first browser built for speed, privacy, and peace of mind.",
-  },
+  title: "SideSwitch - Random Chats, Zero Regrets",
+  description: "One-click site switching, built-in blur for surprises, and pro-level streams—all for $9.99/month.",
 };
 
 export default function RootLayout({
