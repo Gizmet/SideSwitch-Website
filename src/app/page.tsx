@@ -1,4 +1,4 @@
-// Force redeploy - 2024-02-11 20:45
+// Auto-deployment test - 2025-01-23
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
