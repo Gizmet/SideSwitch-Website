@@ -292,6 +292,14 @@ export default function Home() {
 
   return (
     <GlobalStyles>
+      <head>
+        <title>SideSwitch — Switch Smarter. Stream Stronger.</title>
+        <meta name="description" content="The creator-first browser for live work. One-click site swaps, blur on tap, OBS-friendly, and stream-safe by design." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+      </head>
       <div style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--ink)' }}>
         {/* Hero Section */}
         <section className="py-16 md:py-24 px-4 md:px-6">
@@ -452,7 +460,7 @@ export default function Home() {
               }}>
                 <div style={{ position: 'relative' }}>
                   <img
-                    src="/Screenshot_20250211_015714.png"
+                    src="/Screenshot1.png"
                     alt="SideSwitch interface preview"
                     style={{ width: '100%', height: 'auto', borderRadius: '12px' }}
                   />
