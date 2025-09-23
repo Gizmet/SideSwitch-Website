@@ -1,4 +1,4 @@
-// Force Vercel deployment - 2025-01-23 - Main branch sync test
+// Testing deploy hook - 2025-01-23 - After creating Vercel deploy hook
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
