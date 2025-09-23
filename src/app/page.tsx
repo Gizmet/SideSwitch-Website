@@ -310,6 +310,27 @@ export default function Home() {
                       className="rounded-xl shadow-2xl border border-white/10 w-full h-auto"
                     />
                   </motion.div>
+
+                  {/* CTA Section - Moved below screenshot */}
+                  <motion.div 
+                    className="pt-4 md:pt-6 text-center w-full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.8 }}
+                  >
+                    <AnimatedButton 
+                      href={`${process.env.NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent('')}&checkout[custom][success_url]=${encodeURIComponent(window.location.origin + '/success')}&checkout[custom][cancel_url]=${encodeURIComponent(window.location.origin + '/cancel')}`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full md:w-auto"
+                    >
+                      <div className="circle" />
+                      <ArrowIcon className="arr-1" />
+                      <ArrowIcon className="arr-2" />
+                      <span className="text">Join Beta - $9.99/month</span>
+                    </AnimatedButton>
+                    <p className="text-xs md:text-sm text-white/40 mt-3">Limited beta spots available - Join now!</p>
+                  </motion.div>
                 </motion.div>
 
                 {/* Left column */}
@@ -323,7 +344,7 @@ export default function Home() {
                     {/* Title and Beta Badge */}
                     <div className="space-y-4">
                       <h2 className="text-4xl md:text-5xl font-bold leading-none md:leading-tight">
-                        <div className="text-white mb-2 bg-gradient-to-r from-white to-white/80">Random Chats</div>
+                        <div className="text-white mb-2">Random Chats</div>
                         <div className="bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] to-[#2ECC71] pb-1">
                           Zero Regrets!
                         </div>
@@ -376,26 +397,6 @@ export default function Home() {
                     ))}
                   </div>
 
-                  {/* CTA Section */}
-                  <motion.div 
-                    className="pt-4 md:pt-6 text-center w-full"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 1.6 }}
-                  >
-                    <AnimatedButton 
-                      href={`${process.env.NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent('')}&checkout[custom][success_url]=${encodeURIComponent(window.location.origin + '/success')}&checkout[custom][cancel_url]=${encodeURIComponent(window.location.origin + '/cancel')}`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full md:w-auto"
-                    >
-                      <div className="circle" />
-                      <ArrowIcon className="arr-1" />
-                      <ArrowIcon className="arr-2" />
-                      <span className="text">Join Beta - $9.99/month</span>
-                    </AnimatedButton>
-                    <p className="text-xs md:text-sm text-white/40 mt-3">Limited beta spots available - Join now!</p>
-                  </motion.div>
                 </motion.div>
               </div>
             </div>
