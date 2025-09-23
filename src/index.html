@@ -6,32 +6,30 @@
 </head>
 <body>
     <div id="app">
-        <div id="navigation">
-            <button class="nav-button purple" id="add-site-btn" style="margin: 10px auto; display: flex !important;">
-                <div class="rocket">➕</div>
-                <span>ADD SITE</span>
-            </button>
-            <div class="nav-group">
-                <button class="nav-button active" data-site="ome">
-                    <div class="rocket">🚀</div>
-                    <span>OME</span>
-                </button>
-                <button class="nav-button" data-site="monkey">
-                    <div class="rocket">🚀</div>
-                    <span>MONKEY</span>
-                </button>
-                <button class="nav-button" data-site="uhmegle">
-                    <div class="rocket">🚀</div>
-                    <span>UHMEGLE</span>
-                </button>
+        <div id="navigation" class="nav">
+            <!-- Brand -->
+            <div class="brand">
+                <div class="brand-tile" aria-hidden="true"><span class="brand-glyph">s</span></div>
+                <div class="brand-text">SideSwitch</div>
             </div>
-            <div class="nav-footer">
-                <button id="toggle-blur">BLUR</button>
-                <!-- TODO: Fix camera switching functionality before re-enabling
-                <select id="camera-select" class="control-input">
-                    <option value="">Loading cameras...</option>
-                </select>
-                -->
+
+            <!-- Sites list -->
+            <div id="site-list" class="nav-group"></div>
+
+            <!-- Bottom actions -->
+            <div class="nav-bottom">
+                <button id="settings-btn" class="btn secondary settings-btn">
+                    <span class="settings-icon" aria-hidden="true">⚙</span> Settings
+                </button>
+                <button id="add-site-btn" class="btn secondary">
+                    <span class="plus" aria-hidden="true">＋</span> Add Site
+                </button>
+
+                <button id="toggle-blur" class="btn primary"
+                    aria-pressed="false" aria-label="Toggle Blur (B)"
+                    title="Toggle Blur (B)">
+                    Blur
+                </button>
             </div>
         </div>
 
@@ -63,56 +61,104 @@
         </div>
     </div>
 
-    <div id="settings-modal" class="modal">
-        <div class="modal-content">
-            <h2>Settings</h2>
-            <div class="settings-group">
-                <label>
-                    <input type="checkbox" id="dark-mode">
-                    Dark Mode
-                </label>
-                <label>
-                    <input type="checkbox" id="auto-connect">
-                    Auto Connect
-                </label>
-                <label>
-                    <input type="checkbox" id="save-logs">
-                    Save Chat Logs
-                </label>
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="ss-modal" aria-hidden="true" role="dialog" aria-labelledby="settingsTitle">
+        <div class="ss-modal__backdrop" data-close></div>
+
+        <div class="ss-modal__card" role="document">
+            <div class="ss-modal__head">
+                <h2 id="settingsTitle">Settings</h2>
+                <button class="ss-x" data-close aria-label="Close">✕</button>
             </div>
-            <div class="settings-group">
-                <label>
-                    Privacy Mode
-                    <select id="privacy-mode">
-                        <option value="normal">Normal</option>
-                        <option value="strict">Strict</option>
-                        <option value="custom">Custom</option>
-                    </select>
-                </label>
-            </div>
-            <div class="button-group">
-                <button onclick="saveSettings()">Save</button>
-                <button onclick="closeSettings()">Cancel</button>
+
+            <div class="ss-modal__body">
+                <div class="settings-section">
+                    <h3>Blur Settings</h3>
+                    <div class="setting-group">
+                        <label for="blur-intensity">Blur Intensity:</label>
+                        <select id="blur-intensity">
+                            <option value="5">Light (5px)</option>
+                            <option value="10">Medium (10px)</option>
+                            <option value="15" selected>Strong (15px)</option>
+                            <option value="20">Maximum (20px)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Camera Settings</h3>
+                    <div class="setting-group">
+                        <label for="camera-select">Camera:</label>
+                        <select id="camera-select">
+                            <option value="default">Default Camera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Appearance</h3>
+                    <div class="setting-group">
+                        <label class="ss-check">
+                            <input type="checkbox" id="dark-mode">
+                            <span class="checkmark"></span>
+                            Dark Mode (Always On)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="ss-actions">
+                    <button type="button" class="btn secondary" data-close>Close</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Add Site Modal -->
-    <div id="add-site-modal" class="modal">
-        <div class="modal-content">
-            <h2>Add New Site</h2>
-            <form id="add-site-form" class="add-site-form">
-                <div class="form-group">
-                    <input type="text" id="site-name" placeholder="Site Name (e.g. Omegle)" required>
+    <div id="add-site-modal" class="ss-modal" aria-hidden="true" role="dialog" aria-labelledby="addSiteTitle">
+        <div class="ss-modal__backdrop" data-close></div>
+
+        <div class="ss-modal__card" role="document">
+            <div class="ss-modal__head">
+                <h2 id="addSiteTitle">Add Site</h2>
+                <button class="ss-x" data-close aria-label="Close">✕</button>
+            </div>
+
+            <div class="ss-modal__body">
+                <!-- Category pills -->
+                <div class="ss-pills" id="cat-pills" role="tablist" aria-label="Categories">
+                    <!-- populated by JS -->
                 </div>
-                <div class="form-group">
-                    <input type="url" id="site-url" placeholder="Site URL (e.g. https://omegle.com)" required>
-                </div>
-                <div class="button-group">
-                    <button type="submit" class="primary-button">Add Site</button>
-                    <button type="button" id="cancel-add-site" class="secondary-button">Cancel</button>
-                </div>
-            </form>
+
+                <!-- Template grid -->
+                <div class="ss-grid" id="template-grid" aria-live="polite"></div>
+
+                <!-- Divider -->
+                <div class="ss-divider"><span>or add a custom link</span></div>
+
+                <!-- Custom form -->
+                <form id="custom-site-form" class="ss-form">
+                    <div class="ss-row">
+                        <label>Title
+                            <input id="cs-title" type="text" placeholder="e.g. YouTube" required maxlength="40">
+                        </label>
+                    </div>
+                    <div class="ss-row">
+                        <label>URL
+                            <input id="cs-url" type="url" inputmode="url" placeholder="https://example.com" required>
+                        </label>
+                    </div>
+                    <div class="ss-row ss-row--split">
+                        <label class="ss-check"><input id="cs-audio" type="checkbox"> Allow site audio</label>
+                        <label>Zoom
+                            <input id="cs-zoom" type="number" step="0.05" min="0.8" max="1.4" value="1">
+                        </label>
+                    </div>
+                    <div class="ss-actions">
+                        <button type="button" class="btn secondary" data-close>Cancel</button>
+                        <button type="submit" class="btn primary">Add Site</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
