@@ -7,6 +7,44 @@ function generateId() {
     return crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random();
 }
 
+// Quick Add Templates
+const TEMPLATES = [
+    // NEWS
+    { cat: 'News', title: 'BBC News', url: 'https://www.bbc.com', sub: 'Headlines' },
+    { cat: 'News', title: 'Reuters', url: 'https://www.reuters.com', sub: 'Global' },
+    { cat: 'News', title: 'The Verge', url: 'https://www.theverge.com', sub: 'Tech' },
+    { cat: 'News', title: 'CNN', url: 'https://www.cnn.com', sub: 'Breaking' },
+    { cat: 'News', title: 'NPR', url: 'https://www.npr.org', sub: 'Public Radio' },
+
+    // SOCIAL
+    { cat: 'Social', title: 'X / Twitter', url: 'https://twitter.com', sub: 'Posts' },
+    { cat: 'Social', title: 'Reddit', url: 'https://www.reddit.com', sub: 'Communities' },
+    { cat: 'Social', title: 'Discord', url: 'https://discord.com/app', sub: 'App' },
+    { cat: 'Social', title: 'Instagram', url: 'https://www.instagram.com', sub: 'Photos' },
+    { cat: 'Social', title: 'LinkedIn', url: 'https://www.linkedin.com', sub: 'Professional' },
+
+    // VIDEO
+    { cat: 'Video', title: 'YouTube', url: 'https://www.youtube.com', sub: 'Watch (no login in-app)' },
+    { cat: 'Video', title: 'Twitch', url: 'https://www.twitch.tv', sub: 'Channels' },
+    { cat: 'Video', title: 'Kick', url: 'https://kick.com', sub: 'Streams' },
+    { cat: 'Video', title: 'Vimeo', url: 'https://vimeo.com', sub: 'Creative' },
+    { cat: 'Video', title: 'Netflix', url: 'https://www.netflix.com', sub: 'Movies & Shows' },
+
+    // PRODUCTIVITY
+    { cat: 'Productivity', title: 'Notion', url: 'https://www.notion.so', sub: 'Docs' },
+    { cat: 'Productivity', title: 'Google Docs', url: 'https://docs.google.com', sub: '(Auth opens externally)' },
+    { cat: 'Productivity', title: 'Trello', url: 'https://trello.com', sub: 'Boards' },
+    { cat: 'Productivity', title: 'Figma', url: 'https://www.figma.com', sub: 'Design' },
+    { cat: 'Productivity', title: 'Slack', url: 'https://slack.com', sub: 'Team Chat' },
+
+    // MY LINKS
+    { cat: 'My Links', title: 'SideSwitch Website', url: 'https://www.sideswitch.app', sub: 'Promo' },
+    { cat: 'My Links', title: 'GitHub', url: 'https://github.com', sub: 'Code' },
+    { cat: 'My Links', title: 'Portfolio', url: 'https://your-portfolio.example', sub: 'Personal' },
+];
+
+const CATS = ['News', 'Social', 'Video', 'Productivity', 'My Links'];
+
 // Current site
 let currentSite = null;
 let loadRetries = 0;
@@ -423,104 +461,190 @@ async function removeSite(siteId) {
     console.log('Removed site:', siteId);
 }
 
-// Modal handling
-function openModal() {
-    console.log('Opening modal...');
+// New Modal System
+function openAddModal() {
+    console.log('Opening new modal...');
+    
+    // Ensure dim overlay is cleared when modal opens
+    if (dimOverlay) {
+        dimOverlay.classList.remove('active');
+        console.log('Cleared dim overlay');
+    }
+    
     const modal = document.getElementById('add-site-modal');
     if (!modal) {
         console.error('Modal element not found');
         return;
     }
     
-    console.log('Modal element found:', modal);
-    console.log('Modal current display:', modal.style.display);
-    console.log('Modal computed display:', window.getComputedStyle(modal).display);
+    buildPills();
+    showCategory(CATS[0]);
+    modal.setAttribute('aria-hidden', 'false');
     
-    modal.style.display = 'block';
-    console.log('Modal display set to block');
-    console.log('Modal current display after:', modal.style.display);
-    console.log('Modal computed display after:', window.getComputedStyle(modal).display);
+    // Focus first control for accessibility
+    setTimeout(() => {
+        const firstPill = modal.querySelector('.ss-pill');
+        if (firstPill) firstPill.focus();
+    }, 10);
+}
+
+function closeAddModal() {
+    const modal = document.getElementById('add-site-modal');
+    const grid = document.getElementById('template-grid');
     
-    // Check if modal is actually visible
-    const rect = modal.getBoundingClientRect();
-    console.log('Modal bounding rect:', rect);
+    modal.setAttribute('aria-hidden', 'true');
+    grid.innerHTML = '';
     
-    const modalContent = modal.querySelector('.modal-content');
-    if (modalContent) {
-        const contentRect = modalContent.getBoundingClientRect();
-        console.log('Modal content bounding rect:', contentRect);
-        console.log('Modal content computed styles:', {
-            display: window.getComputedStyle(modalContent).display,
-            visibility: window.getComputedStyle(modalContent).visibility,
-            opacity: window.getComputedStyle(modalContent).opacity,
-            width: window.getComputedStyle(modalContent).width,
-            height: window.getComputedStyle(modalContent).height
-        });
+    // Reset form
+    const form = document.getElementById('custom-site-form');
+    if (form) form.reset();
+}
+
+// Settings Modal Functions
+function openSettingsModal() {
+    console.log('Opening settings modal...');
+    
+    // Ensure dim overlay is cleared when modal opens
+    if (dimOverlay) {
+        dimOverlay.classList.remove('active');
+        console.log('Cleared dim overlay');
     }
     
-    console.log('Rendering categories...');
-    renderCategories();
+    const modal = document.getElementById('settings-modal');
+    if (!modal) {
+        console.error('Settings modal element not found');
+        return;
+    }
     
-    // Fallback: if modal content is not visible, create a simple overlay
+    modal.setAttribute('aria-hidden', 'false');
+    
+    // Focus first control for accessibility
     setTimeout(() => {
-        const modalContent = modal.querySelector('.modal-content');
-        if (!modalContent || modalContent.getBoundingClientRect().width === 0) {
-            console.log('Modal content not visible, creating fallback...');
-            
-            // Create a simple fallback modal
-            const fallbackModal = document.createElement('div');
-            fallbackModal.id = 'fallback-modal';
-            fallbackModal.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: #1a1a1a;
-                color: white;
-                padding: 30px;
-                border-radius: 12px;
-                border: 1px solid #333;
-                z-index: 10001;
-                min-width: 400px;
-                max-width: 90vw;
-                max-height: 80vh;
-                overflow-y: auto;
-            `;
-            
-            fallbackModal.innerHTML = `
-                <h2 style="margin: 0 0 20px 0; color: white;">Add New Site</h2>
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #b3b3b3; margin: 0 0 10px 0;">Quick Add</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <button onclick="addQuickSite({title: 'YouTube', url: 'https://www.youtube.com', icon: '📺'})" style="background: #333; border: 1px solid #555; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">📺 YouTube</button>
-                        <button onclick="addQuickSite({title: 'Twitter', url: 'https://twitter.com', icon: '🐦'})" style="background: #333; border: 1px solid #555; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">🐦 Twitter</button>
-                        <button onclick="addQuickSite({title: 'Discord', url: 'https://discord.com/app', icon: '💬'})" style="background: #333; border: 1px solid #555; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">💬 Discord</button>
-                        <button onclick="addQuickSite({title: 'Spotify', url: 'https://open.spotify.com', icon: '🎵'})" style="background: #333; border: 1px solid #555; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">🎵 Spotify</button>
-                    </div>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #b3b3b3; margin: 0 0 10px 0;">Custom Site</h3>
-                    <input type="text" id="fallback-site-name" placeholder="Site Name" style="width: 100%; padding: 8px; margin-bottom: 8px; background: #333; border: 1px solid #555; color: white; border-radius: 4px;">
-                    <input type="url" id="fallback-site-url" placeholder="https://example.com" style="width: 100%; padding: 8px; margin-bottom: 8px; background: #333; border: 1px solid #555; color: white; border-radius: 4px;">
-                </div>
-                <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                    <button onclick="closeFallbackModal()" style="background: #555; border: 1px solid #777; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Cancel</button>
-                    <button onclick="addFallbackSite()" style="background: #e50914; border: 1px solid #f40612; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Add Site</button>
-                </div>
-            `;
-            
-            document.body.appendChild(fallbackModal);
-        }
-    }, 500);
+        const firstControl = modal.querySelector('select, input');
+        if (firstControl) firstControl.focus();
+    }, 10);
+}
+
+function closeSettingsModal() {
+    const modal = document.getElementById('settings-modal');
+    modal.setAttribute('aria-hidden', 'true');
+}
+
+function buildPills() {
+    const pills = document.getElementById('cat-pills');
+    pills.innerHTML = '';
+    
+    for (const cat of CATS) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'ss-pill';
+        button.textContent = cat;
+        button.addEventListener('click', () => showCategory(cat, button));
+        pills.appendChild(button);
+    }
+}
+
+function fav(host) {
+    return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=32`;
+}
+
+function showCategory(cat, btn) {
+    const pills = document.getElementById('cat-pills');
+    const grid = document.getElementById('template-grid');
+    
+    // Update active pill
+    pills.querySelectorAll('.ss-pill').forEach(p => p.classList.toggle('active', p === btn));
+    
+    // Filter and display templates
+    const items = TEMPLATES.filter(t => t.cat === cat);
+    grid.innerHTML = '';
+    
+    for (const template of items) {
+        const host = (() => {
+            try { return new URL(template.url).hostname; } catch { return ''; }
+        })();
+        
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'ss-tile';
+        el.innerHTML = `
+            <span class="ss-ico"><img alt="" src="${fav(host)}"></span>
+            <span class="ss-txt">
+                <span class="ss-title">${template.title}</span>
+                <span class="ss-sub">${template.sub || host}</span>
+            </span>
+        `;
+        
+        el.addEventListener('click', async () => {
+            await addSiteViaModal({ 
+                title: template.title, 
+                url: template.url, 
+                audio: false, 
+                zoom: 1 
+            });
+            closeAddModal();
+        });
+        
+        grid.appendChild(el);
+    }
+}
+
+async function addSiteViaModal(values) {
+    try {
+        console.log('Adding site via modal:', values);
+        const site = {
+            id: generateId(),
+            title: values.title.trim(),
+            url: values.url,
+            group: 'Quick Add',
+            audio: values.audio || false,
+            zoom: values.zoom || 1.0,
+            pinned: false,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        siteDB.items.push(site);
+        await saveSites();
+        renderSites();
+        
+        // Flash the new button
+        setTimeout(() => {
+            const newButton = document.querySelector(`[data-site="${site.id}"]`);
+            if (newButton) {
+                newButton.classList.add('pulse');
+                setTimeout(() => newButton.classList.remove('pulse'), 1000);
+            }
+        }, 100);
+        
+        console.log('Site added successfully');
+    } catch (error) {
+        console.error('Error adding site:', error);
+    }
 }
 
 function closeModal() {
     const modal = document.getElementById('add-site-modal');
-    modal.style.display = 'none';
+    
+    // Remove show class to trigger background fade out
+    modal.classList.remove('show');
+    
+    // Ensure dim overlay is cleared when modal closes
+    if (dimOverlay) {
+        dimOverlay.classList.remove('active');
+        console.log('Cleared dim overlay on modal close');
+    }
+    
+    // Hide modal after transition completes
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300); // Match CSS transition duration
     
     // Reset form
     const form = document.getElementById('add-site-form');
-    form.reset();
+    if (form) {
+        form.reset();
+    }
     
     // Reset to quick add tab
     switchTab('quick');
@@ -530,6 +654,12 @@ function closeFallbackModal() {
     const fallbackModal = document.getElementById('fallback-modal');
     if (fallbackModal) {
         fallbackModal.remove();
+    }
+    
+    // Ensure dim overlay is cleared when fallback modal closes
+    if (dimOverlay) {
+        dimOverlay.classList.remove('active');
+        console.log('Cleared dim overlay on fallback modal close');
     }
 }
 
@@ -545,6 +675,9 @@ function addFallbackSite() {
             audio: false,
             pinned: false
         });
+        
+        // Close fallback modal and clear blur
+        closeFallbackModal();
     }
 }
 
@@ -601,7 +734,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Load sites and initialize
     await loadSites();
-    
+
     // Set up navigation click handlers
     document.querySelector('#navigation').addEventListener('click', (e) => {
         const button = e.target.closest('.btn[data-site]');
@@ -611,34 +744,49 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Add Site button
-    document.getElementById('add-site-btn').addEventListener('click', openModal);
+    document.getElementById('add-site-btn').addEventListener('click', openAddModal);
+    
+    // Settings button
+    document.getElementById('settings-btn').addEventListener('click', openSettingsModal);
     
     // Modal close buttons
-    document.getElementById('close-add-site').addEventListener('click', closeModal);
-    document.getElementById('cancel-add-site').addEventListener('click', closeModal);
-    
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    const modal = document.getElementById('add-site-modal');
+    modal.addEventListener('click', (e) => {
+        if (e.target.matches('[data-close]')) closeAddModal();
     });
     
-    // Save site button
-    document.getElementById('save-site').addEventListener('click', async () => {
-        const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
-        
-        if (activeTab === 'custom') {
-            const form = document.getElementById('add-site-form');
-            const formData = {
-                name: document.getElementById('site-name').value,
-                url: document.getElementById('site-url').value,
-                group: document.getElementById('site-group').value,
-                audio: document.getElementById('site-audio').checked,
-                pinned: document.getElementById('site-pinned').checked
-            };
-            
-            if (formData.name && formData.url) {
-                await addCustomSite(formData);
+    const settingsModal = document.getElementById('settings-modal');
+    settingsModal.addEventListener('click', (e) => {
+        if (e.target.matches('[data-close]')) closeSettingsModal();
+    });
+    
+    // Escape key to close modals
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (modal.getAttribute('aria-hidden') === 'false') {
+                closeAddModal();
+            } else if (settingsModal.getAttribute('aria-hidden') === 'false') {
+                closeSettingsModal();
             }
+        }
+    });
+    
+    // Custom form submit
+    const form = document.getElementById('custom-site-form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('cs-title').value.trim();
+        const url = document.getElementById('cs-url').value.trim();
+        const audio = document.getElementById('cs-audio').checked;
+        const zoom = parseFloat(document.getElementById('cs-zoom').value) || 1;
+        
+        try {
+            const u = new URL(url);
+            if (!/^https?:$/.test(u.protocol)) throw new Error();
+            await addSiteViaModal({ title, url: u.toString(), audio, zoom });
+            closeAddModal();
+        } catch {
+            alert('Please enter a valid http(s) URL.');
         }
     });
 
@@ -670,7 +818,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Close modal when clicking outside
     window.addEventListener('click', (e) => {
         const modal = document.getElementById('add-site-modal');
-        if (e.target === modal) {
+        if (e.target === modal && modal.classList.contains('show')) {
             closeModal();
         }
     });

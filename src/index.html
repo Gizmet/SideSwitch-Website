@@ -18,6 +18,9 @@
 
             <!-- Bottom actions -->
             <div class="nav-bottom">
+                <button id="settings-btn" class="btn secondary settings-btn">
+                    <span class="settings-icon" aria-hidden="true">⚙</span> Settings
+                </button>
                 <button id="add-site-btn" class="btn secondary">
                     <span class="plus" aria-hidden="true">＋</span> Add Site
                 </button>
@@ -58,105 +61,103 @@
         </div>
     </div>
 
-    <div id="settings-modal" class="modal">
-        <div class="modal-content">
-            <h2>Settings</h2>
-            <div class="settings-group">
-                <label>
-                    <input type="checkbox" id="dark-mode">
-                    Dark Mode
-                </label>
-                <label>
-                    <input type="checkbox" id="auto-connect">
-                    Auto Connect
-                </label>
-                <label>
-                    <input type="checkbox" id="save-logs">
-                    Save Chat Logs
-                </label>
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="ss-modal" aria-hidden="true" role="dialog" aria-labelledby="settingsTitle">
+        <div class="ss-modal__backdrop" data-close></div>
+
+        <div class="ss-modal__card" role="document">
+            <div class="ss-modal__head">
+                <h2 id="settingsTitle">Settings</h2>
+                <button class="ss-x" data-close aria-label="Close">✕</button>
             </div>
-            <div class="settings-group">
-                <label>
-                    Privacy Mode
-                    <select id="privacy-mode">
-                        <option value="normal">Normal</option>
-                        <option value="strict">Strict</option>
-                        <option value="custom">Custom</option>
-                    </select>
-                </label>
-            </div>
-            <div class="button-group">
-                <button onclick="saveSettings()">Save</button>
-                <button onclick="closeSettings()">Cancel</button>
+
+            <div class="ss-modal__body">
+                <div class="settings-section">
+                    <h3>Blur Settings</h3>
+                    <div class="setting-group">
+                        <label for="blur-intensity">Blur Intensity:</label>
+                        <select id="blur-intensity">
+                            <option value="5">Light (5px)</option>
+                            <option value="10">Medium (10px)</option>
+                            <option value="15" selected>Strong (15px)</option>
+                            <option value="20">Maximum (20px)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Camera Settings</h3>
+                    <div class="setting-group">
+                        <label for="camera-select">Camera:</label>
+                        <select id="camera-select">
+                            <option value="default">Default Camera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Appearance</h3>
+                    <div class="setting-group">
+                        <label class="ss-check">
+                            <input type="checkbox" id="dark-mode">
+                            <span class="checkmark"></span>
+                            Dark Mode (Always On)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="ss-actions">
+                    <button type="button" class="btn secondary" data-close>Close</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Add Site Modal -->
-    <div id="add-site-modal" class="modal">
-        <div class="modal-content add-site-modal">
-            <div class="modal-header">
-                <h2>Add New Site</h2>
-                <button class="close-btn" id="close-add-site">×</button>
-            </div>
-            
-            <div class="modal-tabs">
-                <button class="tab-btn active" data-tab="quick">Quick Add</button>
-                <button class="tab-btn" data-tab="custom">Custom Site</button>
+    <div id="add-site-modal" class="ss-modal" aria-hidden="true" role="dialog" aria-labelledby="addSiteTitle">
+        <div class="ss-modal__backdrop" data-close></div>
+
+        <div class="ss-modal__card" role="document">
+            <div class="ss-modal__head">
+                <h2 id="addSiteTitle">Add Site</h2>
+                <button class="ss-x" data-close aria-label="Close">✕</button>
             </div>
 
-            <!-- Quick Add Tab -->
-            <div class="tab-content active" id="quick-tab">
-                <div class="categories-container">
-                    <div class="categories-grid" id="categories-grid">
-                        <!-- Categories will be populated by JavaScript -->
-                    </div>
+            <div class="ss-modal__body">
+                <!-- Category pills -->
+                <div class="ss-pills" id="cat-pills" role="tablist" aria-label="Categories">
+                    <!-- populated by JS -->
                 </div>
-            </div>
 
-            <!-- Custom Site Tab -->
-            <div class="tab-content" id="custom-tab">
-                <form id="add-site-form" class="add-site-form">
-                    <div class="form-group">
-                        <label for="site-name">Site Name</label>
-                        <input type="text" id="site-name" placeholder="e.g. My Custom Site" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="site-url">Site URL</label>
-                        <input type="url" id="site-url" placeholder="https://example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="site-group">Category (Optional)</label>
-                        <select id="site-group">
-                            <option value="">Select a category</option>
-                            <option value="News & Media">News & Media</option>
-                            <option value="Social Media">Social Media</option>
-                            <option value="Video & Streaming">Video & Streaming</option>
-                            <option value="Communication">Communication</option>
-                            <option value="Productivity">Productivity</option>
-                            <option value="Entertainment">Entertainment</option>
-                            <option value="Gaming">Gaming</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-options">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="site-audio">
-                            <span class="checkmark"></span>
-                            Enable audio by default
+                <!-- Template grid -->
+                <div class="ss-grid" id="template-grid" aria-live="polite"></div>
+
+                <!-- Divider -->
+                <div class="ss-divider"><span>or add a custom link</span></div>
+
+                <!-- Custom form -->
+                <form id="custom-site-form" class="ss-form">
+                    <div class="ss-row">
+                        <label>Title
+                            <input id="cs-title" type="text" placeholder="e.g. YouTube" required maxlength="40">
                         </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="site-pinned">
-                            <span class="checkmark"></span>
-                            Pin to top
+                    </div>
+                    <div class="ss-row">
+                        <label>URL
+                            <input id="cs-url" type="url" inputmode="url" placeholder="https://example.com" required>
                         </label>
+                    </div>
+                    <div class="ss-row ss-row--split">
+                        <label class="ss-check"><input id="cs-audio" type="checkbox"> Allow site audio</label>
+                        <label>Zoom
+                            <input id="cs-zoom" type="number" step="0.05" min="0.8" max="1.4" value="1">
+                        </label>
+                    </div>
+                    <div class="ss-actions">
+                        <button type="button" class="btn secondary" data-close>Cancel</button>
+                        <button type="submit" class="btn primary">Add Site</button>
                     </div>
                 </form>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" id="cancel-add-site" class="btn secondary">Cancel</button>
-                <button type="button" id="save-site" class="btn primary">Add Site</button>
             </div>
         </div>
     </div>

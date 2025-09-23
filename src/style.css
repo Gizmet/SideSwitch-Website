@@ -3,36 +3,36 @@
 
 /* CSS Variables - Netflix-inspired professional palette */
 :root {
-    --bg: #0a0a0a;
-    --panel: #141414;
-    --surface: #1a1a1a;
-    --surface-hover: #262626;
-    --ink: #ffffff;
-    --ink-secondary: #b3b3b3;
-    --ink-muted: #737373;
-    --accent: #e50914;
-    --accent-hover: #f40612;
-    --accent-light: #ff6b6b;
-    --blue: #0071eb;
-    --blue-hover: #0080ff;
-    --success: #00d4aa;
-    --warning: #ffa500;
-    --error: #e50914;
-    --border: rgba(255, 255, 255, 0.1);
-    --border-hover: rgba(255, 255, 255, 0.2);
-    --shadow: rgba(0, 0, 0, 0.3);
-    --shadow-hover: rgba(0, 0, 0, 0.5);
-    --glow: rgba(229, 9, 20, 0.3);
-    --radius-sm: 6px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 16px;
-    --spacing-xs: 4px;
-    --spacing-sm: 8px;
-    --spacing-md: 12px;
-    --spacing-lg: 16px;
-    --spacing-xl: 24px;
-    --spacing-2xl: 32px;
+  --bg: #0a0a0a;
+  --panel: #141414;
+  --surface: #1a1a1a;
+  --surface-hover: #262626;
+  --ink: #ffffff;
+  --ink-secondary: #b3b3b3;
+  --ink-muted: #737373;
+  --accent: #39FF14;
+  --accent-hover: #2ECC71;
+  --accent-light: #58FF3A;
+  --blue: #39FF14;
+  --blue-hover: #2ECC71;
+  --success: #39FF14;
+  --warning: #ffa500;
+  --error: #e50914;
+  --border: rgba(57, 255, 20, 0.2);
+  --border-hover: rgba(57, 255, 20, 0.4);
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.5);
+  --glow: rgba(57, 255, 20, 0.4);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
 }
 
 /* Base styles */
@@ -81,9 +81,9 @@ body {
     width: 40px;
     height: 40px;
     border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    background: linear-gradient(135deg, #39FF14, #2ECC71);
     box-shadow: 
-        0 8px 32px var(--glow),
+        0 8px 32px rgba(57, 255, 20, 0.4),
         0 0 0 1px var(--border) inset,
         0 2px 8px rgba(0, 0, 0, 0.3);
     display: grid;
@@ -190,12 +190,14 @@ body {
 
 .btn.secondary {
     background: var(--surface);
-    color: var(--ink-secondary);
+    color: #39FF14;
+    border: 1px solid rgba(57, 255, 20, 0.3);
 }
 
 .btn.secondary:hover {
-    color: var(--ink);
-    background: var(--surface-hover);
+    color: #2ECC71;
+    background: rgba(57, 255, 20, 0.1);
+    border-color: rgba(57, 255, 20, 0.5);
 }
 
 .btn.secondary .plus {
@@ -205,24 +207,24 @@ body {
     font-size: 16px;
 }
 
-/* Primary button - Netflix red */
+/* Primary button - Green theme */
 .btn.primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-    border: 1px solid var(--accent);
-    color: #ffffff;
+    background: linear-gradient(135deg, #39FF14, #2ECC71);
+    border: 1px solid #39FF14;
+    color: #000000;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     box-shadow: 
-        0 4px 15px var(--glow),
-        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        0 4px 15px rgba(57, 255, 20, 0.4),
+        0 0 0 1px rgba(0, 0, 0, 0.1) inset;
 }
 
 .btn.primary:hover {
-    background: linear-gradient(135deg, var(--accent-hover), var(--accent-light));
+    background: linear-gradient(135deg, #2ECC71, #39FF14);
     box-shadow: 
-        0 8px 25px var(--glow),
-        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        0 8px 25px rgba(57, 255, 20, 0.6),
+        0 0 0 1px rgba(0, 0, 0, 0.2) inset;
     transform: translateY(-3px);
 }
 
@@ -327,8 +329,8 @@ body {
 }
 
 .nav-button.purple {
-    background: linear-gradient(to right, #4f46e5, #6366f1) !important;
-    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    background: linear-gradient(to right, #39FF14, #2ECC71) !important;
+    border: 2px solid rgba(57, 255, 20, 0.5) !important;
     display: flex !important;
     align-items: center !important;
     width: 90% !important;
@@ -336,15 +338,15 @@ body {
     padding: 12px 16px !important;
     font-size: 14px !important;
     font-weight: 600 !important;
-    color: white !important;
+    color: #000000 !important;
     z-index: 1000 !important;
     position: relative !important;
 }
 
 .nav-button.purple:hover {
-    background: linear-gradient(to right, #6366f1, #818cf8) !important;
+    background: linear-gradient(to right, #2ECC71, #39FF14) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(57, 255, 20, 0.4) !important;
 }
 
 .nav-button.purple .rocket {
@@ -422,9 +424,9 @@ webview {
     font-weight: 500;
     font-size: 17px;
     padding: 0.8em;
-    color: white;
-    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-    border: none;
+    color: #39FF14;
+    background: linear-gradient(to right, #0a0a0a, #1a1a1a, #0f0f0f);
+    border: 1px solid rgba(57, 255, 20, 0.3);
     letter-spacing: 0.05em;
     border-radius: 16px;
     transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
@@ -436,23 +438,25 @@ webview {
 
 #toggle-blur:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(to right, #1a1744, #302b63, #24243e);
+    box-shadow: 0 4px 8px rgba(57, 255, 20, 0.3);
+    background: linear-gradient(to right, #1a1a1a, #2a2a2a, #1f1f1f);
+    border-color: rgba(57, 255, 20, 0.5);
 }
 
 #toggle-blur.active {
-    background: linear-gradient(to right, #1a1a2e, #16213e, #0f3460);
-    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
+    background: linear-gradient(to right, #39FF14, #2ECC71);
+    color: #000000;
+    box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.5),
                 0 2px 4px rgba(0, 0, 0, 0.2),
-                0 0 15px rgba(48, 43, 99, 0.5);
-    border: none;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                0 0 15px rgba(57, 255, 20, 0.4);
+    border: 1px solid #39FF14;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 #toggle-blur.active:hover {
-    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5),
+    box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.5),
                 0 4px 8px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(48, 43, 99, 0.6);
+                0 0 20px rgba(57, 255, 20, 0.6);
 }
 
 /* Camera Select */
@@ -487,10 +491,10 @@ webview {
 
 #blur-intensity {
     padding: 8px 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(57, 255, 20, 0.1);
+    border: 1px solid rgba(57, 255, 20, 0.3);
     border-radius: 6px;
-    color: #ffffff;
+    color: #39FF14;
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
@@ -500,9 +504,9 @@ webview {
 
 #blur-intensity:focus {
     outline: none;
-    border-color: #3b82f6;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    border-color: #39FF14;
+    background: rgba(57, 255, 20, 0.15);
+    box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.3);
 }
 
 #settings {
@@ -621,38 +625,317 @@ input[type="number"]:focus {
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
-/* Modal styling */
-.modal {
-    display: none;
+/* New Modal Design - Netflix Level */
+.ss-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    z-index: 9999;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    inset: 0;
+    display: none;
+    z-index: 50;
 }
 
-.modal-content {
-    background: var(--panel);
-    padding: 0;
-    border-radius: var(--radius-xl);
-    width: 500px;
-    max-width: 90vw;
-    max-height: 80vh;
+.ss-modal[aria-hidden="false"] {
+    display: block;
+}
+
+.ss-modal__backdrop {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: saturate(120%) blur(6px);
+    -webkit-backdrop-filter: saturate(120%) blur(6px);
+}
+
+.ss-modal__card {
+    position: relative;
+    margin: 6vh auto 0;
+    width: min(860px, 94vw);
+    background: linear-gradient(180deg, #0f141b, #0a0f15);
+    border-radius: 18px;
     border: 1px solid var(--border);
     box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    color: var(--ink);
+    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.ss-modal__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.ss-modal__head h2 {
+    margin: 0;
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.ss-x {
+    background: transparent;
+    border: 0;
+    color: var(--ink-muted);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.ss-x:hover {
+    background: var(--surface-hover);
+    color: var(--ink);
+}
+
+.ss-modal__body {
+    padding: 16px 18px 18px;
+}
+
+/* Category Pills */
+.ss-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.ss-pill {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #121820;
+    color: var(--ink);
+    font: 600 12px/1 "Inter";
+    cursor: pointer;
+    transition: transform 0.06s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.ss-pill:hover {
+    transform: translateY(-1px);
+    border-color: rgba(57, 255, 20, 0.5);
+}
+
+.ss-pill.active {
+    border-color: rgba(57, 255, 20, 0.5);
+    box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.3);
+    background: rgba(57, 255, 20, 0.1);
+}
+
+/* Template Grid */
+.ss-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.ss-tile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #0f151d;
+    cursor: pointer;
+    transition: transform 0.06s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.ss-tile:hover {
+    transform: translateY(-1px);
+    border-color: rgba(57, 255, 20, 0.5);
+    box-shadow: 0 8px 24px rgba(57, 255, 20, 0.3);
+}
+
+.ss-ico {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background: #1b2230;
+    display: grid;
+    place-items: center;
     overflow: hidden;
+}
+
+.ss-ico img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ss-txt {
+    display: flex;
+    flex-direction: column;
+}
+
+.ss-title {
+    font: 700 13px/1.1 "Inter";
+    color: var(--ink);
+}
+
+.ss-sub {
+    font: 600 11px/1.2 "Inter";
+    color: var(--ink-muted);
+}
+
+/* Divider */
+.ss-divider {
+    display: grid;
+    place-items: center;
+    margin: 12px 0 6px;
+}
+
+.ss-divider span {
+    color: var(--ink-muted);
+    font: 600 11px/1 "Inter";
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+/* Form */
+.ss-form .ss-row {
+    margin: 8px 0;
+}
+
+.ss-form input[type="text"], 
+.ss-form input[type="url"], 
+.ss-form input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0f141b;
+    color: var(--ink);
+    font-family: 'Inter', system-ui;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.ss-form input:focus {
+    outline: none;
+    border-color: rgba(57, 255, 20, 0.5);
+    box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.1);
+}
+
+.ss-row--split {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+}
+
+.ss-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink-muted);
+    font-size: 14px;
+}
+
+.ss-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+/* Pulse animation for new sites */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.btn.pulse {
+    animation: pulse 0.6s ease-in-out;
+}
+
+/* Settings Button */
+.settings-btn {
+    margin-bottom: 8px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.settings-icon {
+    font-size: 16px;
+    margin-right: 8px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.settings-btn:hover .settings-icon {
+    transform: rotate(90deg);
+}
+
+/* Settings Modal Styles */
+.settings-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.settings-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.settings-section h3 {
+    margin: 0 0 12px 0;
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.setting-group {
+    margin-bottom: 16px;
+}
+
+.setting-group:last-child {
+    margin-bottom: 0;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Inter', system-ui;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+.setting-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0f141b;
+    color: var(--ink);
+    font-family: 'Inter', system-ui;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.setting-group select:focus {
+    outline: none;
+    border-color: rgba(57, 255, 20, 0.5);
+    box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.1);
 }
 
 /* Add Site Modal specific styling */
@@ -1313,17 +1596,18 @@ webview[src*="ome.tv"] {
 
 /* ADD SITE button specific styles */
 #add-site-btn {
-    background: linear-gradient(to right, #4f46e5, #6366f1) !important;
-    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    background: linear-gradient(to right, #39FF14, #2ECC71) !important;
+    border: 2px solid rgba(57, 255, 20, 0.5) !important;
     margin: 20px auto !important;
     position: relative !important;
     z-index: 100 !important;
+    color: #000000 !important;
 }
 
 #add-site-btn:hover {
-    background: linear-gradient(to right, #6366f1, #818cf8) !important;
+    background: linear-gradient(to right, #2ECC71, #39FF14) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(57, 255, 20, 0.4) !important;
 }
 
 #add-site-btn .rocket {
