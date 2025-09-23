@@ -128,17 +128,131 @@ function hideModal(modalId) {
 // Site management functions
 async function loadSites() {
     try {
+        console.log('Loading sites...');
+        console.log('electronAPI available:', !!window.electronAPI);
+        
+        if (!window.electronAPI) {
+            console.error('electronAPI not available, using fallback');
+            // Fallback to default sites
+            siteDB = { 
+                version: 1, 
+                items: [
+                    {
+                        id: 'ome-tv',
+                        title: 'OME',
+                        url: 'https://ome.tv',
+                        group: 'Chat',
+                        audio: false,
+                        zoom: 1.0,
+                        pinned: true,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    },
+                    {
+                        id: 'monkey-app',
+                        title: 'MONKEY',
+                        url: 'https://monkey.app',
+                        group: 'Chat',
+                        audio: false,
+                        zoom: 1.0,
+                        pinned: true,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    },
+                    {
+                        id: 'uhmegle-com',
+                        title: 'UHMEGLE',
+                        url: 'https://uhmegle.com',
+                        group: 'Chat',
+                        audio: false,
+                        zoom: 1.0,
+                        pinned: true,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    }
+                ]
+            };
+            
+            // Fallback categories
+            siteCategories = {
+                'News & Media': [
+                    { title: 'BBC News', url: 'https://www.bbc.com/news', icon: '📺' },
+                    { title: 'CNN', url: 'https://www.cnn.com', icon: '📰' },
+                    { title: 'Reuters', url: 'https://www.reuters.com', icon: '📊' },
+                    { title: 'The Guardian', url: 'https://www.theguardian.com', icon: '🛡️' },
+                    { title: 'NPR', url: 'https://www.npr.org', icon: '🎙️' }
+                ],
+                'Social Media': [
+                    { title: 'Twitter/X', url: 'https://twitter.com', icon: '🐦' },
+                    { title: 'Instagram', url: 'https://www.instagram.com', icon: '📸' },
+                    { title: 'TikTok', url: 'https://www.tiktok.com', icon: '🎵' },
+                    { title: 'Reddit', url: 'https://www.reddit.com', icon: '🤖' },
+                    { title: 'LinkedIn', url: 'https://www.linkedin.com', icon: '💼' }
+                ],
+                'Video & Streaming': [
+                    { title: 'YouTube', url: 'https://www.youtube.com', icon: '📺' },
+                    { title: 'Twitch', url: 'https://www.twitch.tv', icon: '🎮' },
+                    { title: 'Vimeo', url: 'https://vimeo.com', icon: '🎬' },
+                    { title: 'Netflix', url: 'https://www.netflix.com', icon: '🎭' },
+                    { title: 'Hulu', url: 'https://www.hulu.com', icon: '🍿' }
+                ],
+                'Communication': [
+                    { title: 'Discord', url: 'https://discord.com/app', icon: '💬' },
+                    { title: 'Slack', url: 'https://slack.com', icon: '💼' },
+                    { title: 'Zoom', url: 'https://zoom.us', icon: '📹' },
+                    { title: 'Teams', url: 'https://teams.microsoft.com', icon: '👥' },
+                    { title: 'WhatsApp Web', url: 'https://web.whatsapp.com', icon: '💚' }
+                ],
+                'Productivity': [
+                    { title: 'Google Drive', url: 'https://drive.google.com', icon: '☁️' },
+                    { title: 'Notion', url: 'https://www.notion.so', icon: '📝' },
+                    { title: 'Trello', url: 'https://trello.com', icon: '📋' },
+                    { title: 'Asana', url: 'https://asana.com', icon: '✅' },
+                    { title: 'Figma', url: 'https://www.figma.com', icon: '🎨' }
+                ],
+                'Entertainment': [
+                    { title: 'Spotify', url: 'https://open.spotify.com', icon: '🎵' },
+                    { title: 'SoundCloud', url: 'https://soundcloud.com', icon: '🎧' },
+                    { title: 'Pinterest', url: 'https://www.pinterest.com', icon: '📌' },
+                    { title: 'DeviantArt', url: 'https://www.deviantart.com', icon: '🎨' },
+                    { title: 'Behance', url: 'https://www.behance.net', icon: '💡' }
+                ],
+                'Gaming': [
+                    { title: 'Steam', url: 'https://store.steampowered.com', icon: '🎮' },
+                    { title: 'Epic Games', url: 'https://www.epicgames.com', icon: '🏆' },
+                    { title: 'Battle.net', url: 'https://battle.net', icon: '⚔️' },
+                    { title: 'Origin', url: 'https://www.origin.com', icon: '🎯' },
+                    { title: 'GOG', url: 'https://www.gog.com', icon: '💎' }
+                ]
+            };
+            
+            renderSites();
+            return;
+        }
+        
         siteDB = await window.electronAPI.sites.load();
+        console.log('Loaded siteDB:', siteDB);
+        
         siteCategories = await window.electronAPI.sites.getCategories();
+        console.log('Loaded categories:', siteCategories);
+        
         renderSites();
     } catch (error) {
         console.error('Error loading sites:', error);
+        // Fallback to empty state
+        siteDB = { version: 1, items: [] };
+        siteCategories = {};
+        renderSites();
     }
 }
 
 async function saveSites() {
     try {
-        await window.electronAPI.sites.save(siteDB);
+        if (window.electronAPI) {
+            await window.electronAPI.sites.save(siteDB);
+        } else {
+            console.log('electronAPI not available, skipping save');
+        }
     } catch (error) {
         console.error('Error saving sites:', error);
     }
@@ -188,8 +302,22 @@ function renderSites() {
 }
 
 function renderCategories() {
+    console.log('Rendering categories...');
     const categoriesGrid = document.getElementById('categories-grid');
+    if (!categoriesGrid) {
+        console.error('Categories grid element not found');
+        return;
+    }
+    
     categoriesGrid.innerHTML = '';
+    
+    if (!siteCategories || Object.keys(siteCategories).length === 0) {
+        console.log('No categories available, showing fallback');
+        categoriesGrid.innerHTML = '<div style="text-align: center; color: var(--ink-muted); padding: 20px;">Loading categories...</div>';
+        return;
+    }
+    
+    console.log('Rendering categories:', Object.keys(siteCategories));
     
     Object.entries(siteCategories).forEach(([categoryName, sites]) => {
         const categorySection = document.createElement('div');
@@ -214,44 +342,58 @@ function renderCategories() {
         categorySection.appendChild(pillsContainer);
         categoriesGrid.appendChild(categorySection);
     });
+    
+    console.log('Categories rendered successfully');
 }
 
 async function addQuickSite(siteData) {
-    const site = {
-        id: generateId(),
-        title: siteData.title,
-        url: siteData.url,
-        group: 'Quick Add',
-        audio: false,
-        zoom: 1.0,
-        pinned: false,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-    };
-    
-    siteDB.items.push(site);
-    await saveSites();
-    renderSites();
-    closeModal();
+    try {
+        console.log('Adding quick site:', siteData);
+        const site = {
+            id: generateId(),
+            title: siteData.title,
+            url: siteData.url,
+            group: 'Quick Add',
+            audio: false,
+            zoom: 1.0,
+            pinned: false,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        siteDB.items.push(site);
+        await saveSites();
+        renderSites();
+        closeModal();
+        console.log('Quick site added successfully');
+    } catch (error) {
+        console.error('Error adding quick site:', error);
+    }
 }
 
 async function addCustomSite(formData) {
-    const site = {
-        id: generateId(),
-        title: formData.name.trim(),
-        url: formData.url,
-        group: formData.group || 'Custom',
-        audio: formData.audio || false,
-        zoom: 1.0,
-        pinned: formData.pinned || false,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-    };
-    
-    siteDB.items.push(site);
-    await saveSites();
-    renderSites();
-    closeModal();
+    try {
+        console.log('Adding custom site:', formData);
+        const site = {
+            id: generateId(),
+            title: formData.name.trim(),
+            url: formData.url,
+            group: formData.group || 'Custom',
+            audio: formData.audio || false,
+            zoom: 1.0,
+            pinned: formData.pinned || false,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        siteDB.items.push(site);
+        await saveSites();
+        renderSites();
+        closeModal();
+        console.log('Custom site added successfully');
+    } catch (error) {
+        console.error('Error adding custom site:', error);
+    }
 }
 
 async function removeSite(siteId) {
@@ -283,9 +425,93 @@ async function removeSite(siteId) {
 
 // Modal handling
 function openModal() {
+    console.log('Opening modal...');
     const modal = document.getElementById('add-site-modal');
+    if (!modal) {
+        console.error('Modal element not found');
+        return;
+    }
+    
+    console.log('Modal element found:', modal);
+    console.log('Modal current display:', modal.style.display);
+    console.log('Modal computed display:', window.getComputedStyle(modal).display);
+    
     modal.style.display = 'block';
+    console.log('Modal display set to block');
+    console.log('Modal current display after:', modal.style.display);
+    console.log('Modal computed display after:', window.getComputedStyle(modal).display);
+    
+    // Check if modal is actually visible
+    const rect = modal.getBoundingClientRect();
+    console.log('Modal bounding rect:', rect);
+    
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        const contentRect = modalContent.getBoundingClientRect();
+        console.log('Modal content bounding rect:', contentRect);
+        console.log('Modal content computed styles:', {
+            display: window.getComputedStyle(modalContent).display,
+            visibility: window.getComputedStyle(modalContent).visibility,
+            opacity: window.getComputedStyle(modalContent).opacity,
+            width: window.getComputedStyle(modalContent).width,
+            height: window.getComputedStyle(modalContent).height
+        });
+    }
+    
+    console.log('Rendering categories...');
     renderCategories();
+    
+    // Fallback: if modal content is not visible, create a simple overlay
+    setTimeout(() => {
+        const modalContent = modal.querySelector('.modal-content');
+        if (!modalContent || modalContent.getBoundingClientRect().width === 0) {
+            console.log('Modal content not visible, creating fallback...');
+            
+            // Create a simple fallback modal
+            const fallbackModal = document.createElement('div');
+            fallbackModal.id = 'fallback-modal';
+            fallbackModal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #1a1a1a;
+                color: white;
+                padding: 30px;
+                border-radius: 12px;
+                border: 1px solid #333;
+                z-index: 10001;
+                min-width: 400px;
+                max-width: 90vw;
+                max-height: 80vh;
+                overflow-y: auto;
+            `;
+            
+            fallbackModal.innerHTML = `
+                <h2 style="margin: 0 0 20px 0; color: white;">Add New Site</h2>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #b3b3b3; margin: 0 0 10px 0;">Quick Add</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <button onclick="addQuickSite({title: 'YouTube', url: 'https://www.youtube.com', icon: '📺'})" style="background: #333; border: 1px solid #555; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">📺 YouTube</button>
+                        <button onclick="addQuickSite({title: 'Twitter', url: 'https://twitter.com', icon: '🐦'})" style="background: #333; border: 1px solid #555; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">🐦 Twitter</button>
+                        <button onclick="addQuickSite({title: 'Discord', url: 'https://discord.com/app', icon: '💬'})" style="background: #333; border: 1px solid #555; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">💬 Discord</button>
+                        <button onclick="addQuickSite({title: 'Spotify', url: 'https://open.spotify.com', icon: '🎵'})" style="background: #333; border: 1px solid #555; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">🎵 Spotify</button>
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #b3b3b3; margin: 0 0 10px 0;">Custom Site</h3>
+                    <input type="text" id="fallback-site-name" placeholder="Site Name" style="width: 100%; padding: 8px; margin-bottom: 8px; background: #333; border: 1px solid #555; color: white; border-radius: 4px;">
+                    <input type="url" id="fallback-site-url" placeholder="https://example.com" style="width: 100%; padding: 8px; margin-bottom: 8px; background: #333; border: 1px solid #555; color: white; border-radius: 4px;">
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button onclick="closeFallbackModal()" style="background: #555; border: 1px solid #777; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Cancel</button>
+                    <button onclick="addFallbackSite()" style="background: #e50914; border: 1px solid #f40612; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Add Site</button>
+                </div>
+            `;
+            
+            document.body.appendChild(fallbackModal);
+        }
+    }, 500);
 }
 
 function closeModal() {
@@ -298,6 +524,28 @@ function closeModal() {
     
     // Reset to quick add tab
     switchTab('quick');
+}
+
+function closeFallbackModal() {
+    const fallbackModal = document.getElementById('fallback-modal');
+    if (fallbackModal) {
+        fallbackModal.remove();
+    }
+}
+
+function addFallbackSite() {
+    const name = document.getElementById('fallback-site-name').value;
+    const url = document.getElementById('fallback-site-url').value;
+    
+    if (name && url) {
+        addCustomSite({
+            name: name,
+            url: url,
+            group: 'Custom',
+            audio: false,
+            pinned: false
+        });
+    }
 }
 
 function switchTab(tabName) {
