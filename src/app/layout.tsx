@@ -3,11 +3,20 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-inter"
+});
 
 export const metadata: Metadata = {
-  title: "SideSwitch - Random Chats, Zero Regrets",
-  description: "One-click site switching, built-in blur for surprises, and pro-level streams—all for $9.99/month.",
+  title: "SideSwitch — Switch Smarter. Stream Stronger.",
+  description: "The creator-first browser for live work. One-click site swaps, blur on tap, OBS-friendly, and stream-safe by design.",
+  openGraph: {
+    title: "SideSwitch — Switch Smarter. Stream Stronger.",
+    description: "The creator-first browser for live work. One-click site swaps, blur on tap, OBS-friendly, and stream-safe by design.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
