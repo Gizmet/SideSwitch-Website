@@ -133,7 +133,7 @@ export default function Home() {
   const secondary = [
     { icon: '🎙️', title: 'OBS-Friendly', desc: 'Prefers OBS Virtual Camera when present. Never steals focus from OBS.' },
     { icon: '🧰', title: 'Per-Site Presets', desc: 'Remember audio mute and zoom per site. Every page opens the way you left it.' },
-    { icon: '🧪', title: 'Live Mode', desc: 'Suppresses popups and update prompts while you're live. Tiny status dot for peace of mind.' },
+    { icon: '🧪', title: 'Live Mode', desc: 'Suppresses popups and update prompts while you\'re live. Tiny status dot for peace of mind.' },
     { icon: '🔒', title: 'Safe Mode', desc: 'Allowlist + external auth routing—Google/Twitch logins open in your default browser.' },
     { icon: '⌨️', title: 'Pro Hotkeys', desc: 'B = Blur • Ctrl+1–9 = QuickDeck slots • Esc = focus. Faster than alt-tabbing.' },
     { icon: '📦', title: 'Import / Export', desc: 'Share and back up QuickDecks as JSON. Move your setup in seconds.' },
