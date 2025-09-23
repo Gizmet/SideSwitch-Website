@@ -637,9 +637,11 @@ input[type="number"]:focus {
 
 .modal-content {
     background: var(--panel);
-    padding: var(--spacing-2xl);
+    padding: 0;
     border-radius: var(--radius-xl);
-    width: 420px;
+    width: 500px;
+    max-width: 90vw;
+    max-height: 80vh;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -650,6 +652,258 @@ input[type="number"]:focus {
         0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+/* Add Site Modal specific styling */
+.add-site-modal {
+    width: 600px;
+    max-height: 85vh;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--ink-muted);
+    font-size: 24px;
+    font-weight: 300;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: var(--surface-hover);
+    color: var(--ink);
+}
+
+/* Modal Tabs */
+.modal-tabs {
+    display: flex;
+    padding: 0 var(--spacing-xl);
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--ink-muted);
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 14px;
+    font-weight: 600;
+    padding: var(--spacing-md) var(--spacing-lg);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+}
+
+.tab-btn:hover {
+    color: var(--ink);
+    background: var(--surface);
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    padding: var(--spacing-xl);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Categories Grid */
+.categories-container {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.categories-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.category-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.category-title {
+    color: var(--ink);
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-sm) 0;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.site-pill {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    color: var(--ink-secondary);
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.site-pill:hover {
+    background: var(--surface-hover);
+    border-color: var(--border-hover);
+    color: var(--ink);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.site-pill:active {
+    transform: translateY(0);
+}
+
+.site-pill .icon {
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+/* Form styling updates */
+.add-site-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    color: var(--ink);
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.form-group select {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    color: var(--ink);
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: var(--blue);
+    background: var(--surface-hover);
+    box-shadow: 0 0 0 3px rgba(0, 113, 235, 0.2);
+}
+
+.form-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--ink-secondary);
+    font-family: 'SF Pro Display', 'Inter', system-ui;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-top: 1px solid var(--border);
+    background: var(--surface);
 }
 
 .modal h2 {

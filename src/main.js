@@ -1,5 +1,6 @@
-const { app, BrowserWindow, session, ipcMain } = require('electron');
+const { app, BrowserWindow, session, ipcMain, shell } = require('electron');
 const path = require('path');
+const { loadSites, saveSites, isValidUrl, hostname, getDefaultSites, getSiteCategories } = require('./main/sites-store');
 
 // Media permissions and hardware acceleration
 app.commandLine.appendSwitch('use-fake-ui-for-media-stream');
@@ -56,11 +57,12 @@ function createWindow() {
     height: 800,
     autoHideMenuBar: true,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false,
+      contextIsolation: true,
       webviewTag: true,
       webSecurity: false,
       allowRunningInsecureContent: true,
+      preload: path.join(__dirname, 'preload.js'),
       experimentalFeatures: true,
       enableWebSQL: true,
       nativeWindowOpen: true,
@@ -83,6 +85,22 @@ function createWindow() {
   // Main window will be shown when splash animation completes
   mainWindow.once('ready-to-show', () => {
     // Window will be shown by splash completion handler
+  });
+
+  // Handle external navigation for auth domains
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (shouldOpenExternal(url)) {
+      shell.openExternal(url);
+      return { action: 'deny' };
+    }
+    return { action: 'allow' };
+  });
+
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (shouldOpenExternal(url)) {
+      event.preventDefault();
+      shell.openExternal(url);
+    }
   });
 
   // Load the index.html file from the src directory
@@ -173,6 +191,62 @@ app.whenReady().then(() => {
       mainWindow.show();
     }
   });
+
+  // Site management IPC handlers
+  ipcMain.handle('sites:load', () => {
+    const db = loadSites();
+    // If no sites exist, initialize with defaults
+    if (db.items.length === 0) {
+      db.items = getDefaultSites();
+      saveSites(db);
+    }
+    return db;
+  });
+
+  ipcMain.handle('sites:save', (event, db) => {
+    // Sanitize and validate data
+    const clean = {
+      version: 1,
+      items: db.items.filter(item => 
+        item.title && 
+        isValidUrl(item.url) && 
+        item.id
+      ).map(item => ({
+        ...item,
+        url: new URL(item.url).toString(), // normalize URL
+        updatedAt: new Date().toISOString()
+      }))
+    };
+    return saveSites(clean);
+  });
+
+  ipcMain.handle('sites:categories', () => {
+    return getSiteCategories();
+  });
+
+  // Google auth domains that should open externally
+  const EXTERNAL_AUTH_HOSTS = new Set([
+    'accounts.google.com',
+    'accounts.youtube.com',
+    'myaccount.google.com',
+    'oauth2.googleapis.com',
+    'securetoken.google.com',
+    'login.microsoftonline.com',
+    'login.live.com',
+    'auth0.com',
+    'github.com',
+    'api.twitch.tv'
+  ]);
+
+  function shouldOpenExternal(url) {
+    try {
+      const u = new URL(url);
+      const host = u.hostname.replace(/^www\./, '');
+      return EXTERNAL_AUTH_HOSTS.has(host);
+    } catch { 
+      return false; 
+    }
+  }
 
   createSplashWindow();
   // Don't create main window until splash completes

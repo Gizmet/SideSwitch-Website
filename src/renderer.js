@@ -1,30 +1,14 @@
-// Site configurations
-const defaultSites = {
-    ome: {
-        url: 'https://ome.tv',
-        videoElement: 'video#remote_video',
-        videoContainer: '.videochat',
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    },
-    monkey: {
-        url: 'https://monkey.cool',
-        videoElement: 'video#remote-video',
-        videoContainer: '.video-container',
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    },
-    uhmegle: {
-        url: 'https://uhmegle.com',
-        videoElement: 'video#othervideo',
-        videoContainer: '.video-container',
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
-};
+// Site management system
+let siteDB = { version: 1, items: [] };
+let siteCategories = {};
 
-// Load sites from localStorage or use defaults
-const sites = { ...defaultSites, ...JSON.parse(localStorage.getItem('customSites') || '{}') };
+// Generate unique ID
+function generateId() {
+    return crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random();
+}
 
 // Current site
-let currentSite = 'ome';
+let currentSite = null;
 let loadRetries = 0;
 const MAX_RETRIES = 3;
 
@@ -141,56 +125,193 @@ function hideModal(modalId) {
     }
 }
 
-function createSiteButton(siteId, siteName) {
+// Site management functions
+async function loadSites() {
+    try {
+        siteDB = await window.electronAPI.sites.load();
+        siteCategories = await window.electronAPI.sites.getCategories();
+        renderSites();
+    } catch (error) {
+        console.error('Error loading sites:', error);
+    }
+}
+
+async function saveSites() {
+    try {
+        await window.electronAPI.sites.save(siteDB);
+    } catch (error) {
+        console.error('Error saving sites:', error);
+    }
+}
+
+function createSiteButton(site) {
     const button = document.createElement('button');
     button.className = 'btn secondary';
-    button.dataset.site = siteId;
+    button.dataset.site = site.id;
+    button.title = site.url;
     
     const span = document.createElement('span');
-    span.textContent = siteName.toUpperCase();
+    span.textContent = site.title.toUpperCase();
     
-    // Only add remove button for custom sites (not default ones)
-    if (!defaultSites[siteId]) {
+    // Add remove button for non-pinned sites
+    if (!site.pinned) {
         const removeBtn = document.createElement('div');
         removeBtn.className = 'remove-site';
         removeBtn.innerHTML = '×';
         removeBtn.title = 'Remove Site';
         removeBtn.onclick = (e) => {
-            e.stopPropagation(); // Prevent site switching when clicking remove
-            removeSite(siteId);
+            e.stopPropagation();
+            removeSite(site.id);
         };
         button.appendChild(removeBtn);
     }
     
     button.appendChild(span);
-    
     return button;
 }
 
-function removeSite(siteId) {
-    // Don't allow removing default sites
-    if (defaultSites[siteId]) return;
+function renderSites() {
+    const siteList = document.getElementById('site-list');
+    siteList.innerHTML = '';
     
-    // Remove from sites object
-    delete sites[siteId];
+    // Sort sites: pinned first, then by title
+    const sortedSites = [...siteDB.items].sort((a, b) => {
+        if (a.pinned && !b.pinned) return -1;
+        if (!a.pinned && b.pinned) return 1;
+        return a.title.localeCompare(b.title);
+    });
     
-    // Remove from localStorage
-    const customSites = JSON.parse(localStorage.getItem('customSites') || '{}');
-    delete customSites[siteId];
-    localStorage.setItem('customSites', JSON.stringify(customSites));
+    sortedSites.forEach(site => {
+        const button = createSiteButton(site);
+        siteList.appendChild(button);
+    });
+}
+
+function renderCategories() {
+    const categoriesGrid = document.getElementById('categories-grid');
+    categoriesGrid.innerHTML = '';
     
-    // Remove the button from navigation
-    const button = document.querySelector(`[data-site="${siteId}"]`);
-    if (button) {
-        button.remove();
-    }
+    Object.entries(siteCategories).forEach(([categoryName, sites]) => {
+        const categorySection = document.createElement('div');
+        categorySection.className = 'category-section';
+        
+        const title = document.createElement('h3');
+        title.className = 'category-title';
+        title.textContent = categoryName;
+        categorySection.appendChild(title);
+        
+        const pillsContainer = document.createElement('div');
+        pillsContainer.className = 'category-pills';
+        
+        sites.forEach(site => {
+            const pill = document.createElement('button');
+            pill.className = 'site-pill';
+            pill.innerHTML = `<span class="icon">${site.icon}</span>${site.title}`;
+            pill.onclick = () => addQuickSite(site);
+            pillsContainer.appendChild(pill);
+        });
+        
+        categorySection.appendChild(pillsContainer);
+        categoriesGrid.appendChild(categorySection);
+    });
+}
+
+async function addQuickSite(siteData) {
+    const site = {
+        id: generateId(),
+        title: siteData.title,
+        url: siteData.url,
+        group: 'Quick Add',
+        audio: false,
+        zoom: 1.0,
+        pinned: false,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    };
     
-    // If this was the current site, switch to the first default site
+    siteDB.items.push(site);
+    await saveSites();
+    renderSites();
+    closeModal();
+}
+
+async function addCustomSite(formData) {
+    const site = {
+        id: generateId(),
+        title: formData.name.trim(),
+        url: formData.url,
+        group: formData.group || 'Custom',
+        audio: formData.audio || false,
+        zoom: 1.0,
+        pinned: formData.pinned || false,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    };
+    
+    siteDB.items.push(site);
+    await saveSites();
+    renderSites();
+    closeModal();
+}
+
+async function removeSite(siteId) {
+    // Find the site
+    const siteIndex = siteDB.items.findIndex(site => site.id === siteId);
+    if (siteIndex === -1) return;
+    
+    const site = siteDB.items[siteIndex];
+    
+    // Don't allow removing pinned sites (default sites)
+    if (site.pinned) return;
+    
+    // Remove from database
+    siteDB.items.splice(siteIndex, 1);
+    await saveSites();
+    
+    // If this was the current site, switch to the first available site
     if (currentSite === siteId) {
-        switchSite('ome');
+        if (siteDB.items.length > 0) {
+            switchSite(siteDB.items[0].id);
+        } else {
+            currentSite = null;
+        }
     }
     
+    renderSites();
     console.log('Removed site:', siteId);
+}
+
+// Modal handling
+function openModal() {
+    const modal = document.getElementById('add-site-modal');
+    modal.style.display = 'block';
+    renderCategories();
+}
+
+function closeModal() {
+    const modal = document.getElementById('add-site-modal');
+    modal.style.display = 'none';
+    
+    // Reset form
+    const form = document.getElementById('add-site-form');
+    form.reset();
+    
+    // Reset to quick add tab
+    switchTab('quick');
+}
+
+function switchTab(tabName) {
+    // Update tab buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    
+    // Update tab content
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.getElementById(`${tabName}-tab`).classList.add('active');
 }
 
 function addNewSite(siteData) {
@@ -227,38 +348,12 @@ function addNewSite(siteData) {
 }
 
 // Event Listeners
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('=== DEBUG START ===');
-    const addSiteBtn = document.getElementById('add-site-btn');
-    console.log('Add Site Button:', addSiteBtn);
-    if (addSiteBtn) {
-        console.log('Button exists, setting up click handler');
-        addSiteBtn.addEventListener('click', () => {
-            console.log('Add site button clicked');
-            const modal = document.getElementById('add-site-modal');
-            if (modal) {
-                modal.style.display = 'block';
-            }
-        });
-    }
-    console.log('=== DEBUG END ===');
-    
+document.addEventListener('DOMContentLoaded', async () => {
     console.log('DOM Content Loaded');
     
-    // Debug navigation buttons
-    const navigation = document.querySelector('#navigation');
-    console.log('Navigation element:', navigation);
+    // Load sites and initialize
+    await loadSites();
     
-    const buttons = navigation.querySelectorAll('.nav-button');
-    console.log('All nav buttons:', Array.from(buttons).map(btn => ({
-        id: btn.id,
-        dataset: btn.dataset,
-        classes: btn.className,
-        display: window.getComputedStyle(btn).display,
-        visibility: window.getComputedStyle(btn).visibility,
-        opacity: window.getComputedStyle(btn).opacity
-    })));
-
     // Set up navigation click handlers
     document.querySelector('#navigation').addEventListener('click', (e) => {
         const button = e.target.closest('.btn[data-site]');
@@ -267,20 +362,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Generate site buttons for all sites
-    const siteList = document.getElementById('site-list');
+    // Add Site button
+    document.getElementById('add-site-btn').addEventListener('click', openModal);
     
-    // Add default sites
-    Object.entries(defaultSites).forEach(([siteId, site]) => {
-        const button = createSiteButton(siteId, siteId.toUpperCase());
-        siteList.appendChild(button);
+    // Modal close buttons
+    document.getElementById('close-add-site').addEventListener('click', closeModal);
+    document.getElementById('cancel-add-site').addEventListener('click', closeModal);
+    
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
     });
     
-    // Load custom sites from localStorage
-    const customSites = JSON.parse(localStorage.getItem('customSites') || '{}');
-    Object.entries(customSites).forEach(([siteId, site]) => {
-        const button = createSiteButton(siteId, siteId.replace(/-/g, ' ').toUpperCase());
-        siteList.appendChild(button);
+    // Save site button
+    document.getElementById('save-site').addEventListener('click', async () => {
+        const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
+        
+        if (activeTab === 'custom') {
+            const form = document.getElementById('add-site-form');
+            const formData = {
+                name: document.getElementById('site-name').value,
+                url: document.getElementById('site-url').value,
+                group: document.getElementById('site-group').value,
+                audio: document.getElementById('site-audio').checked,
+                pinned: document.getElementById('site-pinned').checked
+            };
+            
+            if (formData.name && formData.url) {
+                await addCustomSite(formData);
+            }
+        }
     });
 
     // Initialize camera devices
@@ -302,61 +413,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!webviewReady) {
             webviewReady = true;
             console.log('Initial webview ready, loading first site');
-            switchSite('ome');
+            if (siteDB.items.length > 0) {
+                switchSite(siteDB.items[0].id);
+            }
         }
-    });
-
-    // Form submission handler
-    document.getElementById('add-site-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        console.log('Form submitted');
-        
-        const formData = {
-            name: document.getElementById('site-name').value,
-            url: document.getElementById('site-url').value
-        };
-        
-        // Add the new site
-        const siteId = addNewSite(formData);
-        
-        // Hide modal and reset form
-        document.getElementById('add-site-modal').style.display = 'none';
-        document.getElementById('add-site-form').reset();
-        
-        // Switch to the new site
-        if (siteId) {
-            switchSite(siteId);
-        }
-    });
-
-    // Cancel button handler
-    document.getElementById('cancel-add-site').addEventListener('click', () => {
-        document.getElementById('add-site-modal').style.display = 'none';
-        document.getElementById('add-site-form').reset();
     });
 
     // Close modal when clicking outside
     window.addEventListener('click', (e) => {
         const modal = document.getElementById('add-site-modal');
         if (e.target === modal) {
-            modal.style.display = 'none';
-            document.getElementById('add-site-form').reset();
+            closeModal();
         }
     });
 });
 
 // Basic site switching function
-async function switchSite(site) {
-    if (!sites[site]) return;
+async function switchSite(siteId) {
+    const site = siteDB.items.find(s => s.id === siteId);
+    if (!site) return;
 
-    currentSite = site;
-    console.log('Switching to site:', site);
+    currentSite = siteId;
+    console.log('Switching to site:', site.title);
     showLoading();
 
     // Update button states
     document.querySelectorAll('.btn[data-site]').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.dataset.site === site) btn.classList.add('active');
+        if (btn.dataset.site === siteId) btn.classList.add('active');
     });
 
     // Remove dim overlay
@@ -366,8 +450,8 @@ async function switchSite(site) {
     // Load new site
     try {
         // Load the new site
-        await webview.loadURL(sites[site].url);
-        console.log('Site URL loaded:', sites[site].url);
+        await webview.loadURL(site.url);
+        console.log('Site URL loaded:', site.url);
         
         // Remove any existing dom-ready handlers
         const existingHandlers = webview.listeners('dom-ready');
