@@ -5,116 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-// CSS Variables - Premium creator palette
-const GlobalStyles = styled.div`
-  :root {
-    --green: #39FF14;
-    --green-2: #2ECC71;
-    --ink: #F2F6F3;
-    --muted: #AAB5AE;
-    --bg: #0B0F0F;
-    --card: #0F1412;
-    --stroke: rgba(255, 255, 255, 0.10);
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    font-weight: 500;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-  }
-
-  /* Glow effects */
-  .glow-green {
-    box-shadow: 0 20px 60px rgba(57, 255, 20, 0.28);
-  }
-
-  .glow-button {
-    box-shadow: 0 0 0 1px var(--green), 0 20px 60px rgba(57, 255, 20, 0.28);
-  }
-
-  .glow-button:hover {
-    box-shadow: 0 0 0 1px var(--green), 0 20px 60px rgba(57, 255, 20, 0.56);
-  }
-
-  /* Focus ring for accessibility */
-  .focus-ring:focus {
-    outline: 2px solid var(--green);
-    outline-offset: 3px;
-  }
-
-  /* Mobile-first responsive breakpoints */
-  @media (min-width: 768px) {
-    .md\\:grid-cols-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .md\\:grid-cols-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .md\\:text-\\[44px\\] {
-      font-size: 44px;
-    }
-    .md\\:text-\\[56px\\] {
-      font-size: 56px;
-    }
-    .md\\:py-24 {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-    }
-    .md\\:py-12 {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-    }
-    .md\\:px-6 {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-    .md\\:text-xl {
-      font-size: 1.25rem;
-    }
-    .md\\:text-3xl {
-      font-size: 1.875rem;
-    }
-    .md\\:flex-row {
-      flex-direction: row;
-    }
-    .md\\:justify-between {
-      justify-content: space-between;
-    }
-    .md\\:items-center {
-      align-items: center;
-    }
-    .md\\:gap-12 {
-      gap: 3rem;
-    }
-    .md\\:gap-6 {
-      gap: 1.5rem;
-    }
-    .md\\:p-6 {
-      padding: 1.5rem;
-    }
-    .md\\:p-8 {
-      padding: 2rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .lg\\:text-\\[56px\\] {
-      font-size: 56px;
-    }
-  }
-`;
+// Styled components for specific elements
 
 const PremiumButton = styled(motion.a)`
   display: inline-flex;
@@ -291,16 +182,7 @@ export default function Home() {
   };
 
   return (
-    <GlobalStyles>
-      <head>
-        <title>SideSwitch — Switch Smarter. Stream Stronger.</title>
-        <meta name="description" content="The creator-first browser for live work. One-click site swaps, blur on tap, OBS-friendly, and stream-safe by design." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-      </head>
-      <div style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--ink)' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--ink)' }}>
         {/* Hero Section */}
         <section className="py-16 md:py-24 px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
@@ -676,7 +558,6 @@ export default function Home() {
             </div>
           </div>
         </footer>
-        </div>
-    </GlobalStyles>
+      </div>
   );
 }
