@@ -1,4 +1,4 @@
-// Auto-deployment test - 2025-01-23 - Vercel now watching main branch ✅
+// Force Vercel deployment - 2025-01-23 - Main branch sync test
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
