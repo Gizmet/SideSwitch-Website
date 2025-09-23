@@ -53,6 +53,67 @@ const GlobalStyles = styled.div`
     outline: 2px solid var(--green);
     outline-offset: 3px;
   }
+
+  /* Mobile-first responsive breakpoints */
+  @media (min-width: 768px) {
+    .md\\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .md\\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .md\\:text-\\[44px\\] {
+      font-size: 44px;
+    }
+    .md\\:text-\\[56px\\] {
+      font-size: 56px;
+    }
+    .md\\:py-24 {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+    .md\\:py-12 {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+    .md\\:px-6 {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    .md\\:text-xl {
+      font-size: 1.25rem;
+    }
+    .md\\:text-3xl {
+      font-size: 1.875rem;
+    }
+    .md\\:flex-row {
+      flex-direction: row;
+    }
+    .md\\:justify-between {
+      justify-content: space-between;
+    }
+    .md\\:items-center {
+      align-items: center;
+    }
+    .md\\:gap-12 {
+      gap: 3rem;
+    }
+    .md\\:gap-6 {
+      gap: 1.5rem;
+    }
+    .md\\:p-6 {
+      padding: 1.5rem;
+    }
+    .md\\:p-8 {
+      padding: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lg\\:text-\\[56px\\] {
+      font-size: 56px;
+    }
+  }
 `;
 
 const PremiumButton = styled(motion.a)`
@@ -72,8 +133,8 @@ const PremiumButton = styled(motion.a)`
   position: relative;
   overflow: hidden;
 
-  &:hover {
-    transform: translateY(-2px);
+  &:hover { 
+    transform: translateY(-2px); 
   }
 
   .arrow {
@@ -92,7 +153,7 @@ const FeatureCard = styled(motion.div)`
   padding: 24px;
   transition: all 0.3s ease;
 
-  &:hover {
+  &:hover { 
     border-color: var(--green);
     box-shadow: 0 0 0 1px var(--green), 0 20px 60px rgba(57, 255, 20, 0.14);
   }
@@ -231,20 +292,39 @@ export default function Home() {
 
   return (
     <GlobalStyles>
-      <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)]">
+      <div style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--ink)' }}>
         {/* Hero Section */}
         <section className="py-16 md:py-24 px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center space-y-8">
-              {/* Logo */}
+              {/* Logo Pill */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-[var(--green)] to-[var(--green-2)] px-4 py-2 rounded-full text-black font-bold text-sm"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  background: 'linear-gradient(135deg, var(--green) 0%, var(--green-2) 100%)',
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  color: '#0a0a0a',
+                  fontWeight: '700',
+                  fontSize: '14px',
+                  boxShadow: '0 20px 60px rgba(57, 255, 20, 0.28)'
+                }}
               >
-                <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-                  <span className="text-[var(--green)] font-black text-xs">S</span>
+                <div style={{
+                  width: '24px',
+                  height: '24px',
+                  background: '#0a0a0a',
+                  borderRadius: '6px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span style={{ color: 'var(--green)', fontWeight: '900', fontSize: '12px' }}>S</span>
                 </div>
                 SideSwitch
               </motion.div>
@@ -254,10 +334,22 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-[32px] md:text-[44px] lg:text-[56px] font-black leading-[1.05] tracking-[-0.02em]"
+                style={{
+                  fontSize: '32px',
+                  fontWeight: '900',
+                  lineHeight: '1.05',
+                  letterSpacing: '-0.02em',
+                  color: 'var(--ink)',
+                  margin: 0
+                }}
               >
-                Switch Smarter.<br />
-                Stream Stronger.
+                <div style={{ color: 'var(--ink)' }}>Switch Smarter.</div>
+                <div style={{ 
+                  background: 'linear-gradient(135deg, var(--green) 0%, var(--green-2) 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>Stream Stronger.</div>
               </motion.h1>
 
               {/* Subheadline */}
@@ -265,38 +357,69 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg md:text-xl text-[var(--muted)] max-w-2xl mx-auto"
+                style={{
+                  fontSize: '18px',
+                  color: 'var(--muted)',
+                  maxWidth: '32rem',
+                  margin: '0 auto',
+                  lineHeight: '1.6'
+                }}
               >
                 The creator-first browser for live work. One-click swaps. Blur on tap. Stream-safe by design.
               </motion.p>
 
               {/* CTA */}
-              <motion.div
+              <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="space-y-4"
+                style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}
               >
                 <PremiumButton
                   href="#pricing"
                   className="glow-button focus-ring"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '16px 32px',
+                    background: 'linear-gradient(135deg, var(--green) 0%, var(--green-2) 100%)',
+                    color: '#0a0a0a',
+                    borderRadius: '9999px',
+                    fontWeight: '700',
+                    fontSize: '16px',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease',
+                    border: 'none',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    boxShadow: '0 0 0 1px var(--green), 0 20px 60px rgba(57, 255, 20, 0.28)'
+                  }}
                 >
                   Start free — 7-day trial
-                  <span className="arrow">→</span>
+                  <span className="arrow" style={{ transition: 'transform 0.3s ease' }}>→</span>
                 </PremiumButton>
-                <p className="text-sm text-[var(--muted)]">
+                <p style={{ fontSize: '14px', color: 'var(--muted)', margin: 0 }}>
                   then $9.99/mo • cancel anytime
                 </p>
               </motion.div>
 
               {/* Trust badges */}
-              <motion.div
+              <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex flex-wrap justify-center gap-4 text-sm text-[var(--muted)]"
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  gap: '16px',
+                  fontSize: '14px',
+                  color: 'var(--muted)'
+                }}
               >
                 <span>Works with OBS</span>
                 <span>•</span>
@@ -305,29 +428,49 @@ export default function Home() {
                 <span>Creator-safe</span>
               </motion.div>
             </div>
-          </div>
+            </div>
         </section>
 
         {/* Preview Section */}
-        <section className="py-8 md:py-12 px-4 md:px-6">
-          <div className="max-w-6xl mx-auto">
+        <section style={{ padding: '32px 16px' }}>
+          <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="relative"
+              style={{ position: 'relative' }}
             >
-              <div className="bg-[var(--card)] border border-[var(--stroke)] rounded-2xl p-4 md:p-6 backdrop-blur-xl">
-                <div className="relative">
+              <div style={{
+                background: 'var(--card)',
+                border: '1px solid var(--stroke)',
+                borderRadius: '16px',
+                padding: '16px',
+                backdropFilter: 'blur(24px)',
+                position: 'relative',
+                boxShadow: '0 0 0 1px var(--green), 0 20px 60px rgba(57, 255, 20, 0.14)'
+              }}>
+                <div style={{ position: 'relative' }}>
                   <img
                     src="/Screenshot_20250211_015714.png"
                     alt="SideSwitch interface preview"
-                    className="w-full h-auto rounded-xl"
+                    style={{ width: '100%', height: 'auto', borderRadius: '12px' }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--green)]/10 to-transparent rounded-xl pointer-events-none" />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(57, 255, 20, 0.1) 0%, transparent 100%)',
+                    borderRadius: '12px',
+                    pointerEvents: 'none'
+                  }} />
                 </div>
-                <p className="text-center text-[var(--muted)] mt-4 text-sm">
+                <p style={{
+                  textAlign: 'center',
+                  color: 'var(--muted)',
+                  marginTop: '16px',
+                  fontSize: '14px',
+                  margin: '16px 0 0 0'
+                }}>
                   Keep your flow. No tab chaos.
                 </p>
               </div>
@@ -336,9 +479,13 @@ export default function Home() {
         </section>
 
         {/* Primary Features */}
-        <section className="py-8 md:py-12 px-4 md:px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <section style={{ padding: '32px 16px' }}>
+          <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
+              gap: '24px'
+            }}>
               {primaryFeatures.map((feature, index) => (
                 <FeatureCard
                   key={index}
@@ -346,10 +493,17 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  style={{
+                    background: 'var(--card)',
+                    border: '1px solid var(--stroke)',
+                    borderRadius: '16px',
+                    padding: '24px',
+                    transition: 'all 0.3s ease'
+                  }}
                 >
-                  <div className="text-2xl mb-3">{feature.emoji}</div>
-                  <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                  <p className="text-[var(--muted)] text-sm leading-relaxed">
+                  <div style={{ fontSize: '24px', marginBottom: '12px' }}>{feature.emoji}</div>
+                  <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px', color: 'var(--ink)' }}>{feature.title}</h3>
+                  <p style={{ color: 'var(--muted)', fontSize: '14px', lineHeight: '1.6', margin: 0 }}>
                     {feature.description}
                   </p>
                 </FeatureCard>
@@ -358,10 +512,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Extended Features */}
+          {/* Extended Features */}
         <section className="py-8 md:py-12 px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="space-y-6">
+          <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {extendedFeatures.slice(0, showAllFeatures ? extendedFeatures.length : 3).map((feature, index) => (
                   <FeatureCard
@@ -382,13 +536,13 @@ export default function Home() {
               
               {!showAllFeatures && (
                 <div className="text-center">
-                  <button
+              <button 
                     onClick={() => setShowAllFeatures(true)}
                     className="text-[var(--green)] hover:text-[var(--green-2)] font-medium transition-colors"
-                  >
+              >
                     Show all features →
-                  </button>
-                </div>
+              </button>
+            </div>
               )}
             </div>
           </div>
@@ -397,19 +551,19 @@ export default function Home() {
         {/* Pricing Strip */}
         <section id="pricing" className="py-8 md:py-12 px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
-            <motion.div
+          <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
               className="bg-[var(--card)] border border-[var(--stroke)] rounded-2xl p-8 text-center space-y-6"
-            >
-              <div>
+          >
+            <div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-2">Simple pricing</h2>
                 <p className="text-[var(--muted)]">7-day free trial, then $9.99/month.</p>
-              </div>
-              
-              <div className="space-y-4">
+            </div>
+            
+            <div className="space-y-4">
                 <PremiumButton
                   href="#"
                   className="glow-button focus-ring"
@@ -428,8 +582,8 @@ export default function Home() {
                     Go annual — $77/year (save 36%)
                   </a>
                 </div>
-              </div>
-            </motion.div>
+            </div>
+          </motion.div>
           </div>
         </section>
 
@@ -454,7 +608,7 @@ export default function Home() {
                 <span>No telemetry</span>
                 <span>•</span>
                 <span>Local-only</span>
-              </div>
+            </div>
             </motion.div>
           </div>
         </section>
@@ -462,8 +616,8 @@ export default function Home() {
         {/* FAQ */}
         <section className="py-8 md:py-12 px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }} 
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
@@ -482,21 +636,21 @@ export default function Home() {
                       {item.question}
                       <span className="chevron">▼</span>
                     </FAQButton>
-                    <AnimatePresence>
+                  <AnimatePresence>
                       {expandedFAQ === index && (
                         <FAQContent
-                          initial={{ height: 0, opacity: 0 }}
+                        initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
+                        exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.2, ease: "easeInOut" }}
-                        >
+                      >
                           {item.answer}
                         </FAQContent>
-                      )}
-                    </AnimatePresence>
+                    )}
+                  </AnimatePresence>
                   </FAQItem>
-                ))}
-              </div>
+              ))}
+            </div>
             </motion.div>
           </div>
         </section>
@@ -514,7 +668,7 @@ export default function Home() {
             </div>
           </div>
         </footer>
-      </div>
+        </div>
     </GlobalStyles>
   );
 }
