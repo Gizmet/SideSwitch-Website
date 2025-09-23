@@ -1,4 +1,4 @@
-// Testing deploy hook - 2025-01-23 - After creating Vercel deploy hook
+// FORCE GREEN THEME - 2025-01-23 - Vercel should show GREEN not blue!
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
