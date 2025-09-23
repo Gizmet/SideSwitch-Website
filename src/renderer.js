@@ -42,9 +42,9 @@ const loadingIndicator = document.getElementById('loading-indicator');
 
 // Initialize overlay position
 dimOverlay.style.top = '0px';
-dimOverlay.style.left = '140px';
-dimOverlay.style.width = 'calc(50% - 70px)';
-dimOverlay.style.height = 'calc(100% - 260px)';
+dimOverlay.style.left = '180px';
+dimOverlay.style.width = 'calc(50% - 90px)';
+dimOverlay.style.height = 'calc(100% - 280px)';
 
 // Drag and resize functionality
 let isResizing = false;
@@ -105,9 +105,9 @@ document.addEventListener('mouseup', () => {
 dimOverlay.addEventListener('dblclick', (e) => {
     if (e.target === resizeHandle) return;
     dimOverlay.style.top = '0px';
-    dimOverlay.style.left = '140px';
-    dimOverlay.style.width = 'calc(50% - 70px)';
-    dimOverlay.style.height = 'calc(100% - 260px)';
+    dimOverlay.style.left = '180px';
+    dimOverlay.style.width = 'calc(50% - 90px)';
+    dimOverlay.style.height = 'calc(100% - 280px)';
 });
 
 // Show/hide loading indicator
