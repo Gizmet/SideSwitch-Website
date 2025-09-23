@@ -1,10 +1,10 @@
 {
-  "name": "chatpilot",
-  "version": "0.1.0",
+  "name": "sideswitch",
+  "version": "1.1.2",
   "description": "A secure multi-platform chat application",
   "author": "GizmetDev",
   "license": "MIT",
-  "main": "dist/main.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron .",
     "clean": "rm -rf dist/",
@@ -13,7 +13,7 @@
     "build": "electron-builder build --win --publish never",
     "build:portable": "npm run prebuild && electron-builder build --win portable --publish never",
     "postinstall": "electron-builder install-app-deps",
-    "package": "npm run build:portable && cd release && zip -r ChatPilot-v0.1-alpha-windows.zip win-unpacked/"
+    "package": "npm run build:portable && cd release && zip -r SideSwitch-v1.1.2-windows.zip win-unpacked/"
   },
   "build": {
     "extends": "./electron-builder.json"

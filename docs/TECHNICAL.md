@@ -56,7 +56,7 @@
    ```bash
    git checkout main
    git merge --no-ff develop
-   git tag -a v0.1-alpha
+   git tag -a v1.1.2
    git push origin main --tags
    ```
 
@@ -67,6 +67,16 @@
 - Hardware acceleration
 - Permission handling
 - WebRTC optimization
+- Splash screen coordination
+- IPC communication handling
+
+### Splash Screen System (`splash.html` + `preload-splash.js`)
+Modern animation implementation:
+- HTML/CSS-based animations
+- Secure IPC communication
+- Particle effects and loading bar
+- Reliable timing control
+- Multiple fallback methods
 
 ### Renderer Process (`renderer.js`)
 Elegant, focused implementation:
@@ -76,6 +86,33 @@ Elegant, focused implementation:
 - Minimal event handling
 
 ## Implementation Details
+
+### Splash Screen Animation
+```javascript
+// Splash screen timing and animation control
+const DURATION = 2600; // 2.6 seconds
+const FADE_DELAY = 500; // 0.5 second fade
+
+// Animation sequence:
+// 1. Logo appears with pulse effect
+// 2. Particles float around logo
+// 3. Loading bar fills from 0% to 100%
+// 4. Fade to black
+// 5. Signal main process to show main window
+```
+
+### IPC Communication
+```javascript
+// Secure communication between splash and main process
+contextBridge.exposeInMainWorld('electronAPI', {
+  splashDone: () => ipcRenderer.invoke('splash:done')
+});
+
+// Main process handler
+ipcMain.handle('splash:done', () => {
+  // Close splash, create/show main window
+});
+```
 
 ### Site Configuration
 ```javascript
@@ -185,6 +222,24 @@ async function switchSite(site) {
 }
 ```
 
+## Recent Updates (v1.1.2)
+
+### Splash Screen Redesign
+- **Architecture**: Moved from video-based to HTML/CSS animation
+- **Reliability**: Eliminated splash screen timeout issues
+- **Performance**: Pure CSS animations with JavaScript timing
+- **Maintainability**: No external dependencies or complex rendering
+
+### Branding Consistency
+- **Name Change**: Updated from "ChatPilot" to "SideSwitch" across all files
+- **Version Management**: Consistent v1.1.2 in package.json, splash, and docs
+- **Build Configuration**: Updated appId, productName, and protocols
+
+### Code Quality Improvements
+- **Cleanup**: Removed all debugging code and temporary files
+- **Documentation**: Comprehensive changelog and updated technical docs
+- **Architecture**: Better separation of concerns with dedicated splash system
+
 ## Future Considerations
 
 ### Potential Enhancements
@@ -192,11 +247,14 @@ async function switchSite(site) {
 2. Enhanced overlay features
 3. Performance monitoring
 4. State persistence
+5. Video splash option for complex animations
+6. Configurable splash duration
 
 ### Development Guidelines
 - Maintain simplicity
 - Preserve core design
 - Smart feature addition
 - Performance first
+- Document all changes in CHANGELOG.md
 
 Remember: The best code is the code you don't write! 

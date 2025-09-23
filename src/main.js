@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session } = require('electron');
+const { app, BrowserWindow, session, ipcMain } = require('electron');
 const path = require('path');
 
 // Media permissions and hardware acceleration
@@ -34,16 +34,17 @@ let splashWindow;
 
 function createSplashWindow() {
   splashWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false,
-    transparent: true,
+    width: 520,
+    height: 520,
     resizable: false,
+    frame: false,
+    show: true,
+    backgroundColor: '#0b0f14',
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
-    },
-    backgroundColor: '#00000000'
+      contextIsolation: true,
+      sandbox: true,
+      preload: path.join(__dirname, 'preload-splash.js')
+    }
   });
 
   splashWindow.loadFile(path.join(__dirname, 'splash.html'));
@@ -79,12 +80,9 @@ function createWindow() {
     }
   });
 
-  // Show window when ready to avoid white flash
+  // Main window will be shown when splash animation completes
   mainWindow.once('ready-to-show', () => {
-    setTimeout(() => {
-      splashWindow.destroy();
-      mainWindow.show();
-    }, 2700); // Match video duration
+    // Window will be shown by splash completion handler
   });
 
   // Load the index.html file from the src directory
@@ -162,8 +160,38 @@ app.whenReady().then(() => {
     callback(true);
   });
 
+  // Set up splash completion handler
+  ipcMain.handle('splash:done', () => {
+    if (splashWindow) {
+      splashWindow.close();
+      splashWindow = null;
+    }
+    if (!mainWindow) {
+      createWindow();
+    }
+    if (mainWindow) {
+      mainWindow.show();
+    }
+  });
+
   createSplashWindow();
-  createWindow();
+  // Don't create main window until splash completes
+
+  // Fallback timeout in case splash doesn't complete
+  setTimeout(() => {
+    if (splashWindow && (!mainWindow || !mainWindow.isVisible())) {
+      if (splashWindow) {
+        splashWindow.close();
+        splashWindow = null;
+      }
+      if (!mainWindow) {
+        createWindow();
+      }
+      if (mainWindow) {
+        mainWindow.show();
+      }
+    }
+  }, 5000); // 5 second fallback
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

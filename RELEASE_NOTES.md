@@ -1,27 +1,35 @@
-# ChatPilot v0.1-alpha
+# SideSwitch v1.1.2
 
-First alpha release of ChatPilot - Optimized for performance and size
+Latest release of SideSwitch - Modern splash screen and branding updates
 
-## Development Status
-This release integrates features from three main development branches:
+## What's New in v1.1.2
 
-1. UI Updates (`feature/ui-updates`)
-   - Modern navigation system
-   - Smart blur overlay
-   - Animated splash screen
-   - Responsive layout
+### 🎨 Modern Splash Screen
+- **Complete Redesign**: New HTML/CSS-based splash screen
+- **Rotated "S" Logo**: 90° left rotation in glowing blue square
+- **Particle Effects**: Floating blue dots around the logo
+- **Loading Bar**: Animated progress indicator
+- **Smooth Transitions**: 2.6-second duration with fade-out
+- **Reliable Timing**: No more splash screen timeout issues
 
-2. Camera Integration (`feature/camera-integration`)
-   - Device detection system
-   - WebRTC optimizations
-   - Permission handling
-   - Stream management
+### 🏷️ Branding Consistency
+- **Name Update**: Changed from "ChatPilot" to "SideSwitch" across all files
+- **Version Management**: Consistent v1.1.2 in all components
+- **Build Configuration**: Updated appId, productName, and protocols
+- **Documentation**: Updated all references and cross-references
 
-3. Build Optimization (`feature/build-optimization`)
-   - Reduced size to 67MB
-   - ASAR packaging
-   - Resource optimization
-   - Performance improvements
+### 🔧 Technical Improvements
+- **Splash Architecture**: Moved from video-based to HTML/CSS animation
+- **IPC Communication**: Robust splash-to-main window signaling
+- **Window Management**: Splash-first approach prevents race conditions
+- **Code Cleanup**: Removed all debugging code and temporary files
+- **Error Handling**: Multiple fallback methods for reliability
+
+### 📚 Documentation Updates
+- **CHANGELOG.md**: Comprehensive changelog with detailed version history
+- **Engineering Docs**: Updated with new splash system architecture
+- **Technical Docs**: Added splash screen implementation details
+- **Cross-references**: Updated all documentation links and references
 
 ## Key Features
 - Multi-platform chat support (Ome.tv, Monkey, Uhmegle)
@@ -38,7 +46,7 @@ This release integrates features from three main development branches:
 - Minimal dependencies
 
 ## Installation
-1. Download ChatPilot-v0.1-alpha-win64.zip
+1. Download SideSwitch-v1.1.2-win64.zip
 2. Extract the zip file using Windows Explorer
 3. Run launch.bat for simple start
 4. Or use launch.ps1 for advanced features
@@ -81,11 +89,6 @@ This release integrates features from three main development branches:
 - Camera switching functionality temporarily disabled
 - Some sites may require multiple attempts to connect
 
-### Upcoming Improvements (v1.1.2)
-- Enhanced modal design with centered text fields
-- Consistent button animations across all navigation elements
-- Re-enabled camera switching with improved reliability
-- Better error handling for site connections
 
 ## Version 1.1.0
 
