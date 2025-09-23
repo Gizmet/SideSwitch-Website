@@ -143,12 +143,8 @@ function hideModal(modalId) {
 
 function createSiteButton(siteId, siteName) {
     const button = document.createElement('button');
-    button.className = 'nav-button';
+    button.className = 'btn secondary';
     button.dataset.site = siteId;
-    
-    const rocketDiv = document.createElement('div');
-    rocketDiv.className = 'rocket';
-    rocketDiv.textContent = '🚀';
     
     const span = document.createElement('span');
     span.textContent = siteName.toUpperCase();
@@ -166,7 +162,6 @@ function createSiteButton(siteId, siteName) {
         button.appendChild(removeBtn);
     }
     
-    button.appendChild(rocketDiv);
     button.appendChild(span);
     
     return button;
@@ -220,11 +215,11 @@ function addNewSite(siteData) {
     customSites[siteId] = sites[siteId];
     localStorage.setItem('customSites', JSON.stringify(customSites));
     
-    // Add button to navigation
+    // Add button to site list
     const button = createSiteButton(siteId, siteData.name);
-    const navigation = document.querySelector('#navigation .nav-group');
-    if (navigation) {
-        navigation.appendChild(button);
+    const siteList = document.getElementById('site-list');
+    if (siteList) {
+        siteList.appendChild(button);
     }
     
     console.log('Added new site:', siteId, sites[siteId]);
@@ -266,27 +261,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set up navigation click handlers
     document.querySelector('#navigation').addEventListener('click', (e) => {
-        const button = e.target.closest('.nav-button');
-        if (button && button.dataset.site === 'add') {
-            console.log('Add site button clicked');
-            const modal = document.getElementById('add-site-modal');
-            if (modal) {
-                modal.style.display = 'block';
-            }
-        } else if (button && button.dataset.site) {
+        const button = e.target.closest('.btn[data-site]');
+        if (button && button.dataset.site) {
             switchSite(button.dataset.site);
         }
     });
 
+    // Generate site buttons for all sites
+    const siteList = document.getElementById('site-list');
+    
+    // Add default sites
+    Object.entries(defaultSites).forEach(([siteId, site]) => {
+        const button = createSiteButton(siteId, siteId.toUpperCase());
+        siteList.appendChild(button);
+    });
+    
     // Load custom sites from localStorage
     const customSites = JSON.parse(localStorage.getItem('customSites') || '{}');
-    
     Object.entries(customSites).forEach(([siteId, site]) => {
         const button = createSiteButton(siteId, siteId.replace(/-/g, ' ').toUpperCase());
-        const addBtn = document.querySelector('[data-site="add"]');
-        if (addBtn) {
-            addBtn.parentNode.insertBefore(button, addBtn);
-        }
+        siteList.appendChild(button);
     });
 
     // Initialize camera devices
@@ -360,7 +354,7 @@ async function switchSite(site) {
     showLoading();
 
     // Update button states
-    document.querySelectorAll('.nav-button').forEach(btn => {
+    document.querySelectorAll('.btn[data-site]').forEach(btn => {
         btn.classList.remove('active');
         if (btn.dataset.site === site) btn.classList.add('active');
     });
@@ -466,13 +460,31 @@ async function switchSite(site) {
     }
 }
 
-// Toggle blur
-function toggleBlur() {
-    dimOverlay.classList.toggle('active');
-    blurButton.classList.toggle('active');
+// Blur state management
+let blurOn = false;
+
+function applyBlurState(on) {
+    blurOn = !!on;
+    blurButton.classList.toggle('is-on', blurOn);
+    blurButton.setAttribute('aria-pressed', String(blurOn));
+    
+    // Toggle overlay visibility
+    if (blurOn) {
+        dimOverlay.classList.add('active');
+    } else {
+        dimOverlay.classList.remove('active');
+    }
+    
+    // Send message to webview for blur effect
+    const msg = { type: blurOn ? 'SS_BLUR_ON' : 'SS_BLUR_OFF', amount: 12 };
+    try {
+        webview.contentWindow.postMessage(msg, '*');
+    } catch (e) {
+        console.log('Could not send blur message to webview:', e);
+    }
 }
 
-blurButton.addEventListener('click', toggleBlur);
+blurButton.addEventListener('click', () => applyBlurState(!blurOn));
 
 // Hotkey handling
 document.addEventListener('keydown', (event) => {
@@ -480,9 +492,9 @@ document.addEventListener('keydown', (event) => {
     const isTyping = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName) || 
                     document.activeElement.isContentEditable;
                     
-    if (!isTyping && event.key.toLowerCase() === 'b') {
+    if (!isTyping && event.key.toLowerCase() === 'b' && !event.repeat) {
         event.preventDefault();
-        toggleBlur();
+        applyBlurState(!blurOn);
     }
 });
 

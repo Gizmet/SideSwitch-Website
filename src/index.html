@@ -6,32 +6,27 @@
 </head>
 <body>
     <div id="app">
-        <div id="navigation">
-            <button class="nav-button purple" id="add-site-btn" style="margin: 10px auto; display: flex !important;">
-                <div class="rocket">➕</div>
-                <span>ADD SITE</span>
-            </button>
-            <div class="nav-group">
-                <button class="nav-button active" data-site="ome">
-                    <div class="rocket">🚀</div>
-                    <span>OME</span>
-                </button>
-                <button class="nav-button" data-site="monkey">
-                    <div class="rocket">🚀</div>
-                    <span>MONKEY</span>
-                </button>
-                <button class="nav-button" data-site="uhmegle">
-                    <div class="rocket">🚀</div>
-                    <span>UHMEGLE</span>
-                </button>
+        <div id="navigation" class="nav">
+            <!-- Brand -->
+            <div class="brand">
+                <div class="brand-tile" aria-hidden="true"><span class="brand-glyph">s</span></div>
+                <div class="brand-text">SideSwitch</div>
             </div>
-            <div class="nav-footer">
-                <button id="toggle-blur">BLUR</button>
-                <!-- TODO: Fix camera switching functionality before re-enabling
-                <select id="camera-select" class="control-input">
-                    <option value="">Loading cameras...</option>
-                </select>
-                -->
+
+            <!-- Sites list -->
+            <div id="site-list" class="nav-group"></div>
+
+            <!-- Bottom actions -->
+            <div class="nav-bottom">
+                <button id="add-site-btn" class="btn secondary">
+                    <span class="plus" aria-hidden="true">＋</span> Add Site
+                </button>
+
+                <button id="toggle-blur" class="btn primary"
+                    aria-pressed="false" aria-label="Toggle Blur (B)"
+                    title="Toggle Blur (B)">
+                    Blur
+                </button>
             </div>
         </div>
 
