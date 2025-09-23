@@ -1,39 +1,36 @@
 {
-  "name": "sideswitch",
-  "version": "1.1.2",
-  "description": "A secure multi-platform chat application",
-  "author": "GizmetDev",
-  "license": "MIT",
-  "main": "src/main.js",
+  "name": "sideswitch-website",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "electron .",
-    "clean": "rm -rf dist/",
-    "compile": "mkdir -p dist && cp -r src/* dist/",
-    "prebuild": "npm run clean && npm run compile",
-    "build": "electron-builder build --win --publish never",
-    "build:portable": "npm run prebuild && electron-builder build --win portable --publish never",
-    "postinstall": "electron-builder install-app-deps",
-    "package": "npm run build:portable && cd release && zip -r SideSwitch-v1.1.2-windows.zip win-unpacked/"
-  },
-  "build": {
-    "extends": "./electron-builder.json"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "electron-updater": "^6.1.7",
-    "electron-log": "^5.0.1"
+    "axios": "^1.6.7",
+    "framer-motion": "^12.4.2",
+    "next": "^15.1.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
-    "electron": "^28.1.0",
-    "electron-builder": "^24.9.1"
+    "@types/node": "^20.11.16",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gizmetdev/chatpilot.git"
-  },
-  "keywords": [
-    "chat",
-    "electron",
-    "privacy",
-    "security"
-  ]
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }

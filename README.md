@@ -1,81 +1,36 @@
-SideSwitch
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A desktop application for managing and interacting with various video chat sites. Built with Electron for optimal performance and user experience.
+## Getting Started
 
-## Features
+First, run the development server:
 
-### Site Management
-- Support for multiple video chat sites
-- Easy addition of custom sites via the ADD SITE button
-- Simple removal of custom sites (hover over site button to remove)
-- Automatic video element detection for better compatibility
-
-### Video Controls
-- Real-time video blur effect
-- Adjustable blur intensity
-- Camera device selection
-- Video/Audio toggle controls
-
-### User Interface
-- Modern, intuitive design
-- Smooth animations and transitions
-- Dark theme optimized for low-light environments
-- Responsive layout with resizable elements
-
-## Installation
-
-1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/video-chat-manager.git
-cd video-chat-manager
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-2. Install dependencies
-```bash
-npm install
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-3. Start the application
-```bash
-npm start
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Usage
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-### Managing Sites
-1. Click the ADD SITE button in the navigation panel
-2. Enter the site name and URL
-3. Click Add to save the site
-4. To remove a custom site, hover over its button and click the × icon
+## Learn More
 
-### Video Controls
-- Click the BLUR button or press 'B' to toggle blur effect
-- Use the camera dropdown to switch between available cameras
-- Adjust blur intensity using the slider
-- Toggle video/audio using the respective buttons
+To learn more about Next.js, take a look at the following resources:
 
-## Development
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm (v6 or higher)
-- Electron
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-### Building
-```bash
-npm run build
-```
+## Deploy on Vercel
 
-### Testing
-```bash
-npm test
-```
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Version History
-See [RELEASE_NOTES.md](RELEASE_NOTES.md) for detailed version history. 
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
