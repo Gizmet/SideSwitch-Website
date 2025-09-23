@@ -16,48 +16,46 @@
    - Feature integration
 
 ### Feature Branches
-1. `feature/ui-updates`
-   - Modern UI implementation
-   - Navigation system
-   - Blur overlay functionality
-   - Layout improvements
-   - Splash screen animations
+1. `website/main`
+   - Production website branch
+   - Mobile improvements and responsive design
+   - Deployment fixes and optimizations
+   - Landing page content
 
-2. `feature/camera-integration`
-   - Camera device detection
-   - Device switching functionality
-   - WebRTC optimizations
-   - Stream management
-   - Permission handling
-
-3. `feature/build-optimization`
-   - Build size reduction (67MB)
-   - ASAR packaging
-   - Compression settings
-   - Resource optimization
-   - Dependency management
+2. `website/feature/landing-page`
+   - Landing page development
+   - LemonSqueezy payment integration
+   - Marketing website features
+   - User onboarding flow
 
 ### Release Process
-1. Feature Development
+1. App Feature Development
    ```bash
-   git checkout -b feature/new-feature develop
+   git checkout -b feature/new-app-feature main
    # Development work
-   git push origin feature/new-feature
+   git push origin feature/new-app-feature
    ```
 
-2. Feature Integration
+2. Website Feature Development
    ```bash
-   git checkout develop
-   git merge --no-ff feature/new-feature
-   git push origin develop
+   git checkout -b website/feature/new-website-feature website/main
+   # Development work
+   git push origin website/feature/new-website-feature
    ```
 
-3. Release Creation
+3. App Release Creation
    ```bash
    git checkout main
-   git merge --no-ff develop
-   git tag -a v1.1.2
+   git merge --no-ff feature/new-app-feature
+   git tag -a v1.1.3
    git push origin main --tags
+   ```
+
+4. Website Release
+   ```bash
+   git checkout website/main
+   git merge --no-ff website/feature/new-website-feature
+   git push origin website/main
    ```
 
 ## Core Architecture

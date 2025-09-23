@@ -185,14 +185,14 @@ app.commandLine.appendSwitch('force-gpu-rasterization');
 ## Development Workflow
 
 ### Branch Strategy
-- **main**: Production-ready releases
-- **develop**: Integration branch for features
-- **feature/***: Individual feature development
+- **main**: Production-ready Electron app releases
+- **website/main**: Production website branch
+- **website/feature/***: Website feature development
 
-### Key Development Branches
-1. `feature/ui-updates`: Modern UI and navigation
-2. `feature/camera-integration`: WebRTC and device management
-3. `feature/build-optimization`: Size and performance improvements
+### Current Branch Organization
+1. `main`: SideSwitch Electron application (v1.1.2)
+2. `website/main`: Production website with mobile improvements
+3. `website/feature/landing-page`: Landing page development with payment integration
 
 ## Current Status and Known Issues
 
