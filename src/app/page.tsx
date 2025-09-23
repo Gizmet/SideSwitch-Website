@@ -1,9 +1,84 @@
-// FORCE GREEN THEME - 2025-01-23 - Vercel should show GREEN not blue!
+// GLITZY GREEN THEME - 2025-01-23 - Premium Netflix-inspired design with glow effects
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+
+// CSS Variables - Netflix-inspired professional palette with glow effects
+const GlobalStyles = styled.div`
+  :root {
+    --bg: #0a0a0a;
+    --panel: #141414;
+    --surface: #1a1a1a;
+    --surface-hover: #262626;
+    --ink: #ffffff;
+    --ink-secondary: #b3b3b3;
+    --ink-muted: #737373;
+    --accent: #39FF14;
+    --accent-hover: #2ECC71;
+    --accent-light: #58FF3A;
+    --blue: #39FF14;
+    --blue-hover: #2ECC71;
+    --success: #39FF14;
+    --warning: #ffa500;
+    --error: #e50914;
+    --border: rgba(57, 255, 20, 0.2);
+    --border-hover: rgba(57, 255, 20, 0.4);
+    --shadow: rgba(0, 0, 0, 0.3);
+    --shadow-hover: rgba(0, 0, 0, 0.5);
+    --glow: rgba(57, 255, 20, 0.4);
+    --glow-strong: rgba(57, 255, 20, 0.6);
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+    --spacing-2xl: 32px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Glow animation keyframes */
+  @keyframes glow-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow), 0 0 60px var(--glow);
+    }
+    50% { 
+      box-shadow: 0 0 30px var(--glow-strong), 0 0 60px var(--glow-strong), 0 0 90px var(--glow-strong);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+`;
 
 const AnimatedButton = styled(motion.a)`
   position: relative;
@@ -19,11 +94,14 @@ const AnimatedButton = styled(motion.a)`
   @media (min-width: 768px) {
     font-size: 16px;
   }
-  background-color: transparent;
+  background: linear-gradient(135deg, rgba(57, 255, 20, 0.1) 0%, rgba(46, 204, 113, 0.1) 100%);
   border-radius: 100px;
   font-weight: 600;
   color: #39FF14;
-  box-shadow: 0 0 0 2px #39FF14;
+  box-shadow: 
+    0 0 0 2px #39FF14,
+    0 0 20px rgba(57, 255, 20, 0.3),
+    0 0 40px rgba(57, 255, 20, 0.2);
   cursor: pointer;
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -34,6 +112,7 @@ const AnimatedButton = styled(motion.a)`
     min-width: 280px;
   }
   justify-content: center;
+  animation: glow-pulse 3s ease-in-out infinite;
 
   .arr-1, .arr-2 {
     position: absolute;
@@ -85,11 +164,17 @@ const AnimatedButton = styled(motion.a)`
   }
 
   &:hover {
-    box-shadow: 0 0 0 12px transparent;
+    box-shadow: 
+      0 0 0 12px transparent,
+      0 0 30px rgba(57, 255, 20, 0.6),
+      0 0 60px rgba(57, 255, 20, 0.4),
+      0 0 90px rgba(57, 255, 20, 0.2);
     color: #212121;
     border-radius: 12px;
     padding-left: 24px;
     padding-right: 36px;
+    background: linear-gradient(135deg, #39FF14 0%, #2ECC71 100%);
+    transform: translateY(-2px);
     @media (min-width: 768px) {
       padding-left: 28px;
       padding-right: 44px;
@@ -222,35 +307,75 @@ export default function Home() {
   }
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="min-h-screen bg-[#0f0f0f] flex justify-center items-start md:items-center relative overflow-x-hidden overflow-y-auto p-0 md:p-6"
+    <GlobalStyles>
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="min-h-screen bg-[#0f0f0f] flex justify-center items-start md:items-center relative overflow-x-hidden overflow-y-auto p-0 md:p-6"
       >
-        {/* Animated background gradients */}
+        {/* Glitzy animated background gradients */}
         <div className="fixed inset-0">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#39FF14]/10 rounded-full blur-3xl animate-pulse"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 4, delay: 0.2, repeat: Infinity }}
+            className="absolute top-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#39FF14]/20 rounded-full blur-3xl"
+            style={{ animation: 'glow-pulse 3s ease-in-out infinite' }}
           />
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="absolute bottom-[20%] right-[20%] w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-[#2ECC71]/10 rounded-full blur-3xl animate-pulse delay-700"
+            animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.25, 0.1] }}
+            transition={{ duration: 5, delay: 0.4, repeat: Infinity }}
+            className="absolute bottom-[20%] right-[20%] w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-[#2ECC71]/20 rounded-full blur-3xl"
           />
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: [0.5, 1, 0.5], opacity: [0, 0.15, 0] }}
+            transition={{ duration: 6, delay: 1, repeat: Infinity }}
+            className="absolute top-[60%] left-[60%] w-[150px] md:w-[250px] h-[150px] md:h-[250px] bg-[#39FF14]/15 rounded-full blur-2xl"
+          />
+          {/* Floating particles */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ 
+                opacity: [0, 0.6, 0],
+                scale: [0, 1, 0],
+                x: [0, Math.random() * 200 - 100],
+                y: [0, Math.random() * 200 - 100]
+              }}
+              transition={{ 
+                duration: 3 + Math.random() * 2,
+                delay: Math.random() * 2,
+                repeat: Infinity,
+                repeatDelay: Math.random() * 3
+              }}
+              className="absolute w-2 h-2 bg-[#39FF14] rounded-full"
+              style={{
+                left: `${20 + Math.random() * 60}%`,
+                top: `${20 + Math.random() * 60}%`,
+                boxShadow: '0 0 10px #39FF14, 0 0 20px #39FF14'
+              }}
+            />
+          ))}
         </div>
 
-        {/* Main floating card */}
+        {/* Main floating card with glitzy effects */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="w-full md:w-[75%] min-h-screen md:min-h-0 md:h-[75vh] relative bg-[#1a1a1a]/40 backdrop-blur-xl rounded-none md:rounded-3xl border-y md:border border-white/10 shadow-2xl overflow-y-auto md:overflow-hidden"
+          style={{
+            boxShadow: `
+              0 0 0 1px rgba(57, 255, 20, 0.2),
+              0 25px 50px -12px rgba(0, 0, 0, 0.5),
+              0 0 30px rgba(57, 255, 20, 0.1)
+            `
+          }}
         >
           {/* Content container */}
           <div className="relative h-full py-6 md:p-8 flex flex-col">
@@ -403,5 +528,6 @@ export default function Home() {
         </motion.div>
       </motion.div>
     </AnimatePresence>
+    </GlobalStyles>
   );
 }
