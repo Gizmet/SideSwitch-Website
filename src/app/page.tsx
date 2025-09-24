@@ -115,7 +115,7 @@ const ScreenshotCarousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % screenshots.length);
-    }, 3000); // Change every 3 seconds
+    }, 6000); // Change every 6 seconds
 
     return () => clearInterval(interval);
   }, [screenshots.length]);
