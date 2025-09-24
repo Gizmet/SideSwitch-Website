@@ -1,38 +1,38 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-
-const inter = Inter({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter"
-});
 
 export const metadata: Metadata = {
   title: "SideSwitch — Switch Smarter. Stream Stronger.",
-  description: "The creator-first browser for live work. One-click site swaps, blur on tap, OBS-friendly, and stream-safe by design.",
+  description:
+    "The creator-first browser for live work. One-click site swaps, blur on tap, OBS-friendly, and stream-safe by design.",
   openGraph: {
     title: "SideSwitch — Switch Smarter. Stream Stronger.",
-    description: "The creator-first browser for live work. One-click site swaps, blur on tap, OBS-friendly, and stream-safe by design.",
+    description:
+      "The creator-first browser for live work. One-click site swaps, blur on tap, OBS-friendly, and stream-safe by design.",
     type: "website",
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  userScalable: false,
+  themeColor: "#0B0F0F",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
       </head>
-      <body className={inter.className}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

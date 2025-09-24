@@ -813,6 +813,47 @@ document.addEventListener('DOMContentLoaded', async () => {
                 switchSite(siteDB.items[0].id);
             }
         }
+        
+        // Always inject scrollbar styles on dom-ready
+        const scrollbarCSS = `
+            ::-webkit-scrollbar {
+                width: 8px !important;
+                height: 8px !important;
+            }
+            ::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.1) !important;
+                border-radius: 10px !important;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(180deg, #39FF14 0%, #2ECC71 100%) !important;
+                border-radius: 10px !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                box-shadow: 0 0 10px rgba(57, 255, 20, 0.3) !important;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(180deg, #4AFF2A 0%, #3EDD81 100%) !important;
+                box-shadow: 0 0 15px rgba(57, 255, 20, 0.5) !important;
+            }
+            ::-webkit-scrollbar-thumb:active {
+                background: linear-gradient(180deg, #2ECC71 0%, #39FF14 100%) !important;
+            }
+            ::-webkit-scrollbar-corner {
+                background: rgba(0, 0, 0, 0.1) !important;
+            }
+            * {
+                scrollbar-width: thin !important;
+                scrollbar-color: #39FF14 rgba(0, 0, 0, 0.1) !important;
+            }
+        `;
+        
+        // Add a small delay to ensure page is fully loaded
+        setTimeout(() => {
+            webview.insertCSS(scrollbarCSS).then(() => {
+                console.log('Green scrollbar styles injected on dom-ready');
+            }).catch(err => {
+                console.error('Failed to inject scrollbar styles on dom-ready:', err);
+            });
+        }, 500);
     });
 
     // Close modal when clicking outside
@@ -861,6 +902,47 @@ async function switchSite(siteId) {
         const setupHandler = () => {
             console.log('Webview DOM ready for', site);
             hideLoading();
+            
+            // Inject green scrollbar styles into webview content using insertCSS
+            const scrollbarCSS = `
+                ::-webkit-scrollbar {
+                    width: 8px !important;
+                    height: 8px !important;
+                }
+                ::-webkit-scrollbar-track {
+                    background: rgba(0, 0, 0, 0.1) !important;
+                    border-radius: 10px !important;
+                }
+                ::-webkit-scrollbar-thumb {
+                    background: linear-gradient(180deg, #39FF14 0%, #2ECC71 100%) !important;
+                    border-radius: 10px !important;
+                    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3) !important;
+                }
+                ::-webkit-scrollbar-thumb:hover {
+                    background: linear-gradient(180deg, #4AFF2A 0%, #3EDD81 100%) !important;
+                    box-shadow: 0 0 15px rgba(57, 255, 20, 0.5) !important;
+                }
+                ::-webkit-scrollbar-thumb:active {
+                    background: linear-gradient(180deg, #2ECC71 0%, #39FF14 100%) !important;
+                }
+                ::-webkit-scrollbar-corner {
+                    background: rgba(0, 0, 0, 0.1) !important;
+                }
+                * {
+                    scrollbar-width: thin !important;
+                    scrollbar-color: #39FF14 rgba(0, 0, 0, 0.1) !important;
+                }
+            `;
+            
+            // Add a small delay to ensure page is fully loaded
+            setTimeout(() => {
+                webview.insertCSS(scrollbarCSS).then(() => {
+                    console.log('Green scrollbar styles injected via insertCSS');
+                }).catch(err => {
+                    console.error('Failed to inject scrollbar styles:', err);
+                });
+            }, 1000);
             
             // First check for devices
             webview.executeJavaScript(`

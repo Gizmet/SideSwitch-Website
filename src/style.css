@@ -1287,6 +1287,43 @@ input[type="number"]:focus {
     transform: translateY(-2px);
 }
 
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #39FF14 0%, #2ECC71 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #4AFF2A 0%, #3EDD81 100%);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, #2ECC71 0%, #39FF14 100%);
+}
+
+::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Firefox scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #39FF14 rgba(0, 0, 0, 0.1);
+}
+
 /* Add smooth transitions for all interactive elements */
 * {
     transition: all 0.2s ease;
@@ -1367,9 +1404,35 @@ webview {
     height: 100%;
 }
 
-/* Hide webview scrollbars */
+/* Style webview scrollbars with green theme */
 webview::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+    height: 8px;
+}
+
+webview::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+webview::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #39FF14 0%, #2ECC71 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+webview::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #4AFF2A 0%, #3EDD81 100%);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+}
+
+webview::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, #2ECC71 0%, #39FF14 100%);
+}
+
+webview::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /* Ensure participant video is always full height in left pane */
@@ -1466,9 +1529,35 @@ webview::-webkit-scrollbar {
     user-select: none;
 }
 
-/* Hide webview scrollbars */
+/* Style webview scrollbars with green theme */
 webview::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+    height: 8px;
+}
+
+webview::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+webview::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #39FF14 0%, #2ECC71 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+webview::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #4AFF2A 0%, #3EDD81 100%);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+}
+
+webview::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, #2ECC71 0%, #39FF14 100%);
+}
+
+webview::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /* Ensure webview content is properly positioned */

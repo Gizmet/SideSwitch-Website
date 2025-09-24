@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="28" viewBox="0 0 120 28">
+  <rect x="1" y="1" width="118" height="26" rx="14" fill="rgba(255,255,255,.06)" stroke="#39FF14" stroke-opacity=".32"/>
+  <circle cx="14" cy="14" r="4" fill="#39FF14"/>
+  <text x="26" y="18" fill="#39FF14" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="700">Beta Access</text>
+</svg>
