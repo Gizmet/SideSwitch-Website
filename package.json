@@ -1,17 +1,12 @@
 {
-  "name": "sideswitch",
+  "name": "sideswitch-website",
   "version": "0.1.0",
   "private": true,
-  "main": "src/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "electron": "electron .",
-    "electron-dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3001 && electron .\"",
-    "electron-build": "electron-builder",
-    "electron-dist": "npm run build && electron-builder"
+    "lint": "next lint"
   },
   "dependencies": {
     "axios": "^1.6.7",
