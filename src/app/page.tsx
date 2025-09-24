@@ -105,11 +105,11 @@ const AnimatedButton = styled(motion.a)`
 const ScreenshotCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const screenshots = [
-    "/Screenshot1.png",
+    "/Screenshot5.png",
     "/Screenshot2.png",
-    "/Screenshot3.png",
     "/Screenshot4.png",
-    "/Screenshot5.png"
+    "/Screenshot3.png",
+    "/Screenshot1.png"
   ];
 
   useEffect(() => {
