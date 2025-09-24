@@ -399,7 +399,7 @@ export default function Home() {
                     transition={{ duration: 0.5, delay: 1.6 }}
                   >
                     <AnimatedButton 
-                      href={`${process.env.NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent('')}&checkout[custom][success_url]=${encodeURIComponent(window.location.origin + '/success')}&checkout[custom][cancel_url]=${encodeURIComponent(window.location.origin + '/cancel')}`}
+                      href={`${process.env.NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent('')}&checkout[custom][success_url]=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL + '/success')}&checkout[custom][cancel_url]=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL + '/cancel')}`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
