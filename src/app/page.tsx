@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { trackClick } from '@/components/Analytics';
 
 const AnimatedButton = styled(motion.a)`
   position: relative;
@@ -344,6 +345,7 @@ export default function Home() {
                 href="https://sideswitch.lemonsqueezy.com/buy/5bb0b132-a7f1-493f-aeba-4540b41a229e"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackClick('header_cta')}
                 className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-[#39FF14] to-[#2ECC71] hover:from-[#2ECC71] hover:to-[#39FF14] text-black font-bold px-6 py-3 rounded-full shadow-lg shadow-green-500/30 hover:shadow-green-500/50 transition-all duration-300"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -404,6 +406,7 @@ export default function Home() {
                   >
                     <AnimatedButton
                       href="https://sideswitch.lemonsqueezy.com/buy/5bb0b132-a7f1-493f-aeba-4540b41a229e"
+                      onClick={() => trackClick('main_cta')}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
