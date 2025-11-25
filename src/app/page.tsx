@@ -495,11 +495,49 @@ export default function Home() {
                         <br />
                         SideSwitch makes your stream smoother, safer, and 10x more pro — instantly.
                         <br />
-                        <span className="text-[#39FF14]">If you want to grow on Kick or Twitch, this isn't optional.</span>
+                        <span className="text-[#39FF14]">If you want to grow on Kick or Twitch, this isn&apos;t optional.</span>
                       </span>
                       </motion.div>
           </motion.div>
                 </motion.div>
+
+            {/* Affiliate Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 2 }}
+              className="mt-12 pt-8 border-t border-white/10"
+            >
+              <div className="text-center space-y-4">
+                <h3 className="text-xl font-bold text-white">
+                  Love SideSwitch? <span className="text-[#39FF14]">Earn 30% Commission</span>
+                </h3>
+                <p className="text-white/60 max-w-lg mx-auto text-sm">
+                  Join our affiliate program and earn $3 for every streamer you refer.
+                  Perfect for content creators, Discord server owners, and streaming communities.
+                </p>
+                <motion.a
+                  href="https://sideswitch.lemonsqueezy.com/affiliates"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackClick('affiliate_cta')}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#39FF14]/50 rounded-full text-white font-medium transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span>Become an Affiliate</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </motion.a>
+              </div>
+            </motion.div>
+
+            {/* Footer */}
+            <div className="mt-8 pt-6 border-t border-white/5 text-center text-white/40 text-xs">
+              <p>&copy; {new Date().getFullYear()} SideSwitch. Built for streamers, by streamers.</p>
+            </div>
+
               </div>
             </div>
           </div>
