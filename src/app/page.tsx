@@ -121,7 +121,7 @@ const ScreenshotCarousel = () => {
   }, [screenshots.length]);
 
   return (
-    <div className="relative w-full h-52 sm:h-60 md:h-68 lg:h-76 xl:h-88 overflow-hidden rounded-2xl">
+    <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[28rem] xl:h-[32rem] overflow-hidden rounded-2xl">
       <AnimatePresence mode="wait">
             <motion.div
           key={currentIndex}
@@ -340,18 +340,22 @@ export default function Home() {
                   No Awkward Pauses.
                 </span>
               </h2>
-              <motion.div 
-                className="bg-gradient-to-r from-[#39FF14] to-[#2ECC71] px-3 py-1 rounded-lg text-black text-xs font-medium shadow-lg shadow-green-500/20 flex items-center gap-1 h-fit whitespace-nowrap"
-                initial={{ opacity: 0, scale: 0.5 }}
+              <motion.a
+                href="https://sideswitch.lemonsqueezy.com/buy/5bb0b132-a7f1-493f-aeba-4540b41a229e"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-[#39FF14] to-[#2ECC71] hover:from-[#2ECC71] hover:to-[#39FF14] text-black font-bold px-6 py-3 rounded-full shadow-lg shadow-green-500/30 hover:shadow-green-500/50 transition-all duration-300"
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <span className="animate-pulse relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
-                </span>
-                Beta Access
-              </motion.div>
+                <span>Get It Now</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </motion.a>
             </div>
 
             {/* Screenshot Carousel */}
@@ -406,7 +410,7 @@ export default function Home() {
                       <div className="circle" />
                       <ArrowIcon className="arr-1" />
                       <ArrowIcon className="arr-2" />
-                      <span className="text">👉 Join Beta Today — Just $9.99/month</span>
+                      <span className="text">👉 Get SideSwitch — Just $9.99/month</span>
                     </AnimatedButton>
                     <p className="text-xs sm:text-sm text-white/50 mt-2">
                       Less than a Twitch sub. One tool = no awkward fails, no dead air, less bans.
