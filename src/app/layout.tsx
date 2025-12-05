@@ -43,19 +43,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ██║  ██║███████╗   ██║          ██║   ╚██████╔╝╚██████╔╝██╗
         ╚═╝  ╚═╝╚══════╝   ╚═╝          ╚═╝    ╚═════╝  ╚═════╝ ╚═╝
 
-        👀 I SEE YOU
+        👀 HEY YOU!
 
-        What are you looking for exactly?
+        Yeah you, snooping around in here.
 
-        There's nothing here for you.
+        There's nothing for you.
 
         Go away.
 
         ...
 
-        Still here?
-
-        Fine. Have a nice day I guess.
+        Still here? Weird.
 
       */}
       <body>

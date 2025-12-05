@@ -30,16 +30,15 @@ export default function SourceWarning() {
 `;
 
     console.log('%c' + asciiArt, styles);
-    console.log('%c👀 I SEE YOU', bigStyles);
+    console.log('%c👀 HEY YOU!', bigStyles);
     console.log('%c', styles);
-    console.log('%cWhat are you doing here?', 'color: #888; font-size: 12px;');
+    console.log('%cYeah you, snooping around in here.', 'color: #888; font-size: 12px;');
     console.log('%cThere\'s nothing for you.', 'color: #888; font-size: 12px;');
     console.log('%cGo away.', 'color: #888; font-size: 12px;');
     console.log('%c', styles);
     console.log('%c...', 'color: #444; font-size: 12px;');
     console.log('%c', styles);
-    console.log('%cYou\'re still here?', 'color: #666; font-size: 12px;');
-    console.log('%cWeird.', 'color: #666; font-size: 12px;');
+    console.log('%cStill here? Weird.', 'color: #666; font-size: 12px;');
   }, []);
 
   return null;
