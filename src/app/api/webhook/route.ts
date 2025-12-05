@@ -63,62 +63,39 @@ export async function POST(request: Request) {
     switch (meta.event_name) {
       case 'subscription_created': {
         // Generate license key for new subscription
-        const licenseKey = generateLicenseKey(data.id);
-        console.log('New subscription:', {
-          id: data.id,
-          licenseKey,
-          status: 'active'
-        });
+        generateLicenseKey(data.id);
         // TODO: Store subscription and license key in database
         break;
       }
-        
+
       case 'subscription_updated': {
-        console.log('Subscription updated:', {
-          id: data.id,
-          status: data.attributes.status
-        });
         // TODO: Update subscription status in database
         break;
       }
-        
+
       case 'subscription_cancelled': {
-        console.log('Subscription cancelled:', {
-          id: data.id,
-          status: 'cancelled'
-        });
         // TODO: Update subscription status in database
         break;
       }
-        
+
       case 'subscription_resumed': {
-        console.log('Subscription resumed:', {
-          id: data.id,
-          status: 'active'
-        });
         // TODO: Update subscription status in database
         break;
       }
-        
+
       case 'order_created': {
         // Initial order - license key already generated in subscription_created
-        console.log('New order:', data.id);
         break;
       }
-        
+
       case 'order_refunded': {
-        console.log('Order refunded:', {
-          id: data.id,
-          status: 'refunded'
-        });
         // TODO: Mark subscription as refunded in database
         break;
       }
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Webhook error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

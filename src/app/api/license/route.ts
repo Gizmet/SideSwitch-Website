@@ -1,5 +1,12 @@
 import { NextResponse } from 'next/server';
 
+// Validate subscription ID format (numeric string only)
+const isValidSubscriptionId = (id: unknown): id is string => {
+  if (typeof id !== 'string') return false;
+  // LemonSqueezy subscription IDs are numeric
+  return /^\d{1,20}$/.test(id);
+};
+
 // Helper function to check subscription status with LemonSqueezy
 const checkSubscriptionStatus = async (subscriptionId: string): Promise<{
   valid: boolean;
@@ -18,31 +25,49 @@ const checkSubscriptionStatus = async (subscriptionId: string): Promise<{
     );
 
     if (!response.ok) {
-      console.error('LemonSqueezy API error:', await response.text());
       return { valid: false, status: 'error' };
     }
 
     const data = await response.json();
     const status = data.data.attributes.status;
-    
+
     // Valid statuses: active, past_due
     // Invalid statuses: cancelled, expired, unpaid, paused
     const validStatuses = ['active', 'past_due'];
-    
+
     return {
       valid: validStatuses.includes(status),
       status
     };
-  } catch (error) {
-    console.error('Error checking subscription:', error);
+  } catch {
     return { valid: false, status: 'error' };
   }
 };
 
 export async function POST(request: Request) {
   try {
-    const { subscriptionId } = await request.json();
+    // Parse request body
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: 'Invalid request body' },
+        { status: 400 }
+      );
+    }
 
+    // Validate body is an object
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json(
+        { error: 'Invalid request body' },
+        { status: 400 }
+      );
+    }
+
+    const { subscriptionId } = body as { subscriptionId?: unknown };
+
+    // Validate subscription ID
     if (!subscriptionId) {
       return NextResponse.json(
         { error: 'Missing subscription ID' },
@@ -50,21 +75,25 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!isValidSubscriptionId(subscriptionId)) {
+      return NextResponse.json(
+        { error: 'Invalid subscription ID format' },
+        { status: 400 }
+      );
+    }
+
     // Check subscription status with LemonSqueezy
     const { valid, status } = await checkSubscriptionStatus(subscriptionId);
 
+    // Don't echo back the subscription ID - minimize information disclosure
     return NextResponse.json({
       valid,
-      subscription: {
-        id: subscriptionId,
-        status
-      }
+      status
     });
-  } catch (error) {
-    console.error('Subscription check error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
     );
   }
-} 
+}

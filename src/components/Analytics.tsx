@@ -2,9 +2,6 @@
 
 import { useEffect } from 'react';
 
-const SUPABASE_URL = 'https://rvcfmfqnopizavdzpupk.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ2Y2ZtZnFub3BpemF2ZHpwdXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwNzExNjUsImV4cCI6MjA3OTY0NzE2NX0.ZptdYlrV8jKz3cGkSqQLRG8dMPieOrLJIqiBR0X2cK8';
-
 interface AnalyticsEvent {
   event_type: string;
   page?: string;
@@ -13,17 +10,25 @@ interface AnalyticsEvent {
 }
 
 async function trackEvent(event: AnalyticsEvent) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // Skip tracking if credentials not configured
+  if (!supabaseUrl || !supabaseKey) {
+    return;
+  }
+
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/analytics_events`, {
+    await fetch(`${supabaseUrl}/rest/v1/analytics_events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
       },
       body: JSON.stringify(event),
     });
-  } catch (e) {
+  } catch {
     // Silently fail - don't break the site for analytics
   }
 }

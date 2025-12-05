@@ -32,6 +32,8 @@ The SideSwitch website (https://www.sideswitch.app) is built with Next.js and de
    - `NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL`: LemonSqueezy checkout URL
    - `LEMONSQUEEZY_WEBHOOK_SECRET`: Webhook verification secret
    - `LEMONSQUEEZY_API_KEY`: API key for LemonSqueezy integration
+   - `NEXT_PUBLIC_SUPABASE_URL`: Supabase project URL (for analytics)
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase anon key (for analytics)
 
 ## LemonSqueezy Integration
 ### Product Setup
@@ -73,6 +75,8 @@ Create a `.env.local` file with:
 NEXT_PUBLIC_LEMONSQUEEZY_CHECKOUT_URL="your_checkout_url"
 LEMONSQUEEZY_WEBHOOK_SECRET="your_webhook_secret"
 LEMONSQUEEZY_API_KEY="your_api_key"
+NEXT_PUBLIC_SUPABASE_URL="your_supabase_url"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your_supabase_anon_key"
 ```
 
 ### Deployment
