@@ -43,22 +43,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ██║  ██║███████╗   ██║          ██║   ╚██████╔╝╚██████╔╝██╗
         ╚═╝  ╚═╝╚══════╝   ╚═╝          ╚═╝    ╚═════╝  ╚═════╝ ╚═╝
 
-        👀 I SEE YOU looking at my source code...
+        👀 I SEE YOU
 
-        Looking for secrets? There's nothing here.
-        We keep our secrets where they belong - in environment variables.
+        What are you looking for exactly?
 
-        But hey, since you're clearly curious:
-        - No hardcoded API keys
-        - No exposed credentials
-        - No secret backdoors
-        - Just clean, boring, secure code
+        There's nothing here for you.
 
-        Nice try though! 😏
+        Go away.
 
-        P.S. If you're a hacker, maybe use your powers for good?
-        P.P.S. If you're a recruiter, we're not hiring... yet.
-        P.P.P.S. If you're that guy from Discord - sup? 👋
+        ...
+
+        Still here?
+
+        Fine. Have a nice day I guess.
 
       */}
       <body>
